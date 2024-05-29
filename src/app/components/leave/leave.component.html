@@ -1,0 +1,93 @@
+<div>
+  <ion-toolbar color="gray">
+    <ion-row>
+      <ion-col size="4" style="background-color: transparent;padding: 0px;">
+        <ion-item (click)="openSelector(selector)" lines="none">
+          <ion-select #selector [(ngModel)]="selectedTeam" [value]="selectedTeam" style="pointer-events: none"
+            [interfaceOptions]="customAlertOptions" multiple="true">
+            <ion-select-option *ngFor="let team of teams" [value]="team.teamId">{{team.teamName}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <!-- <ion-item lines="none">
+          <ion-select placeholder="Select team" [(ngModel)]="selectedTeam" (ngModelChange)="teamChanged($event)"
+            style="color: var(--ion-color-dark);width: 100%;" multiple>
+            <ion-select-option *ngFor="let team of teams" style="color: var(--ion-color-dark);font-weight: bold;"
+              [value]="team.teamId">
+              {{team.teamName}}</ion-select-option>
+          </ion-select>
+        </ion-item> -->
+      </ion-col>
+      <ion-col size="0.5" style="text-align: center;line-height: 34px;">
+        <div>
+
+        </div>
+      </ion-col>
+      <ion-col size="2.5" style="background-color: transparent;padding: 0px;">
+        <ion-item lines="none">
+          <ion-input [(ngModel)]="toDate" type="date"
+            style="color: var(--ion-color-dark);font-weight: bold;">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="0.5" style="text-align: center;line-height: 34px;">
+        <div>
+          to
+        </div>
+      </ion-col>
+      <ion-col size="2.5" style="background-color: transparent;padding: 0px;">
+        <ion-item lines="none">
+          <ion-input [(ngModel)]="fromDate" type="date"
+            style="color: var(--ion-color-dark);;font-weight: bold;">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="1" style="text-align: center;line-height: 34px;cursor: pointer;">
+        <span (click)="dateChange()">
+          <ion-icon name="filter-outline"></ion-icon> Filter
+        </span>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+
+  <ion-grid>
+    <ion-row style="color: var(--ion-color-dark);position: sticky;top: 0;z-index: 9999999999;">
+      <ion-col size="1.5">Name</ion-col>
+      <ion-col size="1">Employee ID</ion-col>
+      <ion-col size="1">Leave Type</ion-col>
+      <ion-col size="1.5">Medical certificate</ion-col>
+      <ion-col size="2">Date</ion-col>
+      <ion-col size="0.5">Day</ion-col>
+      <ion-col size="3">Reason</ion-col>
+      <ion-col size="1.5"></ion-col>
+    </ion-row>
+    <ion-row *ngIf="leaveLength == 0" style="display: flex;justify-content:center;">
+      <h6>No Applied Leave</h6>
+    </ion-row>
+    <ion-row *ngFor="let emp of leavedetails; index as i" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
+      <ion-col size="1.5">{{emp.firstName}} {{emp.lastName}}</ion-col>
+      <ion-col size="1">{{emp.employeeId}}</ion-col>
+      <ion-col size="1" style="text-transform: capitalize;">{{emp.leaveType}}</ion-col>
+      <ion-col size="1.5">
+        <span *ngIf="emp.certificate !== 'None'  && emp.certificate !== null">
+          <a style="cursor:pointer;" (click)="displayImage(emp.certificate,emp.firstName)">Certificate</a>
+        </span>
+      </ion-col>
+      <ion-col size="2">{{emp.sdate}} to {{emp.edate}}</ion-col>
+      <ion-col size="0.5">{{emp.days}}</ion-col>
+      <ion-col size="3">{{emp.reason}}</ion-col>
+      <ion-col size="1.5" style="display: flex;justify-content:flex-end;">
+        <span *ngIf="emp.status == 'New'" style="cursor: pointer;">
+          <ion-icon name="close-circle" (click)="rejectLeave(emp.leaveId,emp)"></ion-icon>
+          <ion-icon name="checkmark-circle" (click)="approveLeave(emp.leaveId,emp)"></ion-icon>
+        </span>
+        <span *ngIf="emp.status !== 'New'">
+          <span *ngIf="emp.status == 'Revoke'" style="color:rgb(201, 7, 7)">{{emp.status}}</span>
+          <span *ngIf="emp.status == 'Approved'" style="color:green">{{emp.status}}</span>
+          <span *ngIf="emp.status == 'Rejected'" style="color:rgb(189, 5, 5)">{{emp.status}}</span>
+        </span>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</div>

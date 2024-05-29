@@ -1,0 +1,45 @@
+strong{
+    font-size: 13px;
+}
+.table-text{
+    font-size: 15px;
+}
+.table-header{
+  background-color: rgb(58, 58, 58);
+  color: white;
+  padding: 20px;
+}
+
+  
+  .table-row {
+    border-bottom: 1px solid #ccc; /* Add a border between rows */
+    padding: 20px;
+  }
+  
+
+
+  /* In your component's CSS file or global stylesheet */
+.table-row {
+    position: relative;
+  }
+  
+  .table-row::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #007bff; /* Color for the border bottom */
+    transform: scaleX(0); /* Initially, scale the border to 0 width */
+    transform-origin: left center;
+    transition: transform 0.3s ease; /* Add a smooth transition effect */
+  }
+  
+  .table-row:hover::after {
+    transform: scaleX(1); /* Scale the border to full width on hover */
+  }
+
+  
+  
+  

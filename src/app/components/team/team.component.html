@@ -1,0 +1,155 @@
+<div style="padding: 20px;">
+  <!-- <ion-toolbar>
+      <ion-title>Daily Status Reports</ion-title>
+    </ion-toolbar> -->
+  <!-- <ion-toolbar>
+    <ion-searchbar placeholder="Search Employee"></ion-searchbar>
+  </ion-toolbar> -->
+  <ion-toolbar style="border-top: 0px solid #3f4040;border-bottom: 0px solid #3f4040;">
+    <ion-row>
+      <ion-col size="2" style="border: 1px solid rgb(37 38 40);
+        background-color: transparent;
+        padding: 0px;">
+        <ion-item lines="none">
+          <ion-input [(ngModel)]="fromDate" (change)="dateChange($event)" type="date"
+            style="color: var(--ion-color-dark);font-weight: bold;">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="1" style="text-align: center;line-height: 34px;">
+        <div>
+          to
+        </div>
+      </ion-col>
+      <ion-col size="2" style="border: 1px solid rgb(37 38 40);
+        background-color: transparent;
+        padding: 0px;">
+        <ion-item lines="none">
+          <ion-input [(ngModel)]="toDate" (change)="dateChange($event)" type="date"
+            style="color: var(--ion-color-dark);;font-weight: bold;">
+          </ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+  <ion-grid>
+    <!-- <ion-item routerDirection="root" routerLink="/project-manage" lines="none" detail="false"
+      routerLinkActive="selected">
+      <ion-label>Teams</ion-label>
+    </ion-item> -->
+    <ion-row>
+
+      <ion-col sizeLg="12" sizeMd="12" sizeSm="12" sizeXs="12" *ngFor="let team of allTeams" (click)="team.toggle = !team.toggle">
+        <ion-list class="projects" style="background-color: var(--ion-color-light);cursor:pointer;">
+          <ion-item class="item" lines="none">
+            <ion-avatar slot="start">
+              <ion-icon name="people-circle-outline" style="font-size: 35px;"></ion-icon>
+            </ion-avatar>
+            <ion-label style="color: var(--ion-color-light);font-size: 14px;font-weight: 500;">{{team.teamName}}
+            </ion-label>
+            <ion-note slot="end" style="padding:0px 20px;border-right:0.5px solid var(--ion-color-dark) ;">
+              <div style="font-size: 14px;">
+                Billable Hours
+              </div>
+              <div style="font-size: 15px;font-weight: bold;">
+                {{parseFloat(team.billableHours || 0)}}
+              </div>
+            </ion-note>
+            <ion-note slot="end" style="padding:0px 20px;border-right:0.5px solid var(--ion-color-dark) ;">
+              <div style="font-size: 14px;">
+                Non-Billable Hours
+              </div>
+              <div style="font-size: 15px;font-weight: bold;">
+                {{parseFloat(team.nonBillableHours || 0)}}
+              </div>
+            </ion-note>
+            <ion-note slot="end" style="padding:0px 20px;border-right:0.5px solid var(--ion-color-dark) ;">
+              <div style="font-size: 14px;">
+                Total Hours
+              </div>
+              <div style="font-size: 15px;font-weight: bold;">
+                {{parseFloat(team.totalHours || 0)}}
+              </div>
+            </ion-note>
+            <ion-note slot="end">
+              <div style="font-size: 14px;">
+                Utilization(%)
+              </div>
+              <div style="font-size: 15px;font-weight: bold;">
+                {{parseFloat(team.utilizationPer || 0)}}%
+              </div>
+            </ion-note>
+          </ion-item>
+          <!-- <div>
+            <ion-row>
+              <ion-col size="4" style="padding: 0px;">
+                <ion-item class="item" lines="none">
+                  <ion-label style="color: var(--ion-color-light);font-size: 14px;font-weight: 500;">test
+                    <p style="color: rgb(146, 145, 145);font-size: 13px;">224 Hrs</p>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col size="4" style="padding: 0px;">
+                <ion-item class="item" lines="none">
+                  <ion-label style="color: var(--ion-color-light);font-size: 14px;font-weight: 500;">test
+                    <p style="color: rgb(146, 145, 145);font-size: 13px;">224 Hrs</p>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col size="4" style="padding: 0px;">
+                <ion-item class="item" lines="none">
+                  <ion-label style="color: var(--ion-color-light);font-size: 14px;font-weight: 500;">test
+                    <p style="color: rgb(146, 145, 145);font-size: 13px;">224 Hrs</p>
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </div> -->
+        </ion-list>
+        <ion-list *ngIf="team.toggle">
+          <ion-item *ngFor="let member of team['members']" [style.display]="member.firstName ? 'block' : 'none'">
+            <ion-avatar slot="start">
+              <img [src]="member.imageExists ? authService.apiUrl+'images/'+member.employeeId+'.png' : authService.apiUrl+'images/0.png'">
+            </ion-avatar>
+            <ion-label style="color: var(--ion-color-light);font-size: 14px;font-weight: 500;">
+            {{member.firstName}} {{member.lastName}}
+            </ion-label>
+            <ion-note slot="end" style="padding:0px 20px;border-right:0.5px solid var(--ion-color-dark) ;">
+              <div style="font-size: 14px;">
+                Billable Hours
+              </div>
+              <div style="font-size: 15px;font-weight: bold;">
+                {{parseFloat(member.billable || 0)}}
+              </div>
+            </ion-note>
+            <ion-note slot="end" style="padding:0px 20px;border-right:0.5px solid var(--ion-color-dark) ;">
+              <div style="font-size: 14px;">
+                Non-Billable Hours
+              </div>
+              <div style="font-size: 15px;font-weight: bold;">
+                {{parseFloat(member.nonBillable || 0)}}
+              </div>
+            </ion-note>
+            <ion-note slot="end" style="padding:0px 20px;border-right:0.5px solid var(--ion-color-dark) ;">
+              <div style="font-size: 14px;">
+                Total Hours
+              </div>
+              <div style="font-size: 15px;font-weight: bold;">
+                {{parseFloat((member.billable + member.nonBillable) || 0)}}
+              </div>
+            </ion-note>
+            <ion-note slot="end">
+              <div style="font-size: 14px;">
+                Utilization(%)
+              </div>
+              <div style="font-size: 15px;font-weight: bold;">
+                {{parseFloat((member.utilization) || 0)}}%
+              </div>
+            </ion-note>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>

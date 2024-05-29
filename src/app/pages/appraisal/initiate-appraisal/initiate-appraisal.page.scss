@@ -1,0 +1,37 @@
+ion-menu-button {
+  color: var(--ion-color-primary);
+}
+ion-grid {
+  --ion-grid-column-padding: 10px;
+  border-collapse: collapse;
+  border-style: hidden;
+  margin-top: 0px;
+  padding-top: 0px;
+  ion-row {
+    margin: 5px 0px;
+  }
+  ion-row:first-child {
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  ion-col {
+    border-bottom: 0;
+    border-right: 0;
+  }
+}
+ion-grid ion-col {
+  border-bottom: 0;
+  border-right: 0;
+  font-size: 14px;
+}
+ion-label {
+  color: var(--ion-color-dark) !important;
+}
+table, th, td {
+  padding: 15px;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+tr,td{
+  text-align: center;
+}

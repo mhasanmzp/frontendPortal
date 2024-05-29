@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>View Logs</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col size="12" sizeSm="3">
+        <ion-select (ionChange)="filterEmployee($event)" placeholder="Select">
+          <ion-select-option [value]="employee.employeeId" *ngFor="let employee of allEmployee">{{employee.firstName + ' ' + employee.lastName}}</ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col size="12" sizeSm="3"></ion-col>
+      <ion-col size="12" sizeSm="3">
+        <ion-input type="date" (change)="filterDate($event)"></ion-input>
+      </ion-col>
+      <ion-col size="12" sizeSm="3">
+        <ion-button (click)="filter()">Filter</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="12" style="padding-bottom: 0px;overflow: auto;padding-top: 0;">
+      <table class="tg">
+        <thead>
+          <tr style="
+              background-color: var(--ion-color-light);
+              position: sticky;
+              top: 0px;
+              z-index: 9999999999999;
+            ">
+            <th class="tg-hpky" style="width: 50px;">S.No</th>
+            <th class="tg-hpky" style="width: 100px;">Table Name</th>
+            <th class="tg-hpky" style="width: 150px;">Updated By</th>
+            <th class="tg-hpky" style="width: 150px;">Updated Date</th>
+            <th class="tg-hpky" style="width: 150px;">API</th>
+            <th class="tg-hpky" style="width: 450px;">Old Records</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="allRecords && allRecords.length > 0">
+          <tr *ngFor="let item of allRecords; index as i" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
+            <td style="width: 50px;" class="tg-0pky">{{i+1}}</td>
+            <td style="width: 100px;" class="tg-0pky">{{item.TableName}}</td>
+            <td style="width: 150px;" class="tg-0pky">{{item.UpdatedBy}}</td>
+            <td style="width: 150px;" class="tg-0pky">{{item.UpdatedAt | date : 'dd MMM , yyyy'}}</td>
+            <td style="width: 150px;" class="tg-0pky">{{item.Api_Hit}}</td>
+            <td style="width: 450px;" class="tg-0pky">{{item.OldRecord | json}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-footer>
+  <ion-row>
+    <ion-col size="12" style="display: flex;justify-content: center;align-items: center;">
+      <ion-button (click)="previewLog()"><< Prev</ion-button>
+      <span style="padding: 10px;">{{count + 1}}</span>
+      <ion-button (click)="nextLog()">Next >></ion-button>
+    </ion-col>
+  </ion-row>
+</ion-footer>

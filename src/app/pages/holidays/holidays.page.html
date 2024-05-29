@@ -1,0 +1,74 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Holidays Calendar</ion-title>
+  
+  </ion-toolbar>
+ 
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="row" ><h2>Recruitment Team & SAP (US -Shift)</h2></ion-row>
+    <!-- <ion style="background-color:rgb(105, 105, 241);padding-left: 10px;"><h2>Recruitment Team & SAP (US -Shift)</h2></ion> -->
+    
+    <ion-row style="
+        position: sticky;
+        top: 0px;
+        z-index: 999999999;
+        background-color: var(--ion-color-light);
+        color: var(--ion-color-dark);
+        margin: 0px;
+      ">
+      <ion-col size=".5">S.No</ion-col>
+      <ion-col size="1.5">Date</ion-col>
+      <ion-col size="2">Event</ion-col>
+      <ion-col size="2">Day</ion-col>
+      <ion-col size="2">Holiday</ion-col>
+      <ion-col size="4">Remarks</ion-col>
+      <!-- <ion-col size="2">Remarks</ion-col> -->
+      
+    </ion-row>
+    
+      <ion-row  *ngFor="let item of usacalender; index as i" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
+      <ion-col size=".5">{{i+1}}</ion-col>
+      <ion-col size="1.5">{{item.Date}}</ion-col>
+      <ion-col size="2">{{item.Event }}</ion-col>
+      <ion-col size="2">{{item.Day_of_the_week}}</ion-col>
+      <ion-col size="2">{{item.Holiday}}</ion-col>
+      <ion-col size="4">{{item.Remarks}}</ion-col>
+      <!-- <ion-col size="2">{{item.AllocateHours}}</ion-col> -->
+      
+    </ion-row>
+    <br>
+    <ion-row class="row"><h2>Development/ Marketing / Neuvays Team </h2></ion-row>
+    
+    <ion-row style="
+        position: sticky;
+        top: 0px;
+        z-index: 999999999;
+        background-color: var(--ion-color-light);
+        color: var(--ion-color-dark);
+        margin: 0px;
+      ">
+      <ion-col size="2">S.No</ion-col>
+      <ion-col size="2">Date</ion-col>
+      <ion-col size="2">Event</ion-col>
+      <ion-col size="2">Day</ion-col>
+      <ion-col size="4">Holiday</ion-col>
+     
+      <!-- <ion-col size="2">Remarks</ion-col> -->
+      
+    </ion-row>
+    
+      <ion-row  *ngFor="let item of ukcalender; index as i" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
+      <ion-col size="2">{{i+1}}</ion-col>
+      <ion-col size="2">{{item.Date}}</ion-col>
+      <ion-col size="2">{{item.Event }}</ion-col>
+      <ion-col size="2">{{item.Day}}</ion-col>
+      <ion-col size="4">{{item.Holiday}}</ion-col>
+      <!-- <ion-col size="2">{{item.AllocateHours}}</ion-col> -->
+      
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,679 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        color="dark"
+        defaultHref="/employee-evaluation"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Employee Evaluation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="ratingsForm">
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label
+            position="stacked"
+            style="font-size: 15px; font-weight: 700"
+          >
+            <h2>Employee Name:</h2>
+            <br />
+            {{ employeeName }}
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label
+            position="stacked"
+            style="font-size: 15px; font-weight: 700"
+          >
+            <h2>Appraisal ID:</h2>
+            <br />
+            {{ appraisalId }}
+          </ion-label>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="stacked">Email: </ion-label>
+        </ion-item>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-item>
+          <ion-label
+            position="stacked"
+            style="font-size: 15px; font-weight: 700"
+          >
+            <h2>Designation:</h2>
+            <br />
+            {{ designation }}
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <div class="centered">
+      <h1 style="font-weight: bold; font-size: 20px">Self Rating</h1>
+    </div>
+
+    <ion-grid class="custom-grid">
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Skills</ion-col
+        >
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Excellent</ion-col
+        >
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Very Good</ion-col
+        >
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Good</ion-col
+        >
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Average</ion-col
+        >
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Remarks</ion-col
+        >
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Communication skill</ion-col
+        >
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="communicationexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event, 'communication')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="communicationverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event, 'communication')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="communicationgood"
+            (ionChange)="handleCheckboxChange('good', $event, 'communication')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="communicationaverage"
+            (ionChange)="handleCheckboxChange('average', $event, 'communication')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="communicationremarks"
+            (ionChange)="handleRemarksChange('communication', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Interpersonal skill</ion-col
+        >
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="interpersonalexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event, 'interpersonal')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="interpersonalverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event, 'interpersonal')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="interpersonalgood"
+            (ionChange)="handleCheckboxChange('good', $event, 'interpersonal')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="interpersonalaverage"
+            (ionChange)="handleCheckboxChange('average', $event, 'interpersonal')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="interpersonalremarks"
+            (ionChange)="handleRemarksChange('interpersonal', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Ability to plan the work</ion-col
+        >
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="abilityexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event, 'ability')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="abilityverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event, 'ability')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="abilitygood"
+            (ionChange)="handleCheckboxChange('good', $event, 'ability')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="abilityaverage"
+            (ionChange)="handleCheckboxChange('average', $event, 'ability')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="abilityremarks"
+            (ionChange)="handleRemarksChange('ability', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Problem solving
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="solvingexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event ,'solving')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="solvingverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event,'solving')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="solvinggood"
+            (ionChange)="handleCheckboxChange('good', $event,'solving')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="solvingaverage"
+            (ionChange)="handleCheckboxChange('average', $event,'solving')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="solvingremarks"
+            (ionChange)="handleRemarksChange('solving', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Adaptability Flexibility
+        </ion-col>
+
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="flexibilityexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event,'flexibility')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="flexibilityverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event,'flexibility')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="flexibilitygood"
+            (ionChange)="handleCheckboxChange('good', $event ,'flexibility')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="flexibilityaverage"
+            (ionChange)="handleCheckboxChange('average', $event ,'flexibility')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="flexibilityremarks"
+            (ionChange)="handleRemarksChange('flexibility', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Willingness to shoulder additional responsibilities
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="willingnessexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event,'willingness')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="willingnessverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event,'willingness')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="willingnessgood"
+            (ionChange)="handleCheckboxChange('good', $event,'willingness')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="willingnessaverage"
+            (ionChange)="handleCheckboxChange('average', $event,'willingness')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="willingnessremarks"
+            (ionChange)="handleRemarksChange('willingness', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Commitment to do a perfect job
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="perfectexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event,'perfect')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="perfectverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event,'perfect')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="perfectgood"
+            (ionChange)="handleCheckboxChange('good', $event,'perfect')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="perfectaverage"
+            (ionChange)="handleCheckboxChange('average', $event,'perfect')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="perfectremarks"
+            (ionChange)="handleRemarksChange('perfect', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Habits and Manners
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="habitsexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event,'habits')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="habitsgood"
+            (ionChange)="handleCheckboxChange('good', $event,'habits')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="habitsverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event,'habits')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="habitsaverage"
+            (ionChange)="handleCheckboxChange('average', $event,'habits')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="habitsremarks"
+            (ionChange)="handleRemarksChange('habits', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Presentation/Dress
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="presentationexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event,'presentation')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="presentationgood"
+            (ionChange)="handleCheckboxChange('good', $event,'presentation')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="presentationverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event,'presentation')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="presentationaverage"
+            (ionChange)="handleCheckboxChange('average', $event,'presentation')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="presentationremarks"
+            (ionChange)="handleRemarksChange('presentation', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Punctuality
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="punctualityexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event,'punctuality')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="punctualitygood"
+            (ionChange)="handleCheckboxChange('good', $event,'punctuality')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="punctualityverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event,'punctuality')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="punctualityaverage"
+            (ionChange)="handleCheckboxChange('average', $event,'punctuality')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="punctualityremarks"
+            (ionChange)="handleRemarksChange('punctuality', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Confidentiality of information/official secret /documents
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="inexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event,'in')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="ingood"
+            (ionChange)="handleCheckboxChange('good', $event,'in')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="inverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event,'in')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="inaverage"
+            (ionChange)="handleCheckboxChange('average', $event,'in')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="inremarks"
+            (ionChange)="handleRemarksChange('in', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Trusworthiness/Reliability
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="wiexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event,'wi')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="wigood"
+            (ionChange)="handleCheckboxChange('good', $event,'wi')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="wiverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event,'wi')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="wiaverage"
+            (ionChange)="handleCheckboxChange('average', $event,'wi')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="wiremarks"
+            (ionChange)="handleRemarksChange('wi', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Team spirit/Team work
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="teamexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event,'team')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="teamgood"
+            (ionChange)="handleCheckboxChange('good', $event,'team')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="teamverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event,'team')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="teamaverage"
+            (ionChange)="handleCheckboxChange('average', $event,'team')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="teamremarks"
+            (ionChange)="handleRemarksChange('team', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Relationship with colleagues
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="colleaguesexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event,'colleagues')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="colleaguesgood"
+            (ionChange)="handleCheckboxChange('good', $event,'colleagues')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="colleaguesverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event,'colleagues')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="colleaguesaverage"
+            (ionChange)="handleCheckboxChange('average', $event,'colleagues')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="colleaguesremarks"
+            (ionChange)="handleRemarksChange('colleagues', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700"
+          >Decision making
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="makingexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event,'making')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="makinggood"
+            (ionChange)="handleCheckboxChange('good', $event,'making')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="makingverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event,'making')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="makingaverage"
+            (ionChange)="handleCheckboxChange('average', $event,'making')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="makingremarks"
+            (ionChange)="handleRemarksChange('making', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="2" style="font-size: 15px; font-weight: 700">
+          Computer skills
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="skexcellent"
+            (ionChange)="handleCheckboxChange('excellent', $event,'sk')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="skgood"
+            (ionChange)="handleCheckboxChange('good', $event,'sk')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="skverygood"
+            (ionChange)="handleCheckboxChange('verygood', $event,'sk')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-checkbox
+            formControlName="skaverage"
+            (ionChange)="handleCheckboxChange('average', $event,'sk')"
+          ></ion-checkbox>
+        </ion-col>
+        <ion-col size="2">
+          <ion-input
+            placeholder="Remarks"
+            formControlName="skremarks"
+            (ionChange)="handleRemarksChange('sk', $event)"
+          ></ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-row>
+      <ion-col size="12" class="ion-text-end">
+        <ion-button type="submit" (click)="onsubmit()" [disabled]="!ratingsForm"
+          >Submit</ion-button
+        >
+      </ion-col>
+    </ion-row>
+  </form>
+  <!-- <ion-row>
+    <ion-col size="12" class="ion-text-end">
+      <ion-button type="submit" (click)="onsubmit()" [disabled]="!ratingsForm">Submit</ion-button>
+    </ion-col>
+  </ion-row> -->
+</ion-content>

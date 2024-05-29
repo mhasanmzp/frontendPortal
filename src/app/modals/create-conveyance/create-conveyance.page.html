@@ -1,0 +1,214 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Conveyance</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon name="close-circle"></ion-icon>Close
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col size="12">
+      <form [formGroup]="createForm">
+        <ion-list
+          id="inbox-list"
+          lines="none"
+          style="background: transparent; padding: 10px 20px"
+        >
+          <ion-row style="padding-bottom: 10px">
+            <ion-col sizeMd="2" sizeSm="2" sizeXs="2">
+              <ion-item>
+                <ion-label
+                  position="stacked"
+                  style="color: #fff; font-weight: 300"
+                  >From <span style="color: red">*</span></ion-label
+                >
+                <input
+                  type="text"
+                  formControlName="from"
+                  minlength="2"
+                  maxlength="32"
+                />
+                <div
+                  *ngIf="createForm.get('from').invalid && createForm.get('from').touched"
+                >
+                  <span style="color: red; font-size: 13px">
+                    From is Required !
+                  </span>
+                </div>
+              </ion-item>
+            </ion-col>
+
+            <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+              <ion-item>
+                <ion-label
+                  position="stacked"
+                  style="color: #fff; font-weight: 300"
+                  >To <span style="color: red">*</span></ion-label
+                >
+                <input
+                  type="text"
+                  formControlName="whereto"
+                  minlength="2"
+                  maxlength="32"
+                />
+                <div
+                  *ngIf="createForm.get('whereto').invalid && createForm.get('whereto').touched"
+                >
+                  <span style="color: red; font-size: 13px">
+                    To is Required !
+                  </span>
+                </div>
+              </ion-item>
+            </ion-col>
+
+            <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+              <ion-item>
+                <ion-label
+                  position="stacked"
+                  style="color: #fff; font-weight: 300"
+                  >Vehicle Type <span style="color: red">*</span></ion-label
+                >
+
+                <select formControlName="vehicle">
+                  <option value="" disabled>Select</option>
+
+                  <option value="bike">Bike</option>
+                  <option value="auto">Auto</option>
+                  <option value="car">Car</option>
+                </select>
+                <div
+                  *ngIf="createForm.get('vehicle').invalid && createForm.get('vehicle').touched"
+                >
+                  <span style="color: red; font-size: 13px">
+                    Vehicle Type is Required !
+                  </span>
+                </div>
+              </ion-item>
+            </ion-col>
+
+            <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+              <ion-item>
+                <ion-label
+                  position="stacked"
+                  style="color: #fff; font-weight: 300"
+                  >Distance <span style="color: red">(KM)</span></ion-label
+                >
+
+                <input
+                  type="number"
+                  disabled
+                  formControlName="distance"
+                  [(ngModel)]="price"
+                />
+                <div
+                  *ngIf="createForm.get('distance').invalid && createForm.get('distance').touched"
+                >
+                  <span style="color: red; font-size: 13px">
+                    Distance is Required !
+                  </span>
+                </div>
+              </ion-item>
+            </ion-col>
+
+            <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+              <ion-item>
+                <ion-label
+                  position="stacked"
+                  style="color: #fff; font-weight: 300"
+                  >Date <span style="color: red">*</span></ion-label
+                >
+                <input type="date" formControlName="date" />
+                <div
+                  *ngIf="createForm.get('date').invalid && createForm.get('date').touched"
+                >
+                  <span style="color: red; font-size: 13px">
+                    Date is Required !
+                  </span>
+                </div>
+              </ion-item>
+            </ion-col>
+
+            <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+              <ion-item>
+                <ion-label
+                  position="stacked"
+                  style="color: #fff; font-weight: 300"
+                  >Amount <span style="color: red">(in Rs)</span></ion-label
+                >
+                <input
+                  type="number"
+                  disabled
+                  formControlName="price"
+                  [(ngModel)]="price"
+                />
+                <div
+                  *ngIf="createForm.get('price').invalid && createForm.get('price').touched"
+                >
+                  <span style="color: red; font-size: 13px">
+                    Amount is Invalid !
+                  </span>
+                </div>
+              </ion-item>
+            </ion-col>
+
+            <ion-col sizeSm="12" sizeXs="12">
+              <ion-item>
+                <ion-label
+                  position="stacked"
+                  style="color: #fff; font-weight: 300"
+                  >Description <span style="color: red">*</span></ion-label
+                >
+                <textarea
+                  name="comments"
+                  id="comments"
+                  rows="3"
+                  formControlName="comment"
+                ></textarea>
+                <div
+                  *ngIf="createForm.get('comment').invalid && createForm.get('comment').touched"
+                >
+                  <span style="color: red; font-size: 13px">
+                    Description is Required !
+                  </span>
+                </div>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-list>
+      </form>
+    </ion-col>
+  </ion-row>
+</ion-content>
+<ion-footer style="display: flex; justify-content: flex-end">
+  <ion-button
+    type="submit"
+    (click)="onSubmit(createForm.value)"
+    style="margin-right: 20px"
+    >Submit</ion-button
+  >
+</ion-footer>
+
+<!-- new requirement -->
+
+<!-- <div *ngFor="let value of values;let i=index">
+  <input
+    type="text"
+    [(ngModel)]="value.firstname"
+    #name="ngModel"
+    value="value{{i}}"
+    placeholder="FirstName"
+  />
+  <input
+    type="text"
+    [(ngModel)]="value.lastname"
+    #name="ngModel"
+    value="value{{i}}"
+    placeholder="lastName"
+  />
+  <button (click)="removeValue(i)">Remove</button>
+</div>
+<button (click)="addValue()">Add</button> -->

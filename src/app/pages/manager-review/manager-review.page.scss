@@ -1,0 +1,27 @@
+// table, th, td {
+//   border:1px solid rgb(32, 32, 34);
+//   padding: 5px;
+// }
+
+// table {
+//   width: 100%;
+//   border-collapse: collapse;
+
+
+// }
+/* CSS */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.custom-table th,
+.custom-table td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.custom-table th {
+  background-color: #f2f2f2;
+}

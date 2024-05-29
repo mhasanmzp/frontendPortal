@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>View All KRA</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="gray" style="border-top: 1px solid #3f4040;">
+    <ion-row>
+      <!-- <ion-col size="4" style="border-right: 1px solid rgb(37 38 40);
+      background-color: transparent;
+      padding: 0px;">
+        <ion-item lines="none">
+          <ion-select placeholder="Select team" [(ngModel)]="selectedTeam" (ngModelChange)="teamChanged($event)"
+            style="color: var(--ion-color-dark);width: 100%;" multiple>
+            <ion-select-option *ngFor="let team of teams" style="color: var(--ion-color-dark);font-weight: bold;" [value]="team.teamId">
+              {{team.teamName}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col> -->
+      <ion-col size="4" style="border-right: 1px solid rgb(37 38 40);
+      background-color: transparent;
+      padding: 0px;">
+        <ion-item lines="none">
+          <ion-select placeholder="Select year" [(ngModel)]="year" style="color: var(--ion-color-dark);width: 100%;">
+            <ion-select-option *ngFor="let year of years" style="color: var(--ion-color-dark);font-weight: bold;" [value]="year">{{year}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <!-- <ion-col size="4" style="border-right: 0px solid rgb(37 38 40);
+      background-color: transparent;
+      padding: 0px;">
+        <ion-item lines="none">
+          <ion-select placeholder="Select month" [(ngModel)]="month" style="color: var(--ion-color-dark);width: 100%;">
+            <ion-select-option *ngFor="let month of months" style="color: var(--ion-color-dark);font-weight: bold;"
+              [value]="month.value">{{month.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col> -->
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <table>
+    <tr>
+      <th></th>
+      <th *ngFor="let month of months">{{month.name}}</th>
+    </tr>
+    <tr *ngFor="let team of teams">
+      <td>{{team.teamName}}</td>
+      <td *ngFor="let month of months">
+        <div *ngIf="checkStatus('dsr', 'date') == 1" style="color: #2ecc71!important;width:20px;height:20px;border-radius: 50%;text-align: center;">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+        </div>
+        <div *ngIf="checkStatus('dsr', 'date') == 2" style="color: #f1c40f!important;width:20px;height:20px;border-radius: 50%;text-align: center;">
+          <ion-icon name="information-circle-outline"></ion-icon>
+        </div>
+        <div *ngIf="checkStatus('dsr', 'date') == 0" style="color: #e74c3c!important;width:20px;height:20px;border-radius: 50%;text-align: center;">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </div>
+      </td>
+    </tr>
+    <!-- <tr *ngFor="let dsr of dsrData">
+      <td>{{dsr.name}}</td>
+      <td *ngFor="let date of allMonthDates">
+        <div *ngIf="checkStatus(dsr, date) == 1" style="color: #2ecc71!important;width:20px;height:20px;border-radius: 50%;text-align: center;">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+        </div>
+        <div *ngIf="checkStatus(dsr, date) == 2" style="color: #f1c40f!important;width:20px;height:20px;border-radius: 50%;text-align: center;">
+          <ion-icon name="information-circle-outline"></ion-icon>
+        </div>
+        <div *ngIf="checkStatus(dsr, date) == 0" style="color: #e74c3c!important;width:20px;height:20px;border-radius: 50%;text-align: center;">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </div>
+      </td>
+    </tr> -->
+  </table>
+</ion-content>

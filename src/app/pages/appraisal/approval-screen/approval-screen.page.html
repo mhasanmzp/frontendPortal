@@ -1,0 +1,255 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+/>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        color="dark"
+        defaultHref="/workflow-setup"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title> WorkFlow Approval </ion-title>
+  </ion-toolbar>
+</ion-header>
+<!-- <form [formGroup]="appraisalForm">
+        <ion-list id="inbox-list" lines="none" style="background: transparent;padding:10px 20px;">
+          <ion-row style="padding-bottom: 10px;">
+            <ion-col size="4">
+              <ion-item>
+                <ion-label position="stacked" style="color: #fff;">Select Employee<span style="color: red;"> *</span></ion-label>
+                <ion-input formControlName="selectedEmployee"></ion-input>
+                <div *ngIf="appraisalForm.get('selectedEmployee').invalid && basic.get('selectedEmployee').touched">
+                  <span style="color: red; font-size: 13px;">
+                    Please Select Employee.
+                  </span>
+                </div>
+              </ion-item>
+            </ion-col>
+            </ion-row>
+            </ion-list>
+            </form> -->
+<ion-content>
+  <ion-grid>
+    <ion-row style="height: 100%">
+      <ion-col
+        sizeLg="9"
+        offsetLg="1.5"
+        sizeMd="10"
+        offsetMd="1"
+        sizeSm="12"
+        sizeXs="12"
+        class="box"
+      >
+        <form [formGroup]="appraisalForm">
+          <ion-list
+            id="inbox-list"
+            lines="none"
+            style="background: transparent; padding: 10px 20px"
+          >
+            <ion-row>
+              <ion-col size="4" style="text-align: center">
+                <ion-label
+                  >Select Employee<span style="color: red">*</span></ion-label
+                >
+                <ion-item lines="none">
+                  <select
+                    placeholder="Select Employee"
+                    formControlName="selectedEmployee"
+                    style="
+                      width: 100%;
+                      text-align: center;
+                      background: var(--ion-color-light);
+                      color: var(--ion-color-dark);
+                      font-weight: 300;
+                      border: 0.5px solid rgb(83, 83, 83);
+                      border-radius: 5px;
+                      padding: 7px;
+                    "
+                  >
+                    <option
+                      value="{{employee.employeeId}}"
+                      *ngFor="let employee of fetchManager"
+                    >
+                      {{employee.Name}}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="appraisalForm.get('selectedEmployee').invalid && appraisalForm.get('selectedEmployee').touched"
+                  >
+                    <span style="color: red; font-size: 13px">
+                      Please Select Employee.
+                    </span>
+                  </div>
+                </ion-item>
+              </ion-col>
+              <ion-col size="4" style="text-align: center">
+                <ion-label
+                  >Select Manager<span style="color: red">*</span></ion-label
+                >
+                <ion-item lines="none">
+                  <select
+                    placeholder="Select Manager"
+                    formControlName="selectedManager"
+                    style="
+                      width: 100%;
+                      background: var(--ion-color-light);
+                      color: var(--ion-color-dark);
+                      font-weight: 300;
+                      border: 0.5px solid rgb(83, 83, 83);
+                      border-radius: 5px;
+                      padding: 7px;
+                    "
+                  >
+                    <option
+                      value="{{employee.employeeId}}"
+                      *ngFor="let employee of fetchManager"
+                    >
+                      {{employee.Name}}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="appraisalForm.get('selectedManager').invalid && appraisalForm.get('selectedManager').touched"
+                  >
+                    <span style="color: red; font-size: 13px">
+                      Please Select Manager.
+                    </span>
+                  </div>
+                </ion-item>
+              </ion-col>
+              <ion-col size="4" style="text-align: center">
+                <ion-label>Select Level2 Manager</ion-label>
+                <ion-item lines="none">
+                  <select
+                    placeholder="Select Second Manager"
+                    formControlName="secondManager"
+                    style="
+                      width: 100%;
+                      background: var(--ion-color-light);
+                      color: var(--ion-color-dark);
+                      font-weight: 300;
+                      border: 0.5px solid rgb(83, 83, 83);
+                      border-radius: 5px;
+                      padding: 7px;
+                    "
+                  >
+                    <option
+                      value="{{employee.employeeId}}"
+                      *ngFor="let employee of fetchManager"
+                    >
+                      {{employee.Name}}
+                    </option>
+                  </select>
+                </ion-item>
+              </ion-col> </ion-row
+            ><br />
+            <ion-row>
+              <ion-col size="4" style="text-align: center">
+                <ion-label>Select Level3 Manager </ion-label>
+                <ion-item lines="none">
+                  <select
+                    placeholder="Select Third Manager"
+                    formControlName="thirdManager"
+                    style="
+                      width: 100%;
+                      background: var(--ion-color-light);
+                      color: var(--ion-color-dark);
+                      font-weight: 300;
+                      border: 0.5px solid rgb(83, 83, 83);
+                      border-radius: 5px;
+                      padding: 7px;
+                    "
+                  >
+                    <option
+                      value="{{employee.employeeId}}"
+                      *ngFor="let employee of fetchManager"
+                    >
+                      {{employee.Name}}
+                    </option>
+                  </select>
+                </ion-item>
+              </ion-col>
+              <ion-col size="4" style="text-align: center">
+                <ion-label
+                  >Select Hr<span style="color: red">*</span></ion-label
+                >
+                <ion-item lines="none">
+                  <select
+                    placeholder="Select Hr"
+                    formControlName="hr"
+                    style="
+                      width: 100%;
+                      background: var(--ion-color-light);
+                      color: var(--ion-color-dark);
+                      font-weight: 300;
+                      border: 0.5px solid rgb(83, 83, 83);
+                      border-radius: 5px;
+                      padding: 7px;
+                    "
+                  >
+                    <option
+                      value="{{employee.employeeId}}"
+                      *ngFor="let employee of fetchHr"
+                    >
+                      {{employee.Name}}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="appraisalForm.get('hr').invalid && appraisalForm.get('hr').touched"
+                  >
+                    <span style="color: red; font-size: 13px">
+                      Please Select Hr.
+                    </span>
+                  </div>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-list>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid style="padding: 50px">
+    <ion-col size="12" style="height: 55px">
+      <ion-button
+        size="default"
+        fill="outline"
+        color="success"
+        style="height: 35px; float: right"
+        type="submit"
+        (click)="storeEmployeeManagerList()"
+      >
+        Save</ion-button
+      >
+    </ion-col>
+  </ion-grid>
+  <table style="width: 100%">
+    <tr>
+      <th>Employee</th>
+      <th>Manager</th>
+      <th>Level2 Manager</th>
+      <th>Level3 Manager</th>
+      <th>Hr</th>
+    </tr>
+    <tr *ngFor="let user of showManager; index as i">
+      <td>{{user.employeeIdName}}</td>
+      <td>
+        <span *ngIf="!user.isEditing">{{user.L2ManagerIdName}} </span
+        ><input *ngIf="user.isEditing" [(ngModel)]="user.L2ManagerIdName" />
+      </td>
+      <td>
+        <span *ngIf="!user.isEditing">{{user.L3ManagerIdName}} </span>
+        <input *ngIf="user.isEditing" [(ngModel)]="user.L3ManagerIdName" />
+      </td>
+      <td>
+        <span *ngIf="!user.isEditing">{{user.L4ManagerIdName}} </span
+        ><input *ngIf="user.isEditing" [(ngModel)]="user.L4ManagerIdName" />
+      </td>
+      <td>
+        <span *ngIf="!user.isEditing">{{user.L5ManagerIdName}} </span
+        ><input *ngIf="user.isEditing" [(ngModel)]="user.L5ManagerIdName" />
+      </td>
+    </tr>
+  </table>
+</ion-content>

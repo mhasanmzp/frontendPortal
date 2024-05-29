@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-label slot="start" style="padding: 0px 10px;font-weight: bold;font-size: 17px;color: var(--ion-color-dark);">
+      {{customer.companyName}}
+    </ion-label>
+    <ion-title>Client Dashboard</ion-title>
+    
+    <ion-label slot="end" style="padding: 0px 10px;font-weight: bold;font-size: 17px;color: var(--ion-color-dark);">
+      {{getDayOfWeek(today)}} {{today | date:'d MMMM, yyyy'}}
+    </ion-label>
+    <ion-buttons slot="end">
+      <!-- <ion-button (click)="presentPopover()" color="dark">
+        <ion-icon name="chatbubbles-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="presentPopoverNotification()" color="dark">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <ion-badge color="danger">{{notificationItems}}</ion-badge>
+      </ion-button> -->
+      <ion-button (click)="logout()">
+        <ion-icon color="danger" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-grid>
+      <ion-row>
+        <ion-col sizeLg="8" offsetLg="2" sizeMd="8" offsetMd="2" sizeSm="12" sizeXs="12" *ngFor="let project of allProjects">
+          <ion-list class="projects" routerLink="/client-project-details/{{project.projectId}}"
+            style="background-color: var(--ion-color-light);">
+            <ion-item class="item" lines="none" style="padding: 10px 0px;">
+              <ion-avatar slot="start">
+                <ion-icon name="globe-outline" style="font-size: 35px;color: rgb(160, 158, 158);"></ion-icon>
+              </ion-avatar>
+              <ion-label style="color: var(--ion-color-light);font-size: 14px;font-weight: 500;">{{project.projectName}}
+              </ion-label>
+              <!-- <ion-note slot="end">
+                <div style="font-size: 14px;">
+                  Total Hours
+                </div>
+                <div style="font-size: 15px;font-weight: bold;">
+                  {{project.totalHours || 0}}
+                </div>
+              </ion-note> -->
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

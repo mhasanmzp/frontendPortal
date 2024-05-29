@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>All User Leaves</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content >
+  <ion-grid class="custom-grid ion-text-center" class="light-theme">
+    <!-- Table Header -->
+    <ion-toolbar color="light " style="position: sticky; top: 0; z-index: 1;">
+        <ion-row size="12" class="table-header ion-text-center" style="background-color: transparent;">
+          <ion-col size="2"><strong style="color: var(--ion-color-dark);font-weight: bold;">Employee Name<br>Employee Email<br>Employee Contact<br>Employee DOJ</strong></ion-col>
+          <ion-col size="2"><strong style="color: var(--ion-color-dark);font-weight: bold;">Total Assigned</strong></ion-col>
+          <ion-col size="2"><strong style="color: var(--ion-color-dark);font-weight: bold;"> Remain</strong></ion-col>
+          <ion-col size="2"><strong style="color: var(--ion-color-dark);font-weight: bold;">Taken</strong></ion-col>
+          <ion-col size="1"><strong style="color: var(--ion-color-dark);font-weight: bold;">Month</strong></ion-col>
+          <ion-col size="1"><strong style="color: var(--ion-color-dark);font-weight: bold;">Year</strong></ion-col>
+          <ion-col size="2"><strong style="color: var(--ion-color-dark);font-weight: bold;">Action</strong></ion-col>
+        </ion-row>
+      </ion-toolbar>
+      <ion-toolbar color="gray" style="padding-top: 15px;">
+        <ion-searchbar placeholder="Search..." [(ngModel)]="searchTerm" (ionChange)="onSearch()"></ion-searchbar>
+      </ion-toolbar>
+    <!-- Table Rows -->
+
+    <ion-row size="12" *ngFor="let emp of filteredUserLeave" class="table-row ion-text-center">
+      <ion-col size="2">
+        <div class="table-text text-center">
+          {{ emp.firstName }}<span> {{emp.lastName}}</span><br>
+          {{ emp.officialEmail }}<br>
+          {{ emp.phoneNo }}<br>
+          {{ emp.DOJ }}
+        </div>
+      </ion-col>
+      <ion-col size="2">
+        <ion-label *ngIf="emp.isEdit">
+          TPL <input type="number" [(ngModel)]="emp.paid_leaves" style="width: 70px;"  /><br>
+          TSL <input type="number" [(ngModel)]="emp.sick_leaves" style="width: 70px;" /><br>
+          wfh <input type="number" [(ngModel)]="emp.wfh"  style="width: 70px;" />
+          </ion-label>
+        <div class="table-text" *ngIf="!emp.isEdit">
+          PL - {{ emp.paid_leaves }}<br>
+          SL - {{ emp.sick_leaves }}<br>
+          WFH - {{ emp.wfh }}
+        </div>
+      </ion-col>
+      <ion-col size="2">
+      
+        <div class="table-text"  >
+          PL - {{ emp.remainPaidLeaves }}<br>
+          SL - {{ emp.remainSickLeaves }}<br>
+          WFH - {{ emp.remainWFHLeaves }}
+        </div>
+      </ion-col>
+      <ion-col size="2">
+        <div class="table-text">
+          PL - {{ emp.paidLeaveTaken }}<br>
+          SL - {{ emp.sickLeaveTaken }}<br>
+          WFH - {{ emp.WFHLeaveTaken }}<br>
+        </div>
+      </ion-col>  
+     
+      <ion-col size="1">
+        {{emp.month}}
+      </ion-col>
+      <ion-col size="1">
+        {{emp.year}}
+      </ion-col>
+      <ion-col size="1">
+      </ion-col>
+
+      <ion-col size="1">       
+        <div *ngIf="!emp.isEdit">
+          <ion-icon name="create-outline" (click)="onEdit(emp)"></ion-icon>
+        </div>
+        <div *ngIf="emp.isEdit">
+          <ion-icon name="bookmark-outline" (click)="onUpdate(emp)"></ion-icon>
+          <ion-icon name="close-outline"  (click)="onCancel(emp)"></ion-icon>
+        </div>      
+      </ion-col>
+    </ion-row>
+    </ion-grid>  
+  
+  </ion-content>

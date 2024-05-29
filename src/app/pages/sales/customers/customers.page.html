@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Customers</ion-title>
+    <ion-buttons slot="end" class="hidden-sm-down">
+      <ion-button [routerLink]="['/customers-details']" color="primary" style="font-weight: 300;width: 100px;">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar style="padding-top: 10px;">
+    <ion-searchbar placeholder="Find Customer"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row style="
+        position: sticky;
+        top: 0px;
+        z-index: 999999999;
+        background-color: var(--ion-color-light);
+        color: var(--ion-color-dark);
+        margin: 0px;
+      ">
+      <ion-col size="2">Name</ion-col>
+      <ion-col size="2">Company Name</ion-col>
+      <ion-col size="2">Email Id</ion-col>
+      <ion-col size="2">Contact No.</ion-col>
+      <ion-col size="2">Website</ion-col>
+      <ion-col size="1">Password</ion-col>
+      <ion-col size="1"></ion-col>
+    </ion-row>
+    <ion-row *ngIf="customers.length === 0">
+      <ion-col size="12" style="display: flex;justify-content:center;">
+        <h6>Customers not found</h6>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let customer of customers; index as i"
+      [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
+      <ion-col size="2">{{customer.firstName}} {{customer.lastName}}</ion-col>
+      <ion-col size="2">{{customer.companyName}}</ion-col>
+      <ion-col size="2">{{customer.email}}</ion-col>
+      <ion-col size="2">{{customer.phone}}</ion-col>
+      <ion-col size="2">{{customer.website}}</ion-col>
+      <ion-col size="1">{{customer.password}}</ion-col>
+      <ion-col style="padding: 0px;text-align: center;" size="1">
+        <ion-button style="text-align: center;" size="small" fill="clear" color="primary" (click)="editDetails(customer)">
+          <ion-icon slot="icon-only" name="create-outline" ></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,38 @@
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+
+}
+
+.custom-table th,
+.custom-table td {
+  border: 1px solid #dbd4d4;
+  padding: 4px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.custom-table th {
+  background-color:#1d98eb;
+  text-align: center;
+}
+
+.custom-table td {
+  // border: 1px solid #201f1f;
+  padding: 4px;
+  text-align: center;
+
+}
+// table, th, td {
+//   // border:1px solid rgb(22, 22, 24);
+//   padding: 5px;
+//   text-align: center;
+//   font-weight: 700;
+// }
+
+// table {
+//   width: 50%;
+//   border-collapse: collapse;
+// }
+
+// }

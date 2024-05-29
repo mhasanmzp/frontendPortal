@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Employee Evaluation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="ion-margin hidden-sm-down">
+    <table class="ion-padding">
+      <thead>
+        <tr>
+          <th>Appraisal Id</th>
+          <th>Employee Name</th>
+          <th>Designation</th>
+          <th>Create Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let entry of detail; let i = index">
+          <tr *ngIf="!entry.isEditing">
+            <td>
+              <ion-button
+                fill="clear"
+                color="primary"
+                (click)="openForm(entry)"
+              >
+                {{ entry.appraisalId }}
+              </ion-button>
+            </td>
+            <td>{{ entry.name }}</td>
+            <td>{{ entry.designation }}</td>
+            <td>{{ entry.createdAt | date:'dd, MMM yyyy' }}</td>
+            <td>{{ entry.status }}</td>
+          </tr>
+          <tr *ngIf="entry.status === 'complete'">
+            <td>{{ entry.appraisalId }}</td>
+            <td>{{ entry.name }}</td>
+            <td>{{ entry.designation }}</td>
+            <td>{{ entry.createdAt | date:'dd, MMM yyyy' }}</td>
+            <td>{{ entry.status }}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </ion-grid>
+</ion-content>
+

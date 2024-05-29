@@ -1,0 +1,753 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Lead Generate</ion-title>
+    <ion-buttons slot="end">
+      <ion-segment value="buttons" [(ngModel)]="selectedSegment">
+        <!-- <ion-segment value="buttons" [(ngModel)]="selectedSegment"> -->
+        <ion-segment-button value="add employee" id="open-modal-add-employe" expand="block">
+          <ion-label>+Client Onboard</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <!-- add employe modal  -->
+  <div *ngIf="selectedSegment ===  'add employee'">
+
+    <ion-modal class="clientmodal" trigger="open-modal-add-employe" (willDismiss)="onWillDismiss($event)">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Client Onboard Form</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="cancel()" [strong]="true">Cancel</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <ion-row>
+            <ion-col sizeLg="12" sizeMd="12" sizeSm="12">
+              <form [formGroup]="clientOnboard" (ngSubmit)="submitForm()">
+                <ion-row>
+                  <ion-col sizeLg="2.5" sizeMd="2.5" sizeSm="12">
+                    <ion-list>
+                      <ion-item lines="none">
+                        <ion-label position="stacked">Full Name : <span style="color: red"> *</span></ion-label>
+                        <ion-input type="text" formControlName="fullName" class="borderArea"></ion-input>
+                      </ion-item>
+                      <div *ngIf="clientOnboard.get('fullName').invalid && clientOnboard.get('fullName').touched"
+                        class="ion-padding">
+                        <span style="color:red;"> Please enter a valid Full Name.</span>
+                      </div>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col sizeLg="2.5" sizeMd="2.5" sizeSm="12">
+                    <ion-list>
+                      <ion-item lines="none">
+                        <ion-label position="stacked">Position/Title : <span style="color: red"> *</span></ion-label>
+                        <ion-input type="text" formControlName="title" class="borderArea"></ion-input>
+                      </ion-item>
+                      <div *ngIf="clientOnboard.get('title').invalid && clientOnboard.get('title').touched"
+                        class="ion-padding">
+                        <span style="color:red;"> Please enter a Position/Title.</span>
+                      </div>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col sizeLg="2.5" sizeMd="2.5" sizeSm="12">
+                    <ion-list>
+                      <ion-item lines="none">
+                        <ion-label position="stacked">Company Name: <span style="color: red"> *</span></ion-label>
+                        <ion-input type="text" formControlName="companyName" class="borderArea"></ion-input>
+                      </ion-item>
+                      <div *ngIf="clientOnboard.get('companyName').invalid && clientOnboard.get('companyName').touched"
+                        class="ion-padding">
+                        <span style="color:red;"> Please enter a companyName.</span>
+                      </div>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col sizeLg="2.5" sizeMd="2.5" sizeSm="12">
+                    <ion-list>
+                      <ion-item lines="none">
+                        <ion-label position="stacked">Email Address : <span style="color: red"> *</span></ion-label>
+                        <ion-input type="emailAddress" formControlName="emailAddress" class="borderArea"></ion-input>
+                      </ion-item>
+                      <div *ngIf="clientOnboard.get('emailAddress').invalid && clientOnboard.get('emailAddress').touched"
+                        class="ion-padding">
+                        <span style="color:red;"> Please enter a valid Email Address.</span>
+                      </div>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col sizeLg="2" sizeMd="2" sizeSm="12">
+                    <ion-list>
+                      <ion-item lines="none">
+                        <ion-label position="stacked">Phone No. : <span style="color: red"> *</span></ion-label>
+                        <ion-input type="text"
+                          onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                          maxlength="10" minlength="10" formControlName="phoneNo" class="borderArea"></ion-input>
+                      </ion-item>
+                      <div *ngIf="clientOnboard.get('phoneNo').invalid && clientOnboard.get('phoneNo').touched"
+                        class="ion-padding">
+                        <span style="color:red;"> Please enter a valid PhoneNo.</span>
+                      </div>
+                    </ion-list>
+                  </ion-col>
+
+                  <ion-col size="12" style="border-bottom: 1px solid #b4b2b2;">
+                    <div>
+                      <h2 style="padding-left: 20px;">Company Details :-</h2>
+                    </div>
+                  </ion-col>
+                  <ion-col sizeLg="2.5" sizeMd="2.5" sizeSm="12">
+                    <ion-list>
+                      <ion-item lines="none">
+                        <ion-label position="stacked">Industry : <span style="color: red"> *</span></ion-label>
+                        <ion-input type="text" formControlName="industry" class="borderArea"></ion-input>
+                      </ion-item>
+                      <div *ngIf="clientOnboard.get('industry').invalid && clientOnboard.get('industry').touched"
+                        class="ion-padding">
+                        <span style="color:red;"> Please enter industry.</span>
+                      </div>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col sizeLg="2.5" sizeMd="2.5" sizeSm="12">
+                    <ion-list>
+                      <ion-item lines="none">
+                        <ion-label position="stacked">Company Size : <span style="color: red"> *</span></ion-label>
+                        <ion-input type="text" formControlName="companySize" class="borderArea"></ion-input>
+                      </ion-item>
+                      <div *ngIf="clientOnboard.get('companySize').invalid && clientOnboard.get('companySize').touched"
+                        class="ion-padding">
+                        <span style="color:red;">Please enter Company size</span>
+
+                      </div>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col sizeLg="2.5" sizeMd="2.5" sizeSm="12">
+                    <ion-list>
+                      <ion-item lines="none">
+                        <ion-label position="stacked">Location: <span style="color: red"> *</span></ion-label>
+                        <ion-input type="text" formControlName="location" class="borderArea"></ion-input>
+                      </ion-item>
+                      <div *ngIf="clientOnboard.get('location').invalid && clientOnboard.get('location').touched"
+                        class="ion-padding">
+                        <span style="color:red;">Please enter location</span>
+
+                      </div>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col sizeLg="2.5" sizeMd="2.5" sizeSm="12">
+                    <ion-list>
+                      <ion-item lines="none">
+                        <ion-label position="stacked">Website URL : <span style="color: red"> *</span></ion-label>
+                        <ion-input type="email" formControlName="websiteUrl" class="borderArea"></ion-input>
+                      </ion-item>
+                      <div *ngIf="clientOnboard.get('websiteUrl').invalid && clientOnboard.get('websiteUrl').touched"
+                        class="ion-padding">
+                        <span style="color:red;">Please enter websiteUrl</span>
+
+                      </div>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col sizeLg="2" sizeMd="2" sizeSm="12" style="margin-bottom: 3%;">
+                    <ion-list>
+                      <ion-item lines="none">
+
+                        <ion-label position="stacked">Client Hear About Products : <span style="color: red"> *</span></ion-label>
+                        <ion-input type="text" formControlName="clientHearAboutProducts" class="borderArea"></ion-input>
+                      </ion-item>
+                      <div *ngIf="clientOnboard.get('clientHearAboutProducts').invalid && clientOnboard.get('clientHearAboutProducts').touched"
+                        class="ion-padding">
+                        <span style="color:red;">Please enter clientHearAboutProducts</span>
+
+                      </div>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col sizeLg="2.5" sizeMd="2.5" sizeSm="12">
+                    <ion-list>
+                      <ion-item lines="none">
+                        <ion-label position="stacked">Designed Start Date : <span style="color: red">
+                            *</span></ion-label>
+                        <ion-input type="date" formControlName="startDateAndTimeline" class="borderArea"></ion-input>
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col sizeLg="2.5" sizeMd="2.5" sizeSm="12">
+                    <ion-list>
+                      <ion-item lines="none">
+                        <ion-label position="stacked">Brief Description Project : <span style="color: red">
+                            *</span></ion-label>
+                        <ion-input type="text" formControlName="projectDescription" class="borderArea"></ion-input>
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col sizeLg="2.5" sizeMd="2.5" sizeSm="12">
+                    <ion-list>
+                      <ion-item lines="none">
+                        <ion-label position="stacked">Decision Maker's Details: <span style="color: red">
+                            *</span></ion-label>
+                        <ion-input type="text" formControlName="decisionMakesContactDetails" class="borderArea"></ion-input>
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col sizeLg="2.5" sizeMd="2.5" sizeSm="12" style="margin-bottom: 2%;">
+                    <ion-list>
+                      <ion-item lines="none">
+                        <ion-label position="stacked">Prefered Communication(Email/Phone): <span style="color: red">
+                            *</span></ion-label>
+                        <ion-input type="text" formControlName="preferedCommunicationChannel" class="borderArea"></ion-input>
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col sizeLg="2" sizeMd="2" sizeSm="12">
+                    <ion-list>
+                      <ion-item lines="none">
+                        <ion-label position="stacked">Follow Up Preference(daily/weekly): <span style="color: red">
+                            *</span></ion-label>
+                        <ion-input type="text" formControlName="followUpPreference" class="borderArea"></ion-input>
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col sizeLg="3" sizeMd="3" sizeSm="12">
+                    <ion-list>
+                      <ion-item lines="none">
+                        <ion-label position="stacked">Additional Comment: <span style="color: red"> *</span></ion-label>
+                        <ion-textarea type="textarea" formControlName="additionalComment"
+                          class="borderArea"></ion-textarea>
+                      </ion-item>
+                    </ion-list>
+                  </ion-col>
+
+                  <ion-col size="12">
+                    <ion-button type="submit" expand="full">Submit</ion-button>
+                  </ion-col>
+
+                </ion-row>
+              </form>
+            </ion-col>
+          </ion-row>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </div>
+
+  <ion-row>
+    <ion-col size="1.5" class="ion-text-center" style="background-color: rgb(184, 182, 182);padding-top: 15px;  border: 1px solid #000;
+    font-weight: bold;">
+      <div class="project-name">
+        <h4 style="font-size: 25px;font-weight: bold;">Project</h4>
+      </div>
+    </ion-col>
+
+    <ion-col size="1.3" class="ion-text-center" style="background-color: rgb(184, 182, 182);  border: 1px solid #000;
+    font-weight: bold;">
+      <div class="div" style="padding-top: 15px; ">Pre-Sales</div>
+
+
+    </ion-col>
+
+    <ion-col size="1.2" class="ion-text-center" style="  background-color: rgb(184, 182, 182);border: 1px solid #000;
+    font-weight: bold;">
+      <div class="div" style="padding-top: 15px; ">Pre-Sales Demo</div>
+
+
+    </ion-col>
+    <ion-col size="1.1" class="ion-text-center" style=" background-color: rgb(184, 182, 182); border: 1px solid #000;
+    font-weight: bold;">
+      <div class="div" style="padding-top: 15px; ">Proposal<br> Prepration</div>
+
+
+    </ion-col>
+    <ion-col size="1.2" class="ion-text-center" style="background-color: rgb(184, 182, 182);  border: 1px solid #000;
+    font-weight: bold;">
+      <div class="div" style="padding-top: 15px; ">Mock Sessions<br> Internal</div>
+
+
+    </ion-col>
+    <ion-col size="1.1" class="ion-text-center" style=" background-color: rgb(184, 182, 182); border: 1px solid #000;
+    font-weight: bold;">
+      <div class="div" style="padding-top: 15px; "> Proposal<br> Submision</div>
+
+
+    </ion-col>
+    <ion-col size="1.2" class="ion-text-center" style=" background-color: rgb(184, 182, 182); border: 1px solid #000;
+    font-weight: bold;">
+      <div class="div" style="padding-top: 15px; ">Negotiation</div>
+
+
+    </ion-col>
+    <ion-col size="1.1" class="ion-text-center" style="background-color: rgb(184, 182, 182);  border: 1px solid #000;
+    font-weight: bold;">
+      <div class="div" style="padding-top: 15px; ">Mock/orals/SOW<br> Discussion</div>
+
+
+    </ion-col>
+    <ion-col size="1.2" class="ion-text-center" style="background-color: rgb(184, 182, 182);  border: 1px solid #000;
+    font-weight: bold;">
+      <div class="div" style="padding-top: 15px; "> Resource<br> Allocation</div>
+
+
+    </ion-col>
+    <ion-col size="1.1" class="ion-text-center" style="background-color: rgb(184, 182, 182);  border: 1px solid #000;
+    font-weight: bold;">
+      <div class="div" style="padding-top: 15px; "> Project Awarded</div>
+
+
+    </ion-col>
+
+
+
+
+
+  </ion-row>
+
+  <ion-row class="ion-text-center">  
+
+    <ion-col size="12" style=" border: 1px solid #000;
+    font-weight: bold;">
+      <ion-segment value="buttons" [(ngModel)]="selectedSegment">
+        <!-- <ion-segment value="buttons" [(ngModel)]="selectedSegment"> -->
+        <ion-segment-button value="ProjectName"  id="open-modal-project-name" expand="block">
+          <ion-label>Mckinsol</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Pre-Sales"  id="open-modal-pre-sales" expand="block">
+          <ion-label>New+</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Pre-Sales Demo" id="open-modal-pre-sales-demo" expand="block">
+          <ion-label> New+</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Proposal Prepration" id="open-modal-Proposal-Prepration" expand="block">
+          <ion-label>New+</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Mock Sessions Internal" id="open-modal-mock-session-internal" expand="block">
+          <ion-label>New+</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Proposal Submision" id="open-modal-Proposal-Submision" expand="block">
+          <ion-label>New+</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Negotiation" id="open-modal-Negotiation" expand="block">
+          <ion-label>New+</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Mock/orals/SOW Discussion" id="open-modal-Mock-orals-sow-discussion" expand="block">
+          <ion-label>New+</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Resource Allocation" id="open-modal-Mock-orals-sow" expand="block">
+          <ion-label>New+</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Project Awarded" id="open-modal-Project-Awarded" expand="block">
+          <ion-label>New+</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <div *ngIf="selectedSegment === 'ProjectName'">
+
+
+      <ion-modal trigger="open-modal-project-name" style="--width:90%;"  (willDismiss)="onWillDismiss($event)">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+
+
+              <ion-buttons slot="end">
+                <ion-button (click)="cancel()" [strong]="true">Cancel</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding"  > 
+        
+          <ion-row *ngFor="let client of clientData;let i=index" class="ion-text-center" >
+
+            <ion-col size="0.5" style="border: 1px solid #6d6c6c;">
+              <div>
+                <h5>{{i+1}}</h5>
+              </div>
+            </ion-col>
+            <ion-col size="2" style="border: 1px solid #6d6c6c;">
+              <div>
+                <h5>{{client.fullName}}</h5>
+              </div>
+            </ion-col>
+            <ion-col size="2" style="border: 1px solid #6d6c6c;">
+              <div>
+                <h5>{{client.emailAddress}}</h5>
+              </div>
+            </ion-col>
+            <ion-col size="2" style="border: 1px solid #6d6c6c;">
+              <div>
+                <h5>{{client.phoneNo}}</h5>
+              </div>
+            </ion-col>
+            <ion-col size="2.5" style="border: 1px solid #6d6c6c;">
+              <div>
+                <h5>{{client.industry}}</h5>
+              </div>
+            </ion-col>
+            <ion-col size="3" style="border: 1px solid #6d6c6c;">
+              <div>
+                <h5>{{client.title}}</h5>
+              </div>
+            </ion-col>
+           
+          </ion-row>
+        </ion-content>
+        
+
+        </ng-template>
+      </ion-modal>
+    </div>
+    <div *ngIf="selectedSegment === 'Pre-Sales'">
+
+
+      <ion-modal id="modal1"  trigger="open-modal-pre-sales" (willDismiss)="onWillDismiss($event)">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+
+
+              <ion-buttons slot="end">
+                <ion-button (click)="cancel()" [strong]="true">Cancel</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <form [formGroup]="clientOnboard" (ngSubmit)="submitForm()">
+              <ion-list>
+                <ion-item>
+                  <ion-label position="floating">Update By : <span style="color: red"> *</span></ion-label>
+                  <ion-input type="text" formControlName="fullName" name="updatedby" ></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating"></ion-label>
+                  <ion-input type="date" formControlName="startDateAndTimeline" ></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Description<span style="color: red"> *</span></ion-label>
+                  <ion-textarea type="text-area" formControlName="projectDescription"
+                    required></ion-textarea>
+                </ion-item>
+
+                <ion-item>
+                  <ion-checkbox labelPlacement="start" formControlName="approved"></ion-checkbox>Approved 
+                </ion-item>  
+              </ion-list>
+
+              <ion-button style="margin-top: 10%;" type="submit" [disabled]="isFormSubmitted" expand="full">Submit</ion-button>
+            </form>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </div>
+    <div *ngIf="selectedSegment === 'Pre-Sales Demo'">
+
+
+      <ion-modal trigger="open-modal-pre-sales-demo" (willDismiss)="onWillDismiss($event)">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+
+              <ion-buttons slot="end">
+                <ion-button (click)="cancel()" [strong]="true">Cancel</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <form (ngSubmit)="submitForm()">
+              <ion-list>
+                <ion-item>
+                  <ion-label position="floating">cancel By : <span style="color: red"> *</span></ion-label>
+                  <ion-input type="text" [(ngModel)]="formData.updatedby" name="updatedby" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating"></ion-label>
+                  <ion-input type="date" [(ngModel)]="formData.date" name="date" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Description<span style="color: red"> *</span></ion-label>
+                  <ion-textarea type="text-area" [(ngModel)]="formData.description" name="description"
+                    required></ion-textarea>
+                </ion-item>
+              </ion-list>
+
+              <ion-button style="margin-top: 10%;" type="submit" expand="full">Submit</ion-button>
+            </form>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </div>
+
+    <div *ngIf="selectedSegment === 'Proposal Prepration'">
+      <ion-modal trigger="open-modal-Proposal-Prepration" (willDismiss)="onWillDismiss($event)">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+
+              <ion-buttons slot="end">
+                <ion-button (click)="cancel()" [strong]="true">Cancel</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <form (ngSubmit)="submitForm()">
+              <ion-list>
+                <ion-item>
+                  <ion-label position="floating">cancel By : <span style="color: red"> *</span></ion-label>
+                  <ion-input type="text" [(ngModel)]="formData.updatedby" name="updatedby" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating"></ion-label>
+                  <ion-input type="date" [(ngModel)]="formData.date" name="date" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Description<span style="color: red"> *</span></ion-label>
+                  <ion-textarea type="text-area" [(ngModel)]="formData.description" name="description"
+                    required></ion-textarea>
+                </ion-item>
+              </ion-list>
+
+              <ion-button style="margin-top: 10%;" type="submit" expand="full">Submit</ion-button>
+            </form>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </div>
+    <div *ngIf="selectedSegment === 'Mock Sessions Internal'">
+      <ion-modal trigger="open-modal-mock-session-internal" (willDismiss)="onWillDismiss($event)">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+
+              <ion-buttons slot="end">
+                <ion-button (click)="cancel()" [strong]="true">Cancel</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <form (ngSubmit)="submitForm()">
+              <ion-list>
+                <ion-item>
+                  <ion-label position="floating">cancel By : <span style="color: red"> *</span></ion-label>
+                  <ion-input type="text" [(ngModel)]="formData.updatedby" name="updatedby" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating"></ion-label>
+                  <ion-input type="date" [(ngModel)]="formData.date" name="date" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Description<span style="color: red"> *</span></ion-label>
+                  <ion-textarea type="text-area" [(ngModel)]="formData.description" name="description"
+                    required></ion-textarea>
+                </ion-item>
+              </ion-list>
+
+              <ion-button style="margin-top: 10%;" type="submit" expand="full">Submit</ion-button>
+            </form>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </div>
+    <div *ngIf="selectedSegment === 'Proposal Submision'">
+      <ion-modal trigger="open-modal-Proposal-Submision" (willDismiss)="onWillDismiss($event)">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+
+              <ion-buttons slot="end">
+                <ion-button (click)="cancel()" [strong]="true">Cancel</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <form (ngSubmit)="submitForm()">
+              <ion-list>
+                <ion-item>
+                  <ion-label position="floating">cancel By : <span style="color: red"> *</span></ion-label>
+                  <ion-input type="text" [(ngModel)]="formData.updatedby" name="updatedby" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating"></ion-label>
+                  <ion-input type="date" [(ngModel)]="formData.date" name="date" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Description<span style="color: red"> *</span></ion-label>
+                  <ion-textarea type="text-area" [(ngModel)]="formData.description" name="description"
+                    required></ion-textarea>
+                </ion-item>
+              </ion-list>
+
+              <ion-button style="margin-top: 10%;" type="submit" expand="full">Submit</ion-button>
+            </form>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </div>
+    <div *ngIf="selectedSegment === 'Negotiation'">
+      <ion-modal trigger="open-modal-Negotiation" (willDismiss)="onWillDismiss($event)">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+
+              <ion-buttons slot="end">
+                <ion-button (click)="cancel()" [strong]="true">Cancel</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <form (ngSubmit)="submitForm()">
+              <ion-list>
+                <ion-item>
+                  <ion-label position="floating">cancel By : <span style="color: red"> *</span></ion-label>
+                  <ion-input type="text" [(ngModel)]="formData.updatedby" name="updatedby" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating"></ion-label>
+                  <ion-input type="date" [(ngModel)]="formData.date" name="date" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Description<span style="color: red"> *</span></ion-label>
+                  <ion-textarea type="text-area" [(ngModel)]="formData.description" name="description"
+                    required></ion-textarea>
+                </ion-item>
+              </ion-list>
+
+              <ion-button style="margin-top: 10%;" type="submit" expand="full">Submit</ion-button>
+            </form>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </div>
+    <div *ngIf="selectedSegment === 'Mock/orals/SOW Discussion'">
+      <ion-modal trigger="open-modal-Mock-orals-sow-discussion" (willDismiss)="onWillDismiss($event)">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+
+              <ion-buttons slot="end">
+                <ion-button (click)="cancel()" [strong]="true">Cancel</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <form (ngSubmit)="submitForm()">
+              <ion-list>
+                <ion-item>
+                  <ion-label position="floating">cancel By : <span style="color: red"> *</span></ion-label>
+                  <ion-input type="text" [(ngModel)]="formData.updatedby" name="updatedby" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating"></ion-label>
+                  <ion-input type="date" [(ngModel)]="formData.date" name="date" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Description<span style="color: red"> *</span></ion-label>
+                  <ion-textarea type="text-area" [(ngModel)]="formData.description" name="description"
+                    required></ion-textarea>
+                </ion-item>
+              </ion-list>
+
+              <ion-button style="margin-top: 10%;" type="submit" expand="full">Submit</ion-button>
+            </form>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </div>
+    <div *ngIf="selectedSegment === 'Resource Allocation'">
+      <ion-modal trigger="open-modal-Mock-orals-sow" (willDismiss)="onWillDismiss($event)">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+
+              <ion-buttons slot="end">
+                <ion-button (click)="cancel()" [strong]="true">Cancel</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <form (ngSubmit)="submitForm()">
+              <ion-list>
+                <ion-item>
+                  <ion-label position="floating">cancel By : <span style="color: red"> *</span></ion-label>
+                  <ion-input type="text" [(ngModel)]="formData.updatedby" name="updatedby" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating"></ion-label>
+                  <ion-input type="date" [(ngModel)]="formData.date" name="date" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Description<span style="color: red"> *</span></ion-label>
+                  <ion-textarea type="text-area" [(ngModel)]="formData.description" name="description"
+                    required></ion-textarea>
+                </ion-item>
+              </ion-list>
+
+              <ion-button style="margin-top: 10%;" type="submit" expand="full">Submit</ion-button>
+            </form>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </div>
+    <div *ngIf="selectedSegment === 'Project Awarded'">
+      <ion-modal trigger="open-modal-Project-Awarded" (willDismiss)="onWillDismiss($event)">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+
+              <ion-buttons slot="end">
+                <ion-button (click)="cancel()" [strong]="true">Cancel</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <form (ngSubmit)="submitForm()">
+              <ion-list>
+                <ion-item>
+                  <ion-label position="floating">cancel By : <span style="color: red"> *</span></ion-label>
+                  <ion-input type="text" [(ngModel)]="formData.updatedby" name="updatedby" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating"></ion-label>
+                  <ion-input type="date" [(ngModel)]="formData.date" name="date" required></ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Description<span style="color: red"> *</span></ion-label>
+                  <ion-textarea type="text-area" [(ngModel)]="formData.description" name="description"
+                    required></ion-textarea>
+                </ion-item>
+              </ion-list>
+
+              <ion-button style="margin-top: 10%;" type="submit" expand="full">Submit</ion-button>
+            </form>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </div>
+  </ion-row>
+
+
+
+
+
+
+</ion-content>

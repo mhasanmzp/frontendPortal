@@ -1,0 +1,226 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Teams & Boards</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-row style="height: 100%;">
+    <!-- <ion-col>
+      <ion-row style="height: 100%;"> -->
+        <ion-col size="5" style="border-right: 0.5px solid rgb(52 52 52);height: auto;">
+          <ion-row>
+            <ion-col size="12">
+              <ion-item>
+                <ion-label style="color: #ccc;">
+                  Teams
+                </ion-label>
+                <ion-button slot="end" fill="clear" (click)="addTeam()">
+                  <ion-icon name="add"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let team of allTeams; index as i" style="margin: 0px 10px;">
+            <ion-col size="12" style="padding: 0px;">
+              <ion-item [ngClass]="(i == selectedTeam) ? 'selected' : 'notSelected'" lines="none"
+                (click)="selectTeam(i)">
+                <ion-label>
+                  {{team.teamName}}
+                </ion-label>
+                <ion-avatar cdkOverlayOrigin #trigger="cdkOverlayOrigin"
+                  (mouseover)="delayMouseOverToggle(managersToggle,i,m)"
+                  (mouseleave)="delayMouseOutToggle(managersToggle,i,m)" id="hover-trigger"
+                  *ngFor="let manager of team.managersData; index as m" slot="end" style="position: relative;">
+
+                  <img style="position: absolute;z-index: -1;"
+                  [src]="manager.imageExists ? authService.apiUrl+'images/'+manager.employeeId+'.png' : authService.apiUrl+'images/0.png'">
+
+                  <!-- <img (click)="removeTeamManager(team, manager)" class="cross" managersToggle
+                    src="https://www.citypng.com/public/uploads/preview/png-red-round-close-x-icon-31631915146jpppmdzihs.png"> -->
+                  <!-- <ion-popover [id]="i+'-'+m" trigger="hover-trigger" triggerAction="hover">
+                    <ng-template>
+                      <ion-content class="ion-padding">Hello World!</ion-content>
+                    </ng-template>
+                  </ion-popover> -->
+                  <ng-template cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
+                    [cdkConnectedOverlayOpen]="managersToggle[i][m]"
+                    (overlayOutsideClick)="managersToggle[i][m] = false">
+
+                    <div class="example-overlay" (mouseover)="keepOn[i][m] = true"
+                      (mouseleave)="closePopover(managersToggle,i,m)">
+                      <ion-item lines="none">
+                        <ion-label style="color: #ccc;">
+                          <div>
+                            {{manager.firstName}} {{manager.lastName}}
+                          </div>
+                          <p>
+                            {{manager.officialEmail}}
+                          </p>
+                        </ion-label>
+                      </ion-item>
+                      <div
+                        style="background-color: var(--ion-color-light);border-top: 1px solid #252628;padding: 10px 10px;">
+                        <div style="cursor: pointer;border: 1px solid #e74c3c;border-radius: 5px;color: #e74c3c;font-size: 14px;padding: 5px;" (click)="removeTeamManager(team, manager)">
+                          Remove
+                        </div>
+                      </div>
+                    </div>
+                  </ng-template>
+
+                </ion-avatar>
+                <ion-avatar slot="end" (click)="isOpen = !isOpen" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+                  <!-- <img src="http://simpleicon.com/wp-content/uploads/add-user.png"> -->
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjly4qKE7rp1WGq1KUbV2Q-zWCm2rmlsEUd5KSAEN5Q2odS0secr2eSOmKmeAZjnkMlnY&usqp=CAU">
+                </ion-avatar>
+                  <ion-icon (click)="removeTeam(team, i)" name="close-circle-outline" color="danger" slot="end"></ion-icon>
+              </ion-item>
+
+              <ng-template *ngIf="i == selectedTeam" cdkConnectedOverlay [cdkConnectedOverlayOrigin]="trigger"
+                [cdkConnectedOverlayOpen]="isOpen" (overlayOutsideClick)="isOpen = false">
+                <div class="example-overlay" style="height: 300px;overflow-y: scroll;">
+                  <ion-item lines="none">
+                    <ion-label style="color: #ccc;">
+                      Managers
+                    </ion-label>
+                  </ion-item>
+                  <ion-toolbar>
+                    <ion-searchbar placeholder="Search Managers" debounce="500" (ionChange)="searchManagers($event)" style="margin-top: 12px;">
+                    </ion-searchbar>
+                  </ion-toolbar>
+                  <ion-row *ngFor="let user of managers; index as i" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'" style="background: var(--ion-color-light);
+                      border-radius: 10px;margin: 5px 10px;">
+                    <ion-item lines="none" style="width: 100%;cursor: pointer;" (click)="isOpen = !isOpen"
+                      (click)="addManager(team, user)">
+                      <ion-avatar slot="start">
+                        <img [src]="user.imageExists ? authService.apiUrl+'images/'+user.employeeId+'.png' : authService.apiUrl+'images/0.png'">
+                      </ion-avatar>
+                      <ion-label style="color: #fff;">
+                        {{user.firstName}} {{user.lastName}}
+                      </ion-label>
+                      <ion-button *ngIf="checkInTeamManagers(user)" slot="end" fill="clear" (click)="addEmployeeTeam(user)">
+                              <ion-icon name="add"></ion-icon>
+                            </ion-button>
+                    </ion-item>
+                  </ion-row>
+                </div>
+              </ng-template>
+
+            </ion-col>
+          </ion-row>
+        </ion-col>
+
+        <ion-col size="7" style="position: absolute;right:0;padding: 0px 20px;height: auto;">
+
+          <ion-toolbar >
+            <ion-segment [(ngModel)]="segment">
+              <ion-segment-button value="teams">
+                <ion-text>
+                  Teams
+                </ion-text>
+              </ion-segment-button>
+              <ion-segment-button value="boards">
+                <ion-text>
+                  Boards
+                </ion-text>
+              </ion-segment-button>
+            </ion-segment>
+          </ion-toolbar>
+          <div *ngIf="segment=='teams'">
+            <ion-row style="z-index: 999999999;background-color: transparent;color: var(--ion-color-dark);margin: 0px;">
+              <ion-col size="12" style="background: transparent;">
+                <ion-item lines="none">
+                  <ion-label style="color: #ccc;">
+                    Members
+                  </ion-label>
+                </ion-item>
+                <ion-toolbar >
+                  <ion-searchbar placeholder="Search Employee" debounce="200" (ionChange)="searchEmployee($event)">
+                  </ion-searchbar>
+                </ion-toolbar>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngFor="let user of allUsers; index as i" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'" style="background: var(--ion-color-light); border-radius: 10px;margin: 10px;">
+              <ion-item lines="none" style="width: 100%;">
+                <ion-avatar slot="start">
+                  <img [src]="user.imageExists ? authService.apiUrl+'images/'+user.employeeId+'.png' : authService.apiUrl+'images/0.png'">
+                </ion-avatar>
+                <ion-label style="color: var(--ion-color-dark);">
+                  {{user.firstName}} {{user.lastName}}
+                </ion-label>
+                <ion-button *ngIf="checkInTeam(user)" slot="end" fill="clear" (click)="addEmployeeTeam(user)">
+                  <ion-icon color="success" name="add"></ion-icon>
+                </ion-button>
+                <ion-button *ngIf="!checkInTeam(user)" slot="end" fill="clear" (click)="removeEmployeeTeam(user)">
+                  <ion-icon color="danger" name="close"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-row>
+          </div>
+          <div *ngIf="segment=='boards'">
+            <ion-row style="z-index: 999999999;background-color: transparent;color: #fff;margin: 0px;">
+              <ion-col size="12">
+                <ion-item lines="none">
+                  <ion-label style="color: #ccc;">
+                    Team Board Columns
+                  </ion-label>
+                  <!-- <ion-button slot="end" fill="clear" (click)="addTeam()">
+                        <ion-icon name="add"></ion-icon>
+                      </ion-button> -->
+                </ion-item>
+              </ion-col>
+            </ion-row>
+
+            <ion-col size="12" style="position: absolute;right:0;padding: 0px 20px;">
+              <ion-row *ngFor="let column of allTeams[selectedTeam].teamBoardColumns; index as i"
+                [ngClass]="(i % 2 == 0) ? 'odd' : 'even'" style="background: var(--ion-color-light);
+                  border-radius: 10px;margin: 10px;">
+                <ion-item lines="none" style="width: 100%;">
+                  <ion-label style="color: #fff;">
+                    {{column.columnName}}
+                  </ion-label>
+                  <ion-button slot="end" fill="clear" (click)="deleteTeamColumn(column)">
+                    <ion-icon color="danger" name="trash"></ion-icon>
+                  </ion-button>
+                </ion-item>
+              </ion-row>
+              <ion-row style="border-radius: 10px;margin: 10px;border: 1px solid #161b22;cursor: pointer;"
+                (click)="addNewBoard()">
+                <ion-item lines="none" style="width: 100%;">
+                  <ion-icon slot="start" color="light" name="add"></ion-icon>
+                  <ion-label style="color: #fff;">
+                    Add new column
+                  </ion-label>
+                </ion-item>
+              </ion-row>
+            </ion-col>
+          </div>
+        </ion-col>
+      <!-- </ion-row>
+    </ion-col> -->
+  </ion-row>
+  <!-- <ion-row>
+    <ion-col *ngIf="segment=='boards'">
+      <ion-toolbar >
+        <ion-buttons slot="end" style="color: #fff;cursor: pointer;">
+          <ion-icon name="add"></ion-icon><span style="font-size: 14px;" (click)="addBoard()">Add Boards</span>
+        </ion-buttons>
+        </ion-toolbar>
+        <ion-row
+          style="position: sticky;top: 0px;z-index: 999999999;background-color: #000;color: #fff;margin: 0px;">
+          <ion-col style="line-height: 28px;" size="12">Board Name</ion-col>
+        </ion-row>
+        <ion-row style="background-color: #252628;color: #fff;border-radius: 5px;">
+          <ion-col>Development Board</ion-col>
+        </ion-row>
+    </ion-col>
+  </ion-row> -->
+
+
+
+</ion-content>

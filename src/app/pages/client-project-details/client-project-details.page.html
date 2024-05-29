@@ -1,0 +1,850 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="dark" defaultHref="/client-dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{projectName}}</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-row style="width: 100%">
+      <ion-col size="8" style="padding: 8px 0px">
+        <ion-segment [(ngModel)]="segment" (ngModelChange)="segmentChanged()" style="margin-left: 0px">
+          <ion-segment-button value="dashboard">
+            <ion-text> Dashboard </ion-text>
+          </ion-segment-button>
+          <ion-segment-button value="roadmap">
+            <ion-text> Timeline </ion-text>
+          </ion-segment-button>
+          <ion-segment-button value="backlog">
+            <ion-text> Backlog </ion-text>
+          </ion-segment-button>
+          <ion-segment-button value="list">
+            <ion-text> List </ion-text>
+          </ion-segment-button>
+          <ion-segment-button value="board">
+            <ion-text> Board </ion-text>
+          </ion-segment-button>
+          <ion-segment-button value="sprints">
+            <ion-text> Sprints </ion-text>
+          </ion-segment-button>
+          <ion-segment-button value="notes">
+            <ion-text> Notes </ion-text>
+          </ion-segment-button>
+          <ion-segment-button value="docs">
+            <ion-text> Docs </ion-text>
+          </ion-segment-button>
+          <ion-segment-button value="members">
+            <ion-text> Members </ion-text>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+      <ion-col>
+        <!-- <ion-searchbar (ionChange)="searchTasks($event)" debounce="100" placeholder="Search Tasks"></ion-searchbar> -->
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- ######-------------Tarun Tomar-----------------######## -->
+
+
+  <!-- #######------------Change app-project-dashborad to app-client-dashboard only-----------##### -->
+
+  
+  <div *ngIf="segment === 'dashboard'">
+    <app-project-dashborad *ngIf="epicTasksList.length > 0" [teamBoardColumns]="teamBoardColumns"
+      [epicTasksListOriginal]="epicTasksListOriginal" [sprintTasks]="sprintTasks" [projectMembers]="projectMembers"
+      [storyTasks]="storyTasks" [selectedStory]="selectedStory" [epicStories]="epicStories"
+      [selectedTasks]="selectedTasks" [projectId]="projectId">
+    </app-project-dashborad>
+  </div>
+    
+  <!-- </div> -->
+
+
+  <div style="height: 100%" [style.display]="segment === 'roadmap' ? 'block' : 'none'">
+    <ion-row style="height: 100%">
+      <ion-col size="2.5" style="padding-right: 0px; border-right: 0.5px solid #747474">
+        <div class="colHeader">
+          <ion-item lines="none">
+            <ion-label style="color: #ccc">
+              <!-- Members -->
+            </ion-label>
+
+            <!-- ######-------------comment (click)="addEpic()" Tarun Tomar----------####### -->
+
+            <!-- <ion-icon (click)="addEpic()" slot="end" name="add"> </ion-icon> -->
+            <!-- <ion-icon slot="end" name="add"> </ion-icon> -->
+            <!-- <ion-icon slot="end" name="options"> </ion-icon> -->
+          </ion-item>
+        </div>
+        <div class="box" *ngFor="let epic of projectEpics">
+          <ion-item lines="none">
+            <ion-icon slot="start" name="flash" style="color: #575fcf; margin-left: -20px">
+            </ion-icon>
+            <!-- #####-------------Tarun Tomar -----------#### -->
+
+            <!-- <ion-label style="
+                color: var(--ion-color-dark);
+                height: 30px;
+                line-height: 30px;
+                cursor: pointer;
+              " (click)="viewEpicDetails(epic)">
+              {{epic.name}}
+            </ion-label> -->
+            <ion-label style="
+                color: var(--ion-color-dark);
+                height: 30px;
+                line-height: 30px;
+                cursor: pointer;
+              ">
+              {{epic.name}}
+            </ion-label>
+
+          </ion-item>
+        </div>
+      </ion-col>
+      <ion-col size="9.5" style="padding-left: 0px">
+        <div class="wrapper1" id="topScroller">
+          <div class="div1" [style.width]="ganttWidth+'px'"></div>
+        </div>
+        <svg id="gantt" style="min-height: 100%" [ngClass]="1 === 1 ? 'ganttTest': 'null'"></svg>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div *ngIf="segment === 'backlog'">
+    <ion-row style="height: 100%">
+      <ion-col size="2.5" style="
+          padding-right: 0px;
+          border-right: 0.5px solid #747474;
+          overflow-y: scroll;
+        " [style.height]="windowHeight" class="scroll">
+        <!-- [style.overflow-y]="windowHeight > 0? 'scroll': 'hidden'"  -->
+        <ion-row>
+          <ion-col size="12">
+            <ion-item lines="none">
+              <ion-label style="color: var(--ion-color-dark)">
+                Epics
+              </ion-label>
+              <ion-button (click)="addEpic()" slot="end" fill="clear">
+
+                <!-- ####--------comment by Tarun Tomar -----------#### -->
+
+                <!-- <ion-icon name="add" color="dark"></ion-icon> -->
+                <ion-icon color="dark"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let epic of projectEpics; index as i" style="margin-left: 10px">
+          <ion-col size="12" style="padding: 0px" [ngClass]="(i === selectedEpicIndex) ? 'selected' : 'notSelected'">
+            <ion-item lines="none">
+              <ion-icon slot="start" name="flash" style="margin-left: -10px; margin-right: 5px" color="dark"
+                (click)="selectEpic(epic, i)">
+              </ion-icon>
+              <ion-label class="ion-text-wrap" style="color: var()" (click)="selectEpic(epic, i)">
+                {{epic.name}}
+              </ion-label>
+              <!-- Tarun Tomar -->
+               
+              
+              <!-- <ion-icon slot="end" name="ellipsis-vertical-outline" style="margin-right: -5px; font-size: 20px"
+                (click)="viewEpicDetails(epic)">
+              </ion-icon> -->
+              <ion-icon slot="end"  style="margin-right: -5px; font-size: 20px"
+                (click)="viewEpicDetails(epic)">
+              </ion-icon>
+            </ion-item>
+            <ion-progress-bar value="0.3" color="tertiary"></ion-progress-bar>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="2.5" style="
+          padding-right: 0px;
+          border-right: 0.5px solid #747474;
+          overflow-y: scroll;
+        " [style.height]="windowHeight" class="scroll">
+        <!-- [style.overflow-y]="windowHeight > 0? 'scroll': 'hidden'"  -->
+        <ion-row>
+          <ion-col size="12">
+            <ion-item lines="none">
+              <ion-label style="color: #ccc"> Stories </ion-label>
+
+              <!-- ##############-----------------------Tarun Tomar Changes-----##### -->
+
+              <ion-button (click)="addStory()" slot="end" fill="clear">
+                <!-- <ion-icon name="add" color="dark"></ion-icon> -->
+                <ion-icon color="dark"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let story of epicStories; index as i" style="margin: 0px 10px">
+          <ion-col size="12" style="padding: 0px" [ngClass]="(i === selectedStoryIndex) ? 'selected' : 'notSelected'">
+            <ion-item lines="none" (click)="selectStory(story, i)">
+              <ion-icon slot="start" name="bookmark" style="margin-left: -10px; margin-right: 5px" color="success">
+              </ion-icon>
+              <ion-label class="ion-text-wrap" style="color: var()">
+                {{story.name}}
+              </ion-label>
+
+              <!-- ##############-----------------------Tarun Tomar Changes-----##### -->
+
+              <!-- <ion-icon slot="end" name="ellipsis-vertical-outline" style="margin-right: -5px; font-size: 20px"
+                (click)="viewStoryDetails(story)">
+              </ion-icon> -->
+              <ion-icon slot="end" style="margin-right: -5px; font-size: 20px" (click)="viewStoryDetails(story)">
+              </ion-icon>
+            </ion-item>
+            <ion-progress-bar value="0.3" color="success"></ion-progress-bar>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="7" style="
+          padding-right: 0px;
+          border-right: 0.5px solid #747474;
+          overflow-y: scroll;
+        " [style.height]="windowHeight" class="scroll">
+        <!-- [style.overflow-y]="windowHeight > 0? 'scroll': 'hidden'"  -->
+        <ion-row>
+          <ion-col size="12">
+            <ion-item lines="none">
+              <ion-label style="color: #ccc"> Tasks </ion-label>
+
+              <!-- //---------------Tarun Tomar Changes-----##### -->
+
+              <ion-button (click)="addStoryTask()" slot="end" fill="clear">
+                <!-- <ion-icon name="add" color="dark"></ion-icon> -->
+                <ion-icon color="dark"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let task of storyTasks; index as i" style="margin: 0px 10px">
+          <ion-col size="12" style="padding: 0px">
+            <!--//-----------------------Tarun Tomar comment-----##### -->
+
+            <!-- <ion-item lines="none" style="
+                border-bottom: 0.5px solid rgb(102, 102, 102);
+                cursor: pointer;
+              " (click)="viewTaskDetails(task, null)"> -->
+            <ion-item lines="none" style="
+                border-bottom: 0.5px solid rgb(102, 102, 102);
+                cursor: pointer;
+              ">
+              <ion-icon slot="start" name="checkbox" style="margin-left: -10px; margin-right: 5px" color="secondary">
+              </ion-icon>
+              <ion-label class="ion-text-wrap" style="color: var(); font-weight: 600">
+                {{task.projectTaskNumber}} - {{task.taskName}}
+              </ion-label>
+              <ion-avatar slot="end">
+                <img
+                  [src]="getAssigneeDetails(task, 'image') || 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'" />
+              </ion-avatar>
+              <!-- <ion-icon slot="end" name="ellipsis-vertical-outline" style="margin-right: -5px;font-size: 20px;">
+              </ion-icon> -->
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <!-- <ion-col size="7.5" style="padding-left: 0px;">
+
+      </ion-col> -->
+    </ion-row>
+  </div>
+  <div *ngIf="segment === 'list'" style="padding-bottom: 0px">
+    <table class="tg">
+      <thead>
+        <tr style="
+            background-color: var(--ion-color-light);
+            position: sticky;
+            top: 0px;
+            z-index: 9999999999999;
+          ">
+          <!-- <th class="tg-hpky"></th> -->
+          <th class="tg-hpky">Id</th>
+          <th class="tg-hpky">Epic</th>
+          <th class="tg-hpky">Story</th>
+          <th class="tg-hpky">Task</th>
+          <th class="tg-hpky">Assignee</th>
+          <th class="tg-hpky">Estimated Hours</th>
+          <th class="tg-hpky">Status</th>
+          <th class="tg-hpky">Priority</th>
+          <th class="tg-hpky">Planned End Date</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="projectMembers.length > 0">
+        <tr *ngFor="let epic of epicTasksList; index as i">
+
+          <!-- ///---comment by tarun  -----------//// -->
+
+          <!-- <td class="tg-0pky">
+            <ion-checkbox [(ngModel)]="epic['checkedForSprint']" (ngModelChange)="createSprint()" color="dark">
+            </ion-checkbox>
+          </td>         -->
+          <!-- <td class="tg-0pky">
+            <ion-checkbox color="dark">
+            </ion-checkbox>
+          </td> -->
+
+          <td class="tg-0pky" (click)="viewTaskDetails(epic, null)"
+            [style.background]="getTeamBoardColumns(epic.columnId) === 'Done'? '#2ecc71': getTeamBoardColumns(epic.columnId) === 'In Progress'? '#e67e22': getTeamBoardColumns(epic.columnId) === 'Testing'? '#3498db':''">
+            {{epic.projectTaskNumber}}
+          </td>
+          <td class="tg-0pky">
+            {{epic.epicName}}
+          </td>
+          <td class="tg-0pky">
+            {{epic.storyName}}
+          </td>
+          <td class="tg-0pky">
+            {{epic.taskName}}
+          </td>
+          <td class="tg-0pky" style="font-weight: bold">
+            {{getListAssigneeDetails(epic, 'assignee', 'firstName')}}
+          </td>
+          <td class="tg-0pky">
+            {{epic.estimatedHours}}
+          </td>
+          <td class="tg-0pky">
+            {{getTeamBoardColumns(epic.columnId)}}
+          </td>
+          <td class="tg-0pky" style="text-align: center; padding: 0px !important">
+
+            <ion-chip *ngIf="epic.priority === 2">
+              <ion-icon name="radio-button-on-outline" color="danger"></ion-icon>
+              <ion-label>High</ion-label>
+            </ion-chip>
+            <ion-chip *ngIf="epic.priority === 1">
+              <ion-icon name="radio-button-on-outline" color="warning"></ion-icon>
+              <ion-label>Medium</ion-label>
+            </ion-chip>
+            <ion-chip *ngIf="epic.priority === 0">
+              <ion-icon name="radio-button-on-outline" color="secondary"></ion-icon>
+              <ion-label>Low</ion-label>
+            </ion-chip>
+            <ion-chip *ngIf="epic.priority === 3">
+              <ion-icon name="radio-button-on-outline" color="tertiary"></ion-icon>
+              <ion-label>Hold</ion-label>
+            </ion-chip>
+          </td>
+          <!-- //-----Tarun  changes -----## -->
+          <td class="tg-0pky">
+            {{epic.dueDate}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <table>
+  <tr *ngFor="let epic of projectEpics; index as i">
+    <td>{{epic.name}}</td>
+  </tr>
+</table> -->
+  </div>
+  <div *ngIf="segment === 'board'" style="padding-bottom: 200px">
+    <div class="root">
+      <div class="board">
+        <div class="board-wrapper">
+          <div class="board-columns" cdkDropListGroup>
+            <div class="board-column" *ngFor="let column of teamBoardColumns; let c = index;" #boards id="boards"
+              style="background: transparent">
+              <div class="column-title" style="position: sticky; top: 0px">
+                <ion-item lines="none" (click)="addTask()" style="background: var(--ion-color-white)">
+                  <ion-label style="color: var(); font-size: 16px">
+                    {{ column.columnName }}
+                  </ion-label>
+                </ion-item>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ion-accordion-group [value]="k" [multiple]="true" style="margin-bottom: 0px"
+      *ngFor="let story of epicStories;let k = index">
+      <ion-accordion [value]="k">
+        <ion-item slot="header" lines="none">
+          <ion-icon slot="start" name="bookmark" style="margin-left: -10px; margin-right: 5px" color="success">
+          </ion-icon>
+          <ion-label style="font-size: 18px !important">{{story.name}}</ion-label>
+        </ion-item>
+        <div slot="content" style="margin-bottom: 20px; margin-top: 20px">
+          <div class="root">
+            <div class="board">
+              <div class="board-wrapper">
+                <div class="board-columns" cdkDropListGroup>
+                  <div class="board-column" *ngFor="let column of story.columnTasks; let c = index;">
+                    <div class="tasks-container" cdkDropList id="{{column.columnId}}" [cdkDropListData]="column.tasks"
+                      (cdkDropListDropped)="drop($event)">
+                      <div class="task" *ngFor="let item of column.tasks; let i = index;" cdkDrag
+                        [style.border]="item.status === '1'? '1px solid green': ''">
+                        <ion-item lines="none" style="
+                            background: var(--ion-color-white);
+                            border-radius: 0px;
+                            padding-top: 5px;
+                          ">
+                          <!-- <ion-icon slot="start" color="dark" style="font-size:20px" cdkDragHandle name="apps-outline">
+                           </ion-icon> -->
+
+
+                          <!----//-------Tarun Tomar Comment ----------------//// -->
+
+                          <!-- <ion-avatar slot="start" (click)="assignTaskOverlay(item,i)" cdkOverlayOrigin
+                            #trigger="cdkOverlayOrigin">
+                            <img
+                              [src]="getAssigneeDetails(item, 'image') || 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'" />
+                          </ion-avatar> -->
+
+                          <ion-avatar slot="start" cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+                            <img
+                              [src]="getAssigneeDetails(item, 'image') || 'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'" />
+                          </ion-avatar>
+                          <ng-template *ngIf="i === item.index" cdkConnectedOverlay
+                            [cdkConnectedOverlayOrigin]="trigger" [cdkConnectedOverlayOpen]="item.isOpen"
+                            (overlayOutsideClick)="item.isOpen = false">
+                            <div class="example-overlay">
+                              <ion-item lines="none">
+                                <ion-label style="color: #ccc">
+                                  Assignee
+                                </ion-label>
+                                <ion-icon name="close" (click)="item.isOpen = !item.isOpen">
+                                </ion-icon>
+                              </ion-item>
+                              <ion-toolbar>
+                                <ion-searchbar placeholder="Search Name" debounce="1000"
+                                  style="padding: 0px 5px !important" (ionChange)="assignMember($event)">
+                                </ion-searchbar>
+                              </ion-toolbar>
+                              <ion-row *ngFor="let user of projectMembers1; index as i"
+                                [ngClass]="(i % 2 === 0) ? 'odd' : 'even'" style="
+                                  background: var(--ion-color-light);
+                                  border-radius: 10px;
+                                  margin: 10px;
+                                " (click)="assignTask(item, user)">
+                                <ion-item lines="none" style="width: 100%; cursor: pointer">
+                                  <ion-avatar slot="start">
+                                    <img [src]="user.image" />
+                                  </ion-avatar>
+                                  <ion-label style="color: var()">
+                                    {{user.firstName || ''}} {{user.lastName ||
+                                    ''}}
+                                  </ion-label>
+                                </ion-item>
+                              </ion-row>
+                            </div>
+                          </ng-template>
+
+                          <ion-label style="color: #4bcffa" cdkDragHandle>
+                            {{getAssigneeDetails(item, 'firstName')}}
+                            <!-- {{getAssigneeDetails(item, 'lastName')}} -->
+                          </ion-label>
+                          <ion-note slot="end" style="font-size: 12px; font-weight: bold" color="warning">
+                            {{item.dueDate | date:'dd MMM'}}
+                          </ion-note>
+                          <!-- <ion-icon slot="end" name="checkmark-circle-outline" (click)="updateTaskStatus(item)"
+                            [color]="item.status? 'success': 'dark'">
+                          </ion-icon> -->
+                        </ion-item>
+
+
+                        <!-- //----comment by Tarun Tomar  -----//// -->
+
+                        <div style="
+                            width: 100%;
+                            padding: 10px;
+                            font-size: 16px;
+                            color: var();
+                            font-weight: 200;
+                          " cdkDragHandle>
+                          <!-- <div style="
+                            width: 100%;
+                            padding: 10px;
+                            font-size: 16px;
+                            color: var();
+                            font-weight: 200;
+                          " (click)="viewTaskDetails(item,story)" cdkDragHandle> -->
+                          <span style="font-weight: bold">{{item.projectTaskNumber}}</span>
+                          - {{item.taskName}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </div>
+  <div *ngIf="segment === 'sprints'">
+    <app-project-dashborad [teamBoardColumns]="teamBoardColumns" [epicTasksListOriginal]="epicTasksListOriginal"
+      [sprintTasks]="sprintTasks" [projectMembers]="projectMembers" [storyTasks]="storyTasks"
+      [selectedStory]="selectedStory" [epicTasksList]="epicTasksList" [epicStories]="epicStories"
+      [selectedTasks]="selectedTasks" [projectId]="projectId" [sprintSegment]="sprintSegment">
+    </app-project-dashborad>
+  </div>
+
+  <!-- Project's Notes (Sonali)-->
+
+  <div *ngIf="segment === 'notes'" style="padding-bottom: 0px">
+    <table class="tg">
+      <thead>
+        <tr style="
+            background-color: var(--ion-color-light);
+            position: sticky;
+            top: 0px;
+            z-index: 9999999999999;
+          ">
+          <th class="tg-hpky" style="width: 70%">Title</th>
+          <th class="tg-hpky">Updated Date</th>
+          <th class="tg-hpky">Created Date</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="responseLength === 0" style="text-align: center">
+        <h6>No Note Added</h6>
+      </tbody>
+      <tbody>
+        <tr *ngFor="let Note of allNotes; index as i">
+          <td class="tg-0pky" (click)="editNote(Note)">{{Note.title}}</td>
+          <td class="tg-0pky" (click)="editNote(Note)">
+            {{Note.updatedAt | date:'dd MMM, yyyy'}}
+          </td>
+          <td class="tg-0pky" (click)="editNote(Note)">
+            {{Note.createdAt | date:'dd MMM, yyyy'}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="segment === 'members'">
+    <ion-row>
+      <ion-col sizeLg="10" offsetLg="1" *ngIf="segment==='members'">
+        <div>
+          <ion-row style="
+              z-index: 999999999;
+              background-color: transparent;
+              color: var(--ion-color-light);
+              margin: 0px;
+            ">
+            <ion-col size="12" style="background: transparent">
+              <ion-toolbar color="gray">
+                <ion-searchbar placeholder="Search Employee" debounce="500" (ionChange)="searchEmployee($event)">
+                </ion-searchbar>
+              </ion-toolbar>
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let user of projectMembers; index as i" [ngClass]="(i % 2 === 0) ? 'odd' : 'even'" style="
+              background: var(--ion-color-light);
+              border-radius: 10px;
+              margin: 10px;
+            ">
+            <ion-col size="3" style="border-right: 1px solid rgb(63 68 73)">
+              <ion-item lines="none" style="width: 100%">
+                <ion-avatar slot="start">
+                  <img
+                    [src]="user.imageExists ? authService.apiUrl+'images/'+user.employeeId+'.png' : authService.apiUrl+'images/0.png'" />
+                </ion-avatar>
+                <ion-label style="color: var()">
+                  {{user.firstName}} {{user.lastName}}
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col size="2" style="border-right: 1px solid rgb(63 68 73)">
+              <ion-item lines="none" style="width: 100%">
+                <!-- <ion-checkbox style="color: var()" [(ngModel)]="user.billable" (ionChange)="selectBillable(user)"
+                  [disabled]="enableFields"></ion-checkbox>
+                <ion-label style="color: var()">Billable</ion-label> -->
+              </ion-item>
+            </ion-col>
+            <ion-col size="2" style="border-right: 1px solid rgb(63 68 73)">
+              <ion-item lines="none" style="width: 100%">
+                <ion-input type="number" placeholder="Hrs Assigned" [(ngModel)]="user.hoursAssign"
+                  style="border: none; background: var(--ion-color-light)" (ionChange)="selectHours(user)"
+                  [disabled]="enableFields"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size="4" style="border-right: 1px solid rgb(63 68 73)">
+              <ion-select *ngIf="!checkInTeam(user)" style="color: var(--ion-color-dark)" interface="popover"
+                [(ngModel)]="user.type" placeholder="Select Role" (ionChange)="selectRole(user)"
+                [disabled]="enableFields">
+                <ion-select-option value="Frontend">Frontend Developer</ion-select-option>
+                <ion-select-option value="Backend">Backend Developer</ion-select-option>
+                <ion-select-option value="Functional">Functional Consultant</ion-select-option>
+                <ion-select-option value="Tester">Tester/QA</ion-select-option>
+                <ion-select-option value="Manager">Project Manager</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="1">
+              <ion-item lines="none" style="width: 100%">
+                <ion-button *ngIf="checkInTeam(user)" slot="end" fill="clear" (click)="addEmployeeTeam(user)"
+                  [disabled]="enableFields">
+                  <!-- <ion-icon color="success" name="add"></ion-icon> -->
+                </ion-button>
+                <ion-button *ngIf="!checkInTeam(user)" slot="end" fill="clear" (click)="removeProjectMember(user)"
+                  [disabled]="enableFields">
+                  <ion-icon color="danger" name="close"></ion-icon>
+                </ion-button>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!-- </ion-item> -->
+          <!-- </ion-row> -->
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <!-- Project's Docs (Sonali)-->
+
+  <div *ngIf="segment === 'docs'" style="padding-bottom: 0px">
+    <table class="tg">
+      <thead>
+        <tr style="
+            background-color: var(--ion-color-light);
+            position: sticky;
+            top: 0px;
+            z-index: 9999999999999;
+          ">
+          <th class="tg-hpky" style="width: 60%">Original Name</th>
+          <th class="tg-hpky" style="width: 10%">Mime Type</th>
+          <th class="tg-hpky" style="width: 10%">Size</th>
+          <th class="tg-hpky" style="width: 10%">Date</th>
+          <th class="tg-hpky" style="width: 10%"></th>
+          <!-- <th class="tg-hpky">Date</th> -->
+        </tr>
+      </thead>
+      <tbody *ngIf="allDocs.length === 0" style="text-align: center">
+        <h6>No Document Added</h6>
+      </tbody>
+      <tbody>
+        <tr *ngFor="let document of allDocs; index as i" (click)="openDocument(document)">
+          <td class="tg-0pky">{{document.originalname}}</td>
+          <td class="tg-0pky">{{document.mimetype}}</td>
+          <td class="tg-0pky">{{document.size/1000}} kb</td>
+          <td class="tg-0pky">{{document.date | date:'dd MMM, yyyy'}}</td>
+          <td class="tg-0pky">
+
+            <!---- comment by tarun tomar----/// -->
+
+            <!-- <ion-icon name="trash-outline" color="danger"></ion-icon> -->
+            <ion-icon color="danger"></ion-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ion-content>
+
+<!-- <ion-footer *ngIf="segment === 'dashboard'">
+  <ion-toolbar>
+    <ion-row>
+      <ion-col style="border: 2px solid var(--ion-color-light);">
+        <ion-select style="font-size:16px;" value="all" (ionChange)="selectEpicTasks($event)">
+          <ion-select-option value="all">All Epics</ion-select-option>
+          <ion-select-option *ngFor="let epic of projectEpics; index as i" [value]="epic.id">{{epic.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col style="border: 2px solid var(--ion-color-light);">
+        <ion-select style="font-size:16px;" value="all" (ionChange)="selectListColumns($event)">
+          <ion-select-option value="all">All Statuses</ion-select-option>
+          <ion-select-option *ngFor="let column of teamBoardColumns; index as i" [value]="column.columnId">
+            {{column.columnName}}
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer> -->
+<ion-footer *ngIf="segment === 'list'">
+  <ion-toolbar>
+    <ion-row>
+      <ion-col size="2" style="border: 2px solid var(--ion-color-light)">
+        <ion-item lines="none">
+
+          <ion-select style="font-size: 16px" value="all" (ionChange)="selectEpicTasks($event)">
+            <ion-select-option value="all">All Epics</ion-select-option>
+            <ion-select-option *ngFor="let epic of projectEpics; index as i" [value]="epic.id">{{epic.name}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="2" style="border: 2px solid var(--ion-color-light)">
+        <ion-item lines="none">
+          <ion-select style="font-size: 16px" value="all" (ionChange)="selectListColumns($event)">
+            <ion-select-option value="all">All Statuses</ion-select-option>
+            <ion-select-option *ngFor="let column of teamBoardColumns; index as i" [value]="column.columnId">
+              {{column.columnName}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="8" style="border: 2px solid var(--ion-color-light)">
+        <!-- <ion-button size="small" fill="outline" color="success">
+            Create Sprint
+          </ion-button> -->
+        <!-- <ion-button size="small" fill="outline" color="success" (click)="assignTaskNumbers()"> -->
+        <ion-item lines="none">
+
+          <ion-chip *ngFor="let assignee of sprintTasksAssignmentIds">
+            <ion-avatar>
+              <img [src]="authService.apiUrl+'images/'+assignee+'.png' || authService.apiUrl+'images/0.png'">
+            </ion-avatar>
+            <ion-label> {{sprintTasksAssignment[assignee]}} Hrs</ion-label>
+          </ion-chip>
+
+          <!-- <ion-icon name="close-circle"></ion-icon> -->
+
+
+          <ion-button slot="end" size="small" fill="outline" color="success" *ngIf="sprintTasksAssignmentIds.length > 0"
+            (click)="gotoCreateSprint()">
+            Create Sprint
+          </ion-button>
+        </ion-item>
+        <!-- {{estimatedHours}} -->
+        <!-- <ion-button size="small" disabled fill="clear" color="dark">
+          Estimated Hours : {{estimatedHours}}
+        </ion-button> -->
+        <!--<ion-text>
+            Day
+          </ion-text> -->
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
+
+<ion-footer *ngIf="segment === 'list'">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="toggleMenuButton()">
+        <ion-icon *ngIf="toggleMenu" name="arrow-back-circle-outline"></ion-icon>
+        <ion-icon *ngIf="!toggleMenu" name="arrow-forward-circle-outline"></ion-icon>
+      </ion-button>
+
+
+      <ion-button color="dark" (click)="downloadExcel()">
+        <ion-icon slot="start" name="cloud-download-outline"></ion-icon>
+        Download Excel
+      </ion-button>
+    </ion-buttons>
+
+    <ion-avatar slot="end" style="
+        height: 40px;
+        width: 40px;
+        padding: 2px;
+        margin: 2px;
+        cursor: pointer;
+      " *ngFor="let member of projectMembers" (click)="selectMemberTasks(member)"
+      [style.border]="member.selected ? '2px solid red': '0px solid red'">
+      <img [src]="member.image" [title]="member.firstName" />
+    </ion-avatar>
+  </ion-toolbar>
+</ion-footer>
+<ion-footer *ngIf="segment === 'board'">
+  <!-- || segment === 'backlog' -->
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="toggleMenuButton()">
+        <ion-icon *ngIf="toggleMenu" name="arrow-back-circle-outline"></ion-icon>
+        <ion-icon *ngIf="!toggleMenu" name="arrow-forward-circle-outline"></ion-icon>
+      </ion-button>
+
+
+
+      <ion-button color="dark" (click)="downloadExcel()">
+
+        <ion-icon slot="start" name="cloud-download-outline"></ion-icon>
+        Download Excel
+      </ion-button>
+    </ion-buttons>
+
+    <ion-avatar slot="end" style="
+        height: 40px;
+        width: 40px;
+        padding: 2px;
+        margin: 2px;
+        cursor: pointer;
+      " *ngFor="let member of projectMembers" (click)="selectMemberTasks(member)"
+      [style.border]="member.selected ? '2px solid red': '0px solid red'">
+      <img [src]="member.image" [title]="member.firstName" />
+    </ion-avatar>
+  </ion-toolbar>
+</ion-footer>
+
+<!-- Project's notes (Sonali)-->
+
+<ion-footer *ngIf="segment === 'notes'">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="toggleMenuButton()">
+        <ion-icon *ngIf="toggleMenu" name="arrow-back-circle-outline"></ion-icon>
+        <ion-icon *ngIf="!toggleMenu" name="arrow-forward-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button size="small" slot="end" fill="outline" color="dark" (click)="addNote()">
+        <ion-icon name="add-outline"></ion-icon>Add Note
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+
+<!-- Project's Docs (Sonali)-->
+
+<ion-footer *ngIf="segment === 'docs'">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="toggleMenuButton()">
+        <ion-icon *ngIf="toggleMenu" name="arrow-back-circle-outline"></ion-icon>
+        <ion-icon *ngIf="!toggleMenu" name="arrow-forward-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="dark">
+        <input id="file" type="file" (change)="handleFileSelect($event)" multiple />
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+
+<ion-footer *ngIf="segment === 'roadmap'">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="dark" (click)="toggleMenuButton()">
+        <ion-icon *ngIf="toggleMenu" name="arrow-back-circle-outline"></ion-icon>
+        <ion-icon *ngIf="!toggleMenu" name="arrow-forward-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="gray">
+        <ion-icon name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-segment [(ngModel)]="ganttMode" (ngModelChange)="change_view_mode(ganttMode)">
+      <ion-segment-button value="Day">
+        <ion-text> Day </ion-text>
+      </ion-segment-button>
+      <ion-segment-button value="Week">
+        <ion-text> Week </ion-text>
+      </ion-segment-button>
+      <ion-segment-button value="Month">
+        <ion-text> Month </ion-text>
+      </ion-segment-button>
+    </ion-segment>
+
+    <!-- <ion-button (click)="change_view_mode('Day')" size="small" slot="end" fill="outline" color="dark">
+      Day
+    </ion-button>
+    <ion-button (click)="change_view_mode('Week')" size="small" slot="end" fill="outline" color="dark">
+      Week
+    </ion-button>
+    <ion-button (click)="change_view_mode('Month')" size="small" slot="end" fill="outline" color="dark">
+      Month
+    </ion-button> -->
+  </ion-toolbar>
+</ion-footer>

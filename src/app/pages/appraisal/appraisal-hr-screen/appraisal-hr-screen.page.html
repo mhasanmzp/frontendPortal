@@ -1,0 +1,118 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Hr Screen</ion-title>
+    <ion-button
+      size="default"
+      fill="outline"
+      color="dark"
+      style="height: 35px; float: right"
+      (click)="initiate()"
+    >
+      Initiate </ion-button
+    >&nbsp;
+    <ion-button
+      size="default"
+      fill="outline"
+      color="dark"
+      style="height: 35px; float: right"
+      (click)="create()"
+    >
+      Work Flow Setup
+    </ion-button>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-row style="width: 100%">
+      <ion-col size="6">
+        <ion-item lines="none">
+          <ion-select
+            style="
+              width: 100%;
+              background: var(--ion-color-light);
+              color: var(--ion-color-dark);
+              font-weight: 300;
+              border: 0.5px solid rgb(83, 83, 83);
+              border-radius: 5px;
+              padding: 7px;
+            "
+            placeholder="Select Department"
+            (ionChange)="onSelectionChange($event)"
+          >
+            <ion-select-option
+              value="{{department.name}}"
+              *ngFor="let department of fetch"
+            >
+              {{department.name}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-searchbar
+          (change)="searchEmployee($event)"
+          debounce="100"
+          placeholder="Search Employee"
+          [(ngModel)]="filterTerm"
+        ></ion-searchbar>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid class="ion-margin hidden-sm-down">
+    <ion-row class="color">
+      <ion-col size="1">ID</ion-col>
+      <ion-col size="2">Name</ion-col>
+      <ion-col size="2">Department</ion-col>
+      <ion-col size="2">Designation</ion-col>
+      <ion-col size="2">Created At</ion-col>
+      <ion-col size="2">Appraisal ID</ion-col>
+      <ion-col size="1">Status</ion-col>
+    </ion-row>
+    <br />
+    <ion-row
+      *ngFor="let user of fetchEmployee | filter: filterTerm"
+      style="padding: 15px; font-weight: bold; text-align: center"
+      (click)="viewForm(user)"
+    >
+      <ion-col size="1" style="padding: 0px">
+        <ion-label> {{user.employeeId}} </ion-label>
+      </ion-col>
+      <ion-col size="2" style="padding: 0px">
+        <ion-label> {{user.name}} </ion-label>
+      </ion-col>
+      <ion-col size="2" style="padding: 0px">
+        <ion-label> {{user.department}} </ion-label>
+      </ion-col>
+      <ion-col size="2" style="padding: 0px">
+        <ion-label> {{user.designation}} </ion-label>
+      </ion-col>
+      <ion-col size="2" style="padding: 0px">
+        <ion-label> {{ user.createdAt | date:'yyyy-MM-dd' }} </ion-label>
+      </ion-col>
+      <ion-col size="1.5" style="padding: 0px">
+        <ion-label> {{user.appraisalId}} </ion-label>
+      </ion-col>
+      <ion-col size="1.5" style="padding: 0px">
+        <ion-label> {{user.status}} </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<!-- <ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="downloadList()"
+        fill="outline"
+        color="dark"
+        expand="block"
+        style="font-weight: 300; width: 80px"
+      >
+        Generate
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer> -->

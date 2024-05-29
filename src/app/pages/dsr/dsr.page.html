@@ -1,0 +1,178 @@
+<ion-header>
+  <ion-toolbar color="gray">
+    <ion-title>Daily Status Reports</ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="gray">
+    <ion-searchbar placeholder="Search Employee"></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar color="gray">
+    <ion-row>
+      <ion-col size="2" style="border: 1px solid rgb(37 38 40);
+      background-color: var(--ion-color-light);
+      padding: 0px;">
+        <ion-item lines="none">
+          <ion-select placeholder="Select team" [(ngModel)]="status" style="color: var(--ion-color-dark);width: 100%;" multiple>
+            <!-- <ion-select-option style="color: var(--ion-color-dark);font-weight: bold;" value="1">All Teams</ion-select-option> -->
+            <ion-select-option style="color: var(--ion-color-dark);font-weight: bold;" value="1">New</ion-select-option>
+            <ion-select-option style="color: var(--ion-color-dark);font-weight: bold;" value="2">Approved</ion-select-option>
+            <ion-select-option style="color: var(--ion-color-dark);font-weight: bold;" value="3">Rejected</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6" style="border: 1px solid rgb(37 38 40);
+      background-color: var(--ion-color-light);
+      padding: 0px;">
+        <ion-item lines="none">
+          <ion-select placeholder="Select team" [(ngModel)]="team" style="color: var(--ion-color-dark);width: 100%;" multiple>
+            <!-- <ion-select-option style="color: var(--ion-color-dark);font-weight: bold;" value="1">All Teams</ion-select-option> -->
+            <ion-select-option style="color: var(--ion-color-dark);font-weight: bold;" value="1">Development Team</ion-select-option>
+            <ion-select-option style="color: var(--ion-color-dark);font-weight: bold;" value="2">Marketing Team</ion-select-option>
+            <ion-select-option style="color: var(--ion-color-dark);font-weight: bold;" value="3">Sales Team</ion-select-option>
+            <ion-select-option style="color: var(--ion-color-dark);font-weight: bold;" value="4">Leadership Team</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="4" style="border: 1px solid rgb(37 38 40);
+      background-color: var(--ion-color-light);
+      padding: 0px;">
+        <ion-item lines="none">
+          <ion-button (click)="openCalendar()" expand="block" fill="clear" color="light">
+            {{date}}
+          </ion-button>
+          <!-- <ion-input [(ngModel)]="date" (change)="getDate($event)" type="date" style="color: #ccc;font-weight: bold;">
+          </ion-input> -->
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <div style="padding: 20px;">
+    <ion-accordion-group *ngFor="let employee of dsrEmployees" style="margin-bottom: 5px;">
+      <ion-accordion value="first">
+        <ion-item slot="header" lines="none">
+          <ion-avatar slot="start">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFMEVXuFb_tRXt584wK0LUfXhUWC5XkZyvyHV5LZBi4xzkbd4RNT_gSxr_337y8fZUccw&usqp=CAU">
+          </ion-avatar>
+          <!-- <ion-icon style="margin-right: 10px;cursor: pointer;color: #737373;" slot="start" name="close-circle-outline"></ion-icon> -->
+          <!-- <ion-icon style="margin-right: 10px;cursor: pointer;color: #737373"  slot="start" name="checkmark-circle-outline"></ion-icon> -->
+          <ion-label style="font-size: 18px !important;">{{employee.firstName}} {{employee.lastName}}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content" class="expandedDSR">
+          <ion-item lines="none" class="ion-text-wrap" *ngFor="let task of employee.task;let i = index;">
+            <ion-note slot="start" style="font-weight: 300;font-size: 12px;">
+              {{i+1}}
+            </ion-note>
+            <ion-icon (click)="rejectTask(task)" style="margin-right: 10px;cursor: pointer;"  
+            [color]="task.status == 2 ? 
+            'danger' : 'light'" slot="start" name="close-circle-outline"></ion-icon>
+            <ion-icon (click)="acceptTask(task)" style="margin-right: 10px;cursor: pointer;" 
+            [color]="task.status == 1 ? 
+            'success' : 'light'"  slot="start" name="checkmark-circle-outline"></ion-icon>
+            <ion-label class="ion-text-wrap">{{task.taskName}}</ion-label>
+            <ion-note slot="end" style="font-weight: 300;font-size: 12px;text-align: right;">
+              SpotYourDeal <br> {{parseFloat(task.hours)}} hrs
+            </ion-note>
+            <ion-note slot="end" style="font-weight: 300;font-size: 12px;">
+              {{task.from | date:'HH:mm a'}} - {{task.to | date:'HH:mm a'}} <br> {{task.date | date:'dd MMM, yyyy'}}
+            </ion-note>
+            <ion-note slot="end" style="font-weight: 300;font-size: 12px;text-align: right;">
+              {{task.approverName}} <br> {{task.approvedDate | date:'dd MMM, yyyy'}}
+            </ion-note>
+          </ion-item>
+          <!-- <ion-item lines="none">
+            <ion-note slot="start" style="font-weight: 300;font-size: 12px;">
+              2
+            </ion-note>
+            <ion-icon style="margin-right: 10px;cursor: pointer;" slot="start" name="close-circle-outline"></ion-icon>
+            <ion-icon style="margin-right: 10px;cursor: pointer;color: #737373"  slot="start" name="checkmark-circle-outline"></ion-icon>
+            <ion-label>Chat message date not showing</ion-label>
+            <ion-note slot="end" style="font-weight: 300;font-size: 12px;text-align: right;">
+              iDMX <br> 2 hrs
+            </ion-note>
+            <ion-note slot="end" style="font-weight: 300;font-size: 12px;">
+              1:30 PM - 4:30 PM <br> 2 Aug, 2022
+            </ion-note>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-note slot="start" style="font-weight: 300;font-size: 12px;">
+              3
+            </ion-note>
+            <ion-icon style="margin-right: 10px;cursor: pointer;color: #737373;" slot="start" name="close-circle-outline"></ion-icon>
+            <ion-icon style="margin-right: 10px;cursor: pointer;color: #737373"  slot="start" name="checkmark-circle-outline"></ion-icon>
+            <ion-label>Feeds page not scrolling back to top when segment change</ion-label>
+            <ion-note slot="end" style="font-weight: 300;font-size: 12px;text-align: right;">
+              Hr Portal <br> 2 hrs
+            </ion-note>
+            <ion-note slot="end" style="font-weight: 300;font-size: 12px;">
+              1:30 PM - 4:30 PM <br> 2 Aug, 2022
+            </ion-note>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-note slot="start" style="font-weight: 300;font-size: 12px;">
+              4
+            </ion-note>
+            <ion-icon style="margin-right: 10px;cursor: pointer;color: #737373;" slot="start" name="close-circle-outline"></ion-icon>
+            <ion-icon style="margin-right: 10px;cursor: pointer;color: #737373"  slot="start" name="checkmark-circle-outline"></ion-icon>
+            <ion-label>User chat not opening on receiving chat notification</ion-label>
+            <ion-note slot="end" style="font-weight: 300;font-size: 12px;text-align: right;">
+              SpotYourDeal <br> 2 hrs
+            </ion-note>
+            <ion-note slot="end" style="font-weight: 300;font-size: 12px;">
+              1:30 PM - 4:30 PM <br> 2 Aug, 2022
+            </ion-note>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-note slot="start" style="font-weight: 300;font-size: 12px;">
+              5
+            </ion-note>
+            <ion-icon style="margin-right: 10px;cursor: pointer;color: #737373;" slot="start" name="close-circle-outline"></ion-icon>
+            <ion-icon style="margin-right: 10px;cursor: pointer;color: #737373"  slot="start" name="checkmark-circle-outline"></ion-icon>
+            <ion-label>Remove possible duplicate users</ion-label>
+            <ion-note slot="end" style="font-weight: 300;font-size: 12px;text-align: right;">
+              SpotYourDeal <br> 2 hrs
+            </ion-note>
+            <ion-note slot="end" style="font-weight: 300;font-size: 12px;">
+              1:30 PM - 4:30 PM <br> 2 Aug, 2022
+            </ion-note>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-note slot="start" style="font-weight: 300;font-size: 12px;">
+              6
+            </ion-note>
+            <ion-icon style="margin-right: 10px;cursor: pointer;color: #737373;" slot="start" name="close-circle-outline"></ion-icon>
+            <ion-icon style="margin-right: 10px;cursor: pointer;color: #737373"  slot="start" name="checkmark-circle-outline"></ion-icon>
+            <ion-label>Blocked users cannot send message from anywhere</ion-label>
+            <ion-note slot="end" style="font-weight: 300;font-size: 12px;text-align: right;">
+              SpotYourDeal <br> 2 hrs
+            </ion-note>
+            <ion-note slot="end" style="font-weight: 300;font-size: 12px;">
+              1:30 PM - 4:30 PM <br> 2 Aug, 2022
+            </ion-note>
+          </ion-item> -->
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </div>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="tertiary">
+    <ion-item lines="none">
+      <!-- <ion-note slot="start" style="font-weight: 300;font-size: 12px;">
+        6
+      </ion-note>
+      <ion-icon style="margin-right: 10px;cursor: pointer;color: #737373;" slot="start" name="close-circle-outline"></ion-icon>
+      <ion-icon style="margin-right: 10px;cursor: pointer;color: #737373"  slot="start" name="checkmark-circle-outline"></ion-icon> -->
+      <ion-label></ion-label>
+      <ion-note slot="end" style="font-weight: 300;font-size: 12px;text-align: right;">
+        SpotYourDeal <br> 2 hrs
+      </ion-note>
+      <ion-note slot="end" style="font-weight: 300;font-size: 12px;">
+        1:30 PM - 4:30 PM <br> 2 Aug, 2022
+      </ion-note>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

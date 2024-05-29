@@ -1,0 +1,89 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Capacity Plan vs Actual </ion-title>
+    <!-- <ion-buttons slot="end" class="hidden-sm-down">
+      <ion-button  color="primary"  (click)="editDetails()" style="font-weight: 300;width: 100px;">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+ 
+  <ion-toolbar>
+    <ion-row>
+     
+      <ion-col sizeLg="4" sizeMd="12" sizeSm="12" sizeXs="12">
+
+
+        <ion-item style="--inner-border-width: 0;">
+          <ion-label style="color: #fff;font-weight: 300;">From</ion-label>
+          <ion-input type="date" [(ngModel)]="form_date" ></ion-input>
+        </ion-item>
+        </ion-col>
+        <ion-col  sizeLg="4" sizeMd="12" sizeSm="12" sizeXs="12">
+          <ion-item style="--inner-border-width: 0;">
+            <ion-label  style="color: #fff;font-weight: 300;">To</ion-label>
+            <ion-input type="date" [(ngModel)]="to_date"  ></ion-input>
+          </ion-item>
+
+          <!-- <ion-select style="background-color: var(--ion-color-light);border-radius: 20px;padding: 10px 20px;border: 1px solid #ccc;" [(ngModel)]="timeframe"
+          placeholder="Select One" (ionChange)="ngOnInit()">
+          <ion-select-option value="week">Last 1 week</ion-select-option>
+          <ion-select-option value="month">Last 1 month</ion-select-option>
+          <ion-select-option value="year">Last 1 year</ion-select-option>
+          
+
+        </ion-select> -->
+          </ion-col>
+          <ion-col  sizeLg="4" sizeMd="12" sizeSm="12" sizeXs="12">
+            <ion-button color="dark" fill="outline"  (click)="populateData()" style="height: 30px;;">&nbsp;Populate Employee</ion-button>
+            <!-- <ion-button size="default" fill="outline" color="success" type="submit" style="height: 35px;">Submit</ion-button> -->
+          </ion-col>
+        </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row style="
+        position: sticky;
+        top: 0px;
+        z-index: 999999999;
+        background-color: var(--ion-color-light);
+        color: var(--ion-color-dark);
+        margin: 0px;
+      ">
+      <ion-col size="1">S.No</ion-col>
+      <ion-col size="2">Employee Code</ion-col>
+      <ion-col size="2">Employee Name</ion-col>
+      <ion-col size="2">Department</ion-col>
+      <ion-col size="1.5">Available/Hr</ion-col>
+      <ion-col size="1.5">Allocated/Hr</ion-col>
+      <ion-col size="1">Costing/Hr</ion-col>
+      <ion-col size="1">Action</ion-col>
+      
+    </ion-row>
+    <!-- <ion-row *ngIf="customers.length === 0">
+      <ion-col size="12" style="display: flex;justify-content:center;">
+        <h6>Customers not found</h6>
+      </ion-col>
+    </ion-row> -->
+    <!-- <ion-row *ngFor="let customer of customers; index as i"
+      [ngClass]="(i % 2 == 0) ? 'odd' : 'even'"> -->
+      <ion-row *ngIf="allRequest.length==0" class="ion-align-items-center ion-justify-content-center"><p>NoData</p></ion-row>
+      <ion-row  *ngFor="let item of allRequest; index as i" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
+      <ion-col size="1">{{i+1}}</ion-col>
+      <ion-col size="2">{{item.employeeId}}</ion-col>
+      <ion-col size="2">{{item.firstName}}</ion-col>
+      <ion-col size="2">{{item.teamName}}</ion-col>
+      <ion-col size="1.5" *ngIf="!item.isEdit">{{item.availableHr}}</ion-col>
+      <ion-col size="1.5"  *ngIf="item.isEdit"><input type="text" [(ngModel)]="item.availableHr" style="width: 80px;" /></ion-col>
+      <ion-col size="1.5">{{item.allocatedPerHr}}</ion-col>
+      <ion-col size="1" *ngIf="!item.isEdit">{{item.costingPerHr}}</ion-col>
+      <ion-col size="1"  *ngIf="item.isEdit"><input type="text" [(ngModel)]="item.costingPerHr" style="width: 80px;" /></ion-col>
+     
+      <ion-col size="1" *ngIf="!item.isEdit"> <ion-icon name="create-outline" (click)="onEdit(item)"></ion-icon></ion-col>
+      <ion-col size="1" *ngIf="item.isEdit"> <ion-icon name="close-outline" (click)="oncancel(item)"></ion-icon></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="dark" defaultHref="/sales/customers"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Add Customers Details
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row style="margin-top: 50px;">
+    <ion-col sizeLg="10" offsetLg="1">
+      <form [formGroup]="basic">
+        <ion-list lines="none" style="background: transparent;">
+          <ion-row style="padding-bottom: 10px;">
+            <ion-col sizeMd="4" sizeSm="6" sizeXs="12">
+              <ion-item>
+                <ion-label position="stacked" style="color: var(--ion-color-dark);">First Name</ion-label>
+                <ion-input formControlName="firstName"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col sizeMd="4" sizeSm="6" sizeXs="12">
+              <ion-item>
+                <ion-label position="stacked" style="color: var(--ion-color-dark);">Last Name</ion-label>
+                <ion-input formControlName="lastName"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col sizeMd="4" sizeSm="6" sizeXs="12">
+              <ion-item>
+                <ion-label position="stacked" style="color: var(--ion-color-dark);">Company Name</ion-label>
+                <ion-input formControlName="companyName"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col sizeMd="4" sizeSm="6" sizeXs="12">
+              <ion-item>
+                <ion-label position="stacked" style="color: var(--ion-color-dark);">Contact No.</ion-label>
+                <ion-input type="number" max="10" formControlName="phone"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col sizeMd="4" sizeSm="6" sizeXs="12">
+              <ion-item>
+                <ion-label position="stacked" style="color: var(--ion-color-dark);">Email Id</ion-label>
+                <ion-input type="email" formControlName="email"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col sizeMd="4" sizeSm="6" sizeXs="12">
+              <ion-item>
+                <ion-label position="stacked" style="color: var(--ion-color-dark);">WebSite</ion-label>
+                <ion-input formControlName="website"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col sizeMd="4" sizeSm="6" sizeXs="12">
+              <ion-item>
+                <ion-label position="stacked" style="color: var(--ion-color-dark);">GST No.</ion-label>
+                <ion-input formControlName="gstNumber"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col sizeMd="4" sizeSm="6" sizeXs="12">
+              <ion-item>
+                <ion-label position="stacked" style="color: var(--ion-color-dark);">Password</ion-label>
+                <ion-input formControlName="password"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col sizeMd="4" sizeSm="6" sizeXs="12"></ion-col>
+            <ion-col sizeMd="4" sizeSm="6" sizeXs="12">
+              <ion-item>
+                <ion-checkbox formControlName="portalAccess" slot="start"></ion-checkbox>
+                <ion-label>Portal Access</ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row style="padding-bottom: 10px;">
+          </ion-row>
+        </ion-list>
+      </form>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-footer style="display: flex;justify-content:flex-end;">
+  <ion-button size="default" fill="outline" color="success" type="submit" style="height: 35px;"
+    (click)="submitDetails()" *ngIf="!customerDetail">
+    Submit</ion-button>
+
+  <ion-button size="default" fill="outline" color="success" type="submit" style="height: 35px;"
+    (click)="updateDetails()" *ngIf="customerDetail">
+    Update</ion-button>
+</ion-footer>

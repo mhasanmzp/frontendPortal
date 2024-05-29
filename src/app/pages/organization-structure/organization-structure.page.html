@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="dark" defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Organizational Structure</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <app-org-chart [data]="data"></app-org-chart>
+  <!-- <ion-row style="overflow-x: scroll;margin-top:20px;height: calc(100% - 20px);">
+    <ngx-org-chart [nodes]="nodes" direction="vertical" (itemClick)="test($event)"></ngx-org-chart>
+  </ion-row> -->
+</ion-content>

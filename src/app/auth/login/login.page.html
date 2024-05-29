@@ -1,0 +1,98 @@
+<ion-content>
+  <ion-row class="container">
+    <ion-col sizeMd="9" sizeLg="9" sizeSm="12" size="12" offsetMd="1.5" offsetLg="1.5">
+      <ion-row style="background: #635eee82;border-radius: 10px;">
+        <ion-col sizeMd="5" size="12" style="display: flex;align-items: center;padding: 50px;">
+          <!-- <div style="text-align: center;"> -->
+            <img src="assets/icon/Logo-full.png">
+            <!-- <h2 style="color: #fff;">Times of People</h2> -->
+          <!-- </div> -->
+        </ion-col>
+        <ion-col sizeMd="7" size="12" style="padding:50px;">
+          <ion-row>
+
+            <ion-col sizeMd="9" size="12" offsetMd="1">
+              <ion-col size="12" style="text-align: center;"><h3 style="color: #fff;font-size: 24px;">Enter Login Details Below</h3></ion-col>
+              <form [formGroup]="form" (ngSubmit)="login()">
+                <ion-list style="background: transparent;padding:10px 20px;">
+                  <ion-label><span style="color: #fff;">Email address</span></ion-label>
+                  <ion-item lines="none" style="border: 1px solid rgb(255, 255, 255);margin-bottom: 10px;margin-top: 5px;border-radius: 10px;color: var(--ion-color-dark)">
+                    <ion-input type="text" required formControlName="email"></ion-input>
+                  </ion-item>
+                  <ion-label><span style="color: #fff;">Password</span></ion-label>
+                  <ion-item lines="none" style="border: 1px solid rgb(255, 255, 255);margin-top: 5px;border-radius: 10px;">
+                    <ion-input type="password" required formControlName="password" id="OldPassword"></ion-input>
+                    <ion-icon class="show-option" [hidden]="showPassword" name="eye-off-outline" slot="end" (click)="showHidePassword()"></ion-icon>
+                    <ion-icon class="hide-option" [hidden]="!showPassword" name="eye-outline" slot="end" (click)="showHidePassword()"></ion-icon>
+                  </ion-item>
+                  <button class="signinButton" type="submit" style="margin-top: 20px;">Login</button>
+                  <div class="forgotButton" [routerLink]="['/forgot-password']"><span style="color: #c84426;">Forgot Password?</span></div>
+                  <!-- <div class="signupButton" [routerLink]="['/register']"><span style="color: #fff;">Register now</span></div> -->
+                </ion-list>
+              </form>
+              <div style="text-align: center;width: 100%;color: #fff;margin-left: 20px;">
+                {{errorMessage}}
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+</ion-content>
+<!-- <ion-content>
+
+  <ion-row style="height: 100%;">
+      <ion-col sizeLg="4.5" style="height: 100%;background-image: url(https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);background-size: cover;background-position: center;">
+
+      </ion-col>
+      <ion-col style="height: 100%;background: var(--ion-color-light);border-radius: 0px;margin: 0px;" sizeLg="3" sizeMd="3" sizeSm="12" sizeXs="12" class="box">
+        <div style="text-align: center;padding-top: 30%;padding-bottom: 15%">
+          <img src="assets\icon\mckinsol-logo.png" style="width:100px;">
+        </div>
+        <div>
+          <form [formGroup]="form" (ngSubmit)="login()">
+            <ion-list style="background: transparent;padding:10px 20px;">
+              <ion-label style="color: #fff;">Email address</ion-label>
+              <ion-item lines="none" style="border: 1px solid rgb(122, 120, 120);margin-bottom: 10px;margin-top: 5px;border-radius: 10px;">
+                <ion-input type="text" required formControlName="email"></ion-input>
+              </ion-item>
+              <ion-label style="color: #fff;">Password</ion-label>
+              <ion-item lines="none" style="border: 1px solid rgb(122, 120, 120);margin-top: 5px;border-radius: 10px;">
+                <ion-input type="password" required formControlName="password"></ion-input>
+              </ion-item>
+              <button class="signinButton" type="submit">Login</button>
+              <div class="forgotButton" [routerLink]="['/forgot-password']">Forgot Password?</div>
+              <div class="signupButton" [routerLink]="['/register']">Register now</div>
+            </ion-list>
+          </form>
+        </div>
+        <div>
+          <div style="text-align: center;width: 100%;color: #fff;margin-left: 20px;">
+            {{errorMessage}}
+          </div>
+        </div>
+      </ion-col>
+      <ion-col sizeLg="4.5" style="height: 100%;background-image: url(https://images.pexels.com/photos/1170412/pexels-photo-1170412.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);background-size: cover;background-position: center;">
+
+      </ion-col>
+
+    </ion-row>
+</ion-content> -->
+<ion-footer style="padding: 0px; background-color: #000">
+  <ion-row style="padding: 0px">
+    <ion-col style="padding: 0px">
+      <div style="
+          background: var(--ion-color-gray);
+          padding: 10px 20px;
+          padding-bottom: 15px;
+          text-align: right;
+          color: var(--ion-color-dark);
+          font-size: 16px;
+        ">
+        <span>
+          Copyrights 2020 © McKinsol Consulting Inc. All rights reserved</span>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-footer>

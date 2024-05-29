@@ -1,0 +1,607 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="dark" defaultHref="/manager"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Reviewform</ion-title>
+    <ion-row>
+      <ion-col size="12" class="ion-text-end">
+        <ion-button (click)="managerReview(appraisalId)">Manager Review</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="reviewForm">
+  <ion-grid >
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Skills</th>
+          <th>Employee Ratings</th>
+          <th>Remarks</th>
+          <th>Manager Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <tr *ngFor="let entry of detail">
+          <td>Communication skill
+          </td>
+          <td>{{ getLabelForValue(entry.communicationSkill) }}</td>
+          <td>{{ entry.communicationSkillRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="communicationRating"
+              placeholder="communication"
+              (ionChange)="handleDropdownChange($event, 'communication')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+        <tr *ngFor="let entry of detail">
+          <td>Interpersonal skill
+          </td>
+          <td>{{getLabelForValue (entry.interpersonalSkill)}}</td>
+          <td>{{ entry.interpersonalSkillRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="interpersonalRating"
+              placeholder="interpersonal"
+              (ionChange)="handleDropdownChange($event, 'interpersonal')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+        <tr *ngFor="let entry of detail">
+          <td>Ability to plan the work
+          </td>
+          <td>{{getLabelForValue( entry.abilityToPlanTheWork)}}</td>
+          <td>{{ entry.abilityToPlanTheWorkRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="abilityRating"
+              placeholder="ability"
+              (ionChange)="handleDropdownChange($event, 'ability')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+        <tr *ngFor="let entry of detail">
+          <td>Problem solving
+          </td>
+          <td>{{getLabelForValue( entry.problemSolving)}}</td>
+          <td>{{ entry.problemSolvingRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="solvingRating"
+              placeholder="solving"
+              (ionChange)="handleDropdownChange($event, 'solving')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+        <tr *ngFor="let entry of detail">
+          <td>Adaptability/Flexibility
+          </td>
+          <td>{{ getLabelForValue(entry.adaptability)}}</td>
+          <td>{{ entry.adaptabilityRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="flexibilityRating"
+              placeholder="flexibility"
+              (ionChange)="handleDropdownChange($event, 'flexibility')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+        <tr *ngFor="let entry of detail">
+          <td>Willingness to shoulder
+          </td>
+          <td>{{getLabelForValue( entry.willingnessToShoulderAdditional)}}</td>
+          <td>{{ entry.willingnessToShoulderAdditionalRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="flexibilityRating"
+              placeholder="flexibility"
+              (ionChange)="handleDropdownChange($event, 'flexibility')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+        <tr *ngFor="let entry of detail">
+          <td>Commitment to do a perfect job
+          </td>
+          <td>{{getLabelForValue( entry.commitmentToDoAPerfectJob)}}</td>
+          <td>{{ entry.commitmentToDoAPerfectJobRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="perfectRating"
+              placeholder="perfect"
+              (ionChange)="handleDropdownChange($event, 'perfect')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+        <tr *ngFor="let entry of detail">
+          <td>Habits and Manners
+          </td>
+          <td>{{ getLabelForValue(entry.habitsAndManners)}}</td>
+          <td>{{ entry.habitsAndMannersRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="habitsRating"
+              placeholder="habits"
+              (ionChange)="handleDropdownChange($event, 'habits')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+        <tr *ngFor="let entry of detail">
+          <td>Presentation/Dress
+          </td>
+          <td>{{ getLabelForValue(entry.presentation)}}</td>
+          <td>{{ entry.presentationRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="presentationRating"
+              placeholder="presentation"
+              (ionChange)="handleDropdownChange($event, 'presentation')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+        <tr *ngFor="let entry of detail">
+          <td>Punctuality
+          </td>
+          <td>{{ getLabelForValue(entry.punctuality)}}</td>
+          <td>{{ entry.punctualityRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="punctualityRating"
+              placeholder="punctuality"
+              (ionChange)="handleDropdownChange($event, 'punctuality')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+        <tr *ngFor="let entry of detail">
+          <td>Confidentiality of information
+          </td>
+          <td>{{ getLabelForValue(entry.confidentialityOfInfo)}}</td>
+          <td>{{ entry.confidentialityOfInfoRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="inRating"
+              placeholder="in"
+              (ionChange)="handleDropdownChange($event, 'in')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+        <tr *ngFor="let entry of detail">
+          <td>Trusworthiness/Reliability
+          </td>
+          <td>{{ getLabelForValue(entry.trustworthiness)}}</td>
+          <td>{{ entry.trustworthinessRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="wiRating"
+              placeholder="wi"
+              (ionChange)="handleDropdownChange($event, 'wi')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+        <tr *ngFor="let entry of detail">
+          <td>Team spirit/Team work
+          </td>
+          <td>{{getLabelForValue( entry.teamSpirit)}}</td>
+          <td>{{ entry.teamSpiritRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="teamRating"
+              placeholder="team"
+              (ionChange)="handleDropdownChange($event, 'team')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+        <tr *ngFor="let entry of detail">
+          <td>Relationship with colleagues
+          </td>
+          <td>{{ getLabelForValue(entry.relationshipWithColleagues)}}</td>
+          <td>{{ entry.relationshipWithColleaguesRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="colleaguesRating"
+              placeholder="colleagues"
+              (ionChange)="handleDropdownChange($event, 'colleagues')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+        <tr *ngFor="let entry of detail">
+          <td>Decision making
+          </td>
+          <td>{{ getLabelForValue(entry.decisionMaking)}}</td>
+          <td>{{ entry.decisionMakingRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="makingRating"
+              placeholder="making"
+              (ionChange)="handleDropdownChange($event, 'making')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+        <tr *ngFor="let entry of detail">
+          <td>Computer skills
+          </td>
+          <td>{{getLabelForValue( entry.computerskills)}}</td>
+          <td>{{ entry.computerskillsRemarks }}</td>
+          <td style="text-align: center">
+            <ion-select
+              style="
+                width: 100%;
+                max-width: 150px;
+                margin: 0 auto;
+                background: var(--ion-color-light);
+                color: var(--ion-color-dark);
+                font-weight: 300;
+                border: 0.5px solid rgb(83, 83, 83);
+                border-radius: 5px;
+                padding: 7px;
+              "
+              formControlName="skRating"
+              placeholder="sk"
+              (ionChange)="handleDropdownChange($event, 'sk')"
+            >
+              <ion-select-option value="excellent"
+                >Excellent</ion-select-option
+              >
+              <ion-select-option value="verygood"
+                >Very Good</ion-select-option
+              >
+              <ion-select-option value="good">Good</ion-select-option>
+              <ion-select-option value="average"
+                >Average</ion-select-option
+              >
+            </ion-select>
+          </td>
+        </tr>
+      </tbody>
+      <!-- <ion-row>
+        <ion-col > <ion-textarea
+          formControlName="presentationRemarks"
+          placeholder="Remarks"
+          (ionChange)="handleTextareaChange($event, 'presentation')"
+        ></ion-textarea></ion-col>
+      </ion-row> -->
+    </table>
+  </ion-grid>
+  <ion-row>
+    <ion-col size="12" class="ion-text-end">
+      <ion-button type="submit" (click)="onsubmitRating()" [disabled]="!reviewForm"
+        >Submit</ion-button
+      >
+    </ion-col>
+  </ion-row>
+</form>
+</ion-content>

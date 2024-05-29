@@ -1,0 +1,84 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Leave</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon name="arrow-down"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <form [formGroup]="leaveForm">
+        <ion-list id="inbox-list" lines="none" style="background: transparent;padding:10px 20px;">
+          <ion-row style="padding-bottom: 10px;">
+            <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+              <ion-item *ngIf="totalDays > 45">
+                <ion-label position="stacked" style="color: #fff;font-weight: 300;">Leave Type</ion-label>
+                <select formControlName="leaveType" (change)="leavetype($event)">
+                  <option value="sick">Sick Leave</option>
+                  <option value="paid">Planned Leave</option>
+                  <option value="LOP">Loss of Pay</option>
+                  <!-- <option value="WFH">Work From Home</option> -->
+                  <option value="halfDay">Half Day</option>
+                  <option value="halfDaySick">Half Day(Sick)</option>
+                  <option value="halfDayPaid">Half Day(Paid)</option>
+                </select>
+              </ion-item>
+              <ion-item *ngIf="totalDays <= 45">
+                <ion-label position="stacked" style="color: #fff;font-weight: 300;">Leave Type</ion-label>
+                <select formControlName="leaveType" (change)="leavetype($event)">
+                  <option value="emergency">Lose of Pay</option>
+                  <option value="halfDay">Half Day</option>
+                </select>
+              </ion-item>
+            </ion-col>
+            <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+              <ion-item>
+                <ion-label position="stacked" style="color: #fff;font-weight: 300;">Days</ion-label>
+                <ion-input type="number" formControlName="days" readonly></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+              <ion-item>
+                <ion-label position="stacked" style="color: #fff;font-weight: 300;">Start Date</ion-label>
+                <ion-input type="date" formControlName="sdate" (ionChange)="dateDay($event)"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col sizeMd="6" sizeSm="12" sizeXs="12" *ngIf="endDate == false">
+              <ion-item>
+                <ion-label position="stacked" style="color: #fff;font-weight: 300;">End Date</ion-label>
+                <ion-input type="date" formControlName="edate" (ionChange)="dateDay($event)"></ion-input>
+              </ion-item>
+            </ion-col>
+            
+            
+            <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+              <ion-item>
+                <ion-label position="stacked" style="color: #fff;font-weight: 300;">Reason</ion-label>
+                <ion-input type="text" formControlName="reason"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col sizeMd="6" sizeSm="12" sizeXs="12" *ngIf="leaveForm.value.leaveType == 'sick' && leaveForm.value.days > 2">
+              <ion-item>
+                <ion-label position="stacked" style="color: #fff;font-weight: 300;">File Upload</ion-label>
+                <ion-input type="file" formControlName="upload" accept=".pdf" (ionChange)="fileUpload($event)"></ion-input>
+                <small style="font-weight: 300;font-size: 12px;">Only upload PDF file</small>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-list>
+      </form>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-footer style="display: flex;justify-content:flex-end;">
+  <!-- <ion-button size="default" fill="outline" [disabled]="sumitAccess" color="success" type="submit" style="height: 35px;" (click)="submit()">
+    Submit</ion-button> -->
+    <ion-button size="default" fill="outline" color="success" type="submit" style="height: 35px;" (click)="submit()">
+      Submit</ion-button>
+</ion-footer>

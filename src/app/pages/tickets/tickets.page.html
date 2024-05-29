@@ -1,0 +1,223 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Track Ticket</ion-title>
+    <ion-buttons class="hidden-sm-down" slot="end">
+      <ion-button
+        color="dark"
+        style="font-weight: 300; width: 100px; font-size: 14px"
+        (click)="addTicket('')"
+      >
+        <ion-icon name="ticket-outline"> </ion-icon> Raise Ticket
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-toolbar>
+  <ion-segment [(ngModel)]="segment" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="All">
+      <ion-label>All</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Draft">
+      <ion-label>Draft</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="New">
+      <ion-label>New</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="In-Progress">
+      <ion-label>In Progress</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Completed">
+      <ion-label>Completed</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+
+<ion-content>
+  <div style="padding-bottom: 0px; overflow: auto; padding-top: 10px">
+    <table class="tg">
+      <thead>
+        <tr
+          style="
+            background-color: var(--ion-color-light);
+            position: sticky;
+            top: 0px;
+            z-index: 9999999999999;
+          "
+        >
+          <th class="tg-hpky" style="width: 100px; text-align: center">
+            Ticket Number
+          </th>
+          <th class="tg-hpky" style="width: 100px; text-align: center">
+            Category
+          </th>
+          <!-- <th class="tg-hpky" style="width: 150px;">Sub-Category</th> -->
+          <th class="tg-hpky" style="width: 400px; text-align: center">
+            Description
+          </th>
+          <th class="tg-hpky" style="width: 340px; text-align: center">
+            Assigned To
+          </th>
+          <th class="tg-hpky" style="width: 100px; text-align: center">
+            Status
+          </th>
+          <th class="tg-hpky" style="width: 100px; text-align: center">
+            Created On
+          </th>
+          <th class="tg-hpky" style="width: 120px; text-align: center">
+            Updated On
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let ticket of allTickets"
+          [ngClass]="(i % 2 == 0) ? 'odd' : 'even'"
+        >
+          <td style="width: 100px; text-align: center" class="tg-0pky">
+            <a style="cursor: pointer" (click)="addTicket(ticket)"
+              >{{ticket.ticketId}}</a
+            >
+          </td>
+          <td style="width: 100px; text-align: center" class="tg-0pky">
+            {{ticket.ticket_category}}
+          </td>
+          <!-- <td style="width: 150px;" class="tg-0pky"></td> -->
+          <td style="width: 300px; text-align: center" class="tg-0pky">
+            {{ticket.description}}
+          </td>
+          <td style="width: 300px; text-align: center" class="tg-0pky">
+            {{ticket.assignedEmails ? ticket.assignedEmails[0].officialEmail
+            :''}}
+          </td>
+          <td style="width: 100px; text-align: center" class="tg-0pky">
+            {{ticket.status}}
+          </td>
+          <td style="width: 100px; text-align: center" class="tg-0pky">
+            {{ticket.sdate | date : 'dd MMM, yyyy'}}
+          </td>
+          <td style="width: 120px; text-align: center" class="tg-0pky">
+            {{ticket.edate | date : 'dd MMM, yyyy'}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ion-infinite-scroll (ionInfinite)="getMoreData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar class="model">
+          <ion-title>Modal</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(false)">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content>
+        <ion-row>
+          <ion-col>
+            <form [formGroup]="updateCommentForm">
+              <ion-list
+                id="inbox-list"
+                lines="none"
+                style="background: transparent; padding: 10px 20px"
+              >
+                <ion-row style="padding-bottom: 10px">
+                  <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+                    <ion-item>
+                      <ion-label
+                        position="stacked"
+                        style="color: #fff; font-weight: 300"
+                        >Category</ion-label
+                      >
+                      <ion-input
+                        type="text"
+                        formControlName="category"
+                      ></ion-input>
+                    </ion-item>
+                  </ion-col>
+
+                  <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+                    <ion-item>
+                      <ion-label
+                        position="stacked"
+                        style="color: #fff; font-weight: 300"
+                        >Assigned To</ion-label
+                      >
+                      <ion-input
+                        type="text"
+                        formControlName="Assigned_to"
+                      ></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+                    <ion-item>
+                      <ion-label
+                        position="stacked"
+                        style="color: #fff; font-weight: 300"
+                        >Description</ion-label
+                      >
+                      <ion-input
+                        type="text"
+                        formControlName="description"
+                      ></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+                    <ion-item>
+                      <ion-label
+                        position="stacked"
+                        style="color: #fff; font-weight: 300"
+                        >Comments</ion-label
+                      >
+                      <ion-input
+                        type="text"
+                        formControlName="past_comment"
+                      ></ion-input>
+                    </ion-item>
+                  </ion-col>
+                  <ion-col sizeSm="12" sizeXs="12">
+                    <ion-item>
+                      <ion-label
+                        position="stacked"
+                        style="color: #fff; font-weight: 300"
+                        >Comments *</ion-label
+                      >
+
+                      <textarea
+                        name="comments"
+                        id="comments"
+                        rows="3"
+                      ></textarea>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-list>
+            </form>
+          </ion-col>
+        </ion-row>
+      </ion-content>
+      <ion-footer class="modelF">
+        <ion-button
+          size="default"
+          fill="outline"
+          color="success"
+          type="submit"
+          style="height: 35px"
+        >
+          Submit</ion-button
+        >
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+</ion-content>

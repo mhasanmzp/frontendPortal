@@ -1,0 +1,150 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Leaves</ion-title>
+      <ion-buttons class="hidden-sm-down" slot="end">
+        <ion-button color="dark" style="font-weight: 300;width: 100px;font-size: 14px;" (click)="addLeave()">
+          <ion-icon name="add-outline"></ion-icon>Apply
+        </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-row>
+      <ion-col size="12" sizeSm="4">
+        <ion-card style="height: 200px;">
+          <ion-card-header>
+            <ion-card-title>Total Leave</ion-card-title>
+            <ion-card-subtitle>Till:- {{totalLeave?.month}}/{{totalLeave?.year}}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row>
+              <ion-col size="12">
+                Sick Leaves Balance: {{totalLeave?.sick_leaves}}
+              </ion-col>
+              <ion-col size="12">
+                Paid Leaves Balance: {{totalLeave?.paid_leaves}}
+              </ion-col>
+              <ion-col size="12">
+                WFH Balance: {{totalLeave?.wfh}}
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" sizeSm="4">
+        <ion-card style="height: 200px;">
+          <ion-card-header>
+            <ion-card-title>Remaining Leave</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row>
+              <ion-col size="12">
+                Sick Leaves Balance: {{remainingLeave?.sick}}
+              </ion-col>
+              <ion-col size="12">
+                Paid Leaves Balance: {{remainingLeave?.paid}}
+              </ion-col>
+              <ion-col size="12">
+                WFH Balance: {{remainingLeave?.wfh}}
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" sizeSm="4">
+        <ion-card style="height: 200px;">
+          <ion-card-header>
+            <ion-card-title>Avail Leave</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row>
+              <ion-col size="12">
+                Sick Leaves Taken: {{appliedLeave?.sick}}
+              </ion-col>
+              <ion-col size="12">
+                Paid Leaves Taken: {{appliedLeave?.paid}}
+              </ion-col>
+              <ion-col size="12">
+                WFH Taken: {{appliedLeave?.wfh}}
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-grid style="overflow: auto;" [style.height]="height">
+      <ion-row style="color: var(--ion-color-dark);position: sticky;top: 0;z-index: 9999999999;">
+        <ion-col size="1.5">Leave Type</ion-col>
+        <ion-col size="1.5">Medical certificate</ion-col>
+        <ion-col size="2">Date</ion-col>
+        <ion-col size="1">Days</ion-col>
+        <ion-col size="4">Reason</ion-col>
+        <ion-col size="1">Status</ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+      <ion-row *ngIf="responseLength == 0" style="display: flex;justify-content:center;">
+        <h6>No Applied Leave</h6>
+      </ion-row>
+      <ion-row *ngFor="let emp of leavedetails; index as i" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
+        <ion-col size="1.5" style="text-transform: capitalize;">{{emp.leaveType}}</ion-col>
+        <ion-col size="1.5">
+          <span *ngIf="emp.certificate !== 'None' && emp.certificate !== null">
+            <a style="cursor:pointer;" (click)="displayImage(emp.certificate)">Certificate</a>
+          </span>
+        </ion-col>
+        <ion-col size="2">
+          <span *ngIf="emp.sdate !== emp.edate">{{emp.sdate}} to {{emp.edate}}</span>
+          <span *ngIf="emp.sdate == emp.edate">{{emp.sdate}}</span>
+        </ion-col>
+        <ion-col size="1">{{emp.days}}</ion-col>
+        <ion-col size="4">{{emp.reason}}</ion-col>
+        <ion-col size="1">
+          <span *ngIf="emp.status == 'New'">{{emp.status}}</span>
+          <span *ngIf="emp.status == 'Revoke'" style="color:rgb(221, 70, 0)">Revoked</span>
+          <span *ngIf="emp.status == 'Approved'" style="color:green">{{emp.status}}</span>
+          <span *ngIf="emp.status == 'Rejected'" style="color:red">{{emp.status}}</span>
+        </ion-col>
+        <ion-col size="1" style="cursor:pointer;display: flex;justify-content:flex-end;"
+        *ngIf="isUserAllowedToDeclineLeave()">
+        <!-- Show the delete button for specific user IDs -->
+        <ion-icon name="trash-outline" color="danger" (click)="declineLeave(emp.leaveId)"></ion-icon>
+      </ion-col>
+      
+
+
+      
+      
+
+      
+
+
+
+
+      </ion-row>
+    </ion-grid>
+  
+</ion-content>
+<!-- <ion-footer>
+  <ion-toolbar color="tertiary">
+    <ion-row>
+      <ion-col size="4" class="bFooter">
+        Sick Leaves Balance: {{leaveBalances.sick_leave_balance}}
+      </ion-col>
+      <ion-col size="4" class="bFooter">
+        Paid Leaves Balance: {{leaveBalances.paid_leave_balance}}
+      </ion-col>
+      <ion-col size="4" class="bFooter">
+        WFH Balance: {{leaveBalances.wfh_balance}}
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer> -->
+
+

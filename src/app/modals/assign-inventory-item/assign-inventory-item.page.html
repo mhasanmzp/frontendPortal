@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Inventory Item Details</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon name="arrow-down"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" *ngFor="let data of inventoryKeyValue" style="padding: 0;">
+        <ion-list *ngIf="data.keys === 'ram'">
+          <ion-item style="font-weight: 300;text-transform: uppercase;">
+            <ion-col size="5" style="text-transform: capitalize;font-size:15px;font-weight: 600;">{{data.keys}}</ion-col>
+            <ion-col size="7" style="text-align: right;font-size:15px;">{{data.values}} GB</ion-col>
+          </ion-item>
+        </ion-list>
+        <ion-list *ngIf="data.keys === 'isReturn'">
+          <ion-item style="font-weight: 300;text-transform: capitalize;">
+            <ion-col size="5" style="text-transform: capitalize;font-size:15px;font-weight: 600;">{{data.keys}}</ion-col>
+            <ion-col size="7" style="text-align: right;font-size:15px;">
+              <span *ngIf="data.values == '1'">Available</span>
+              <span *ngIf="data.values == '0'">Not Available</span>
+            </ion-col>            
+          </ion-item>
+        </ion-list>
+        <ion-list *ngIf="data.keys !== 'ram' && data.keys !== 'isReturn'">
+          <ion-item style="font-weight: 300;">
+            <ion-col size="5" style="text-transform: capitalize;font-size:15px;font-weight: 600;">{{data.keys}}</ion-col>
+            <ion-col size="7" style="text-align: right;font-size:15px;">{{data.values}}</ion-col>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-top: 10px;">
+      <ion-col size="12" style="text-align: center;font-size: 17px;font-weight: 600;">Inventory Item History</ion-col>
+    </ion-row>
+    <ion-row class="history">
+      <ion-col size="2">Employee Name</ion-col>
+      <ion-col size="2.5">Email</ion-col>
+      <ion-col size="2">Designation</ion-col>
+      <ion-col size="2">Contact No.</ion-col>
+      <ion-col size="2">Availability</ion-col>
+      <ion-col size="1.5">Assign Date</ion-col>
+    </ion-row>
+    <ion-row *ngIf="historyErrorMsg">
+      <ion-col size="12" style="text-align: center;">{{historyErrorMsg}}</ion-col>
+    </ion-row>
+    <ion-row *ngFor="let data of itemHistory; index as i" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
+      <ion-col size="2">{{data.employeeName}}</ion-col>
+      <ion-col size="2.5">{{data.email}}</ion-col>
+      <ion-col size="2">{{data.designation}}</ion-col>
+      <ion-col size="2">{{data.phone}}</ion-col>
+      <ion-col size="2">
+        <span *ngIf="data.isReturnStatus == '1'">Assigned</span>
+        <span *ngIf="data.isReturnStatus == '0'">Not Assigned</span>
+      </ion-col>
+      <ion-col size="1.5">{{data.createdAt | date}}</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-row>
+    <ion-col sizeLg="9" sizeMd="9" size="12" offsetLg="3" offsetMd="3">
+      <ion-row>
+        <ion-col size="6">
+          <ion-label style="color: #fff;">Assign Member</ion-label>
+          <ion-item lines="none"
+            style="border: 1px solid rgb(122, 120, 120);margin-bottom: 5px;margin-top: 5px;border-radius: 8px;font-weight: 300;">
+            <ion-input type="text" required placeholder="Enter email" [(ngModel)]="assignEmail"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item lines="none">
+            <ion-button size="default" fill="outline" color="success" type="submit" style="height: 35px;margin-right: 50px;margin-top: 30px;" (click)="assignItem()">
+            Assign Member</ion-button>
+          </ion-item>
+          
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+</ion-footer>

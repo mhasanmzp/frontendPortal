@@ -1,0 +1,275 @@
+<ion-toolbar>
+  <ion-segment [(ngModel)]="segment" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="All">
+      <ion-label>All</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="New">
+      <ion-label>New</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="In-Progress">
+      <ion-label>In Progress</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Completed">
+      <ion-label>Completed</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
+<div style="padding-bottom: 0px; padding-top: 10px">
+  <table class="tg">
+    <thead>
+      <tr
+        style="
+          background-color: var(--ion-color-light);"
+      >
+        <th class="tg-hpky" style="width: 100px">Ticket Number</th>
+        <th class="tg-hpky" style="width: 100px">Category</th>
+        <th class="tg-hpky" style="width: 300px">Employee Name</th>
+        <!-- <th class="tg-hpky" style="width: 400px">Description</th> -->
+        <th class="tg-hpky" style="width: 100px">Status</th>
+        <th class="tg-hpky" style="width: 130px">Raised On</th>
+        <th class="tg-hpky" style="width: 130px">Updated On</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let ticket of allTicketData">
+        <td style="width: 100px; text-align: center" class="tg-0pky">
+          <a
+            style="text-decoration: none"
+            href="javascript:void(0)"
+            (click)="onTableClick(ticket)"
+            >{{ ticket.ticketId }}</a
+          >
+        </td>
+        <td style="width: 150px" class="tg-0pky">
+          {{ ticket.ticket_category }}
+        </td>
+        <td style="width: 400px" class="tg-0pky">{{ ticket.employeeName }}</td>
+        <!-- <td style="width: 400px" class="tg-0pky">{{ ticket.description }}</td> -->
+        <td style="width: 100px" class="tg-0pky">{{ ticket.status }}</td>
+        <td style="width: 130px" class="tg-0pky">{{ ticket.sdate | date }}</td>
+        <td style="width: 130px" class="tg-0pky">{{ ticket.edate | date }}</td>
+      </tr>
+      <!-- <tr *ngFor="let item of response; index as i" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
+        <td style="width: 50px;" class="tg-0pky">{{i+1}}</td>
+        <td style="width: 100px;" class="tg-0pky">{{item.itemType}}</td>
+        <td style="width: 150px;" class="tg-0pky">{{item.companyBrand}}</td>
+        <td style="width: 300px;" class="tg-0pky">{{item.modelNumber}}</td>
+        <td style="width: 400px;" class="tg-0pky">{{item.serialnumber}}</td>
+        <td style="width: 100px;" class="tg-0pky">{{item.ram}}</td>
+        <td style="width: 100px;" class="tg-0pky">{{item.hostName}}</td>
+        <td style="width: 120px;" class="tg-0pky">
+          <span *ngIf="item.isReturn == 1">Available</span>
+          <span *ngIf="item.isReturn == 0">Not Available</span>
+        </td>
+        <td style="width: 150px;" class="tg-0pky">
+          <ion-icon name="person-outline" title="View/Assign" (click)="assignItemInventory(item)"></ion-icon>
+          <ion-icon name="create-outline" title="Edit" (click)="updateItemInventory(item)"></ion-icon>
+          <ion-icon name="trash-outline" title="Delete" (click)="deleteItemInventory(item.id)"></ion-icon>
+        </td>
+      </tr> -->
+    </tbody>
+  </table>
+</div>
+<ion-infinite-scroll (ionInfinite)="getMoreData($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data..."
+  >
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+<ion-modal [isOpen]="isModalOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar class="model">
+        <ion-title>Ticket View</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setOpen(false)">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding" style="border: 1px solid !important">
+      <ion-list id="inbox-list" lines="none" style="background: transparent">
+        <ion-row>
+          <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="color: #fff; font-weight: 300"
+                >Employee Name</ion-label
+              >
+              <input
+                type="text"
+                [(ngModel)]="selectedRowData.employeeName"
+                disabled
+              />
+            </ion-item>
+          </ion-col>
+          <!-- <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="color: #fff; font-weight: 300"
+                >Department</ion-label
+              >
+              <input type="text" disabled />
+            </ion-item>
+          </ion-col> -->
+          <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="color: #fff; font-weight: 300"
+                >Date</ion-label
+              >
+              <!-- <input  [(ngModel)]="selectedRowData.sdate" disabled /> -->
+              <ion-text>{{ selectedRowData.sdate | date }}</ion-text>
+            </ion-item>
+          </ion-col>
+          <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="color: #fff; font-weight: 300"
+                >Ticket Number</ion-label
+              >
+              <input
+                type="text"
+                [(ngModel)]="selectedRowData.ticketId"
+                disabled
+              />
+            </ion-item>
+          </ion-col>
+          <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="color: #fff; font-weight: 300"
+                >Category</ion-label
+              >
+              <input
+                type="text"
+                [(ngModel)]="selectedRowData.ticket_category"
+                disabled
+              />
+            </ion-item>
+          </ion-col>
+          <!-- ///// -->
+          <!-- <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="color: #fff; font-weight: 300"
+                >Assign To</ion-label
+              >
+              <select
+                name="assign"
+                id="idAssign"
+                [(ngModel)]="selectedRowData.assigned"
+              >
+                <option value="">Select</option>
+                <option value="hsingh@mckinsol.com">Hind Pratap Singh</option>
+                <option value="pvarshney@mckinsol.com">Parul Varshney</option>
+                <option value="cawana@mckinsol.net">Chitra Awana</option>
+              </select>
+            </ion-item>
+          </ion-col> -->
+          <!--  -->
+          <!-- <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="color: #fff; font-weight: 300"
+                >Status</ion-label
+              >
+              <select
+                name="status"
+                id="Status" 
+                [(ngModel)]="selectedRowData.status"
+              >
+                <option value="">Select</option>
+                <option value="In-Progress">In-Progress</option>
+                <option value="New">New</option>
+                <option value="Rejected">Rejected</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </ion-item>
+          </ion-col> -->
+          <ion-col sizeSm="12" sizeXs="12">
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="color: #fff; font-weight: 300"
+                >Description</ion-label
+              >
+              <textarea
+                name="comments"
+                id="comments"
+                rows="3"
+                [(ngModel)]="selectedRowData.description"
+                disabled
+              ></textarea>
+            </ion-item>
+          </ion-col>
+
+          <ion-col>
+            <ion-accordion-group>
+              <ion-accordion value="first">
+                <ion-item slot="header" color="light">
+                  <ion-label>View Comments</ion-label>
+                </ion-item>
+                <div
+                  class="ion-padding"
+                  slot="content"
+                  *ngFor="let message of commentArray"
+                >
+                  {{ message.empName }}: {{ message.comment }}
+                </div>
+              </ion-accordion>
+            </ion-accordion-group>
+          </ion-col>
+
+          <ion-col sizeSm="12" sizeXs="12">
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="color: #fff; font-weight: 300"
+                >Add Comment</ion-label
+              >
+              <textarea
+                name="comments"
+                id="comments"
+                rows="3"
+                [(ngModel)]="selectedRowData.more_comment"
+              ></textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </ion-content>
+    <ion-footer class="modelF">
+      <ion-button
+        size="default"
+        fill="outline"
+        color="success"
+        type="submit"
+        style="height: 35px"
+        (click)="onSubmit()"
+        *ngIf="selectedRowData.status != 'Completed'"
+      >
+        Submit</ion-button
+      >
+      <!-- <ion-button
+        size="default"
+        fill="outline"
+        color="primary"
+        style="height: 35px"
+        (click)="onAddComment()"
+      >
+        Add Comment</ion-button
+      > -->
+    </ion-footer>
+  </ng-template>
+</ion-modal>

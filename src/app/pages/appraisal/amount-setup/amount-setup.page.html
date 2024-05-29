@@ -1,0 +1,174 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button
+        color="dark"
+        defaultHref="/workflow-setup"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title> Appraisal Amount</ion-title>
+  </ion-toolbar>
+</ion-header>
+<br />
+<ion-content>
+  <ion-grid>
+    <ion-row style="height: 100%">
+      <ion-col
+        sizeLg="9"
+        offsetLg="1.5"
+        sizeMd="10"
+        offsetMd="1"
+        sizeSm="12"
+        sizeXs="12"
+        class="box"
+      >
+        <form [formGroup]="amountForm">
+          <ion-row>
+            <ion-col size="4">
+              <ion-label
+                >Select Department<span style="color: red">*</span></ion-label
+              >
+              <ion-select
+                placeholder="Select Department"
+                class="blanks"
+                formControlName="departmentId"
+              >
+                <ion-select-option
+                  value="{{department.id}}"
+                  *ngFor="let department of fetchDepartment"
+                >
+                  {{department.name}}
+                </ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label
+                >Enter Designation<span style="color: red">*</span></ion-label
+              >
+              <ion-input
+                placeholder="Enter Designation"
+                class="blanks"
+                formControlName="designation"
+              ></ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label
+                >Select Year<span style="color: red">*</span></ion-label
+              >
+              <ion-select
+                placeholder="Select Year"
+                class="blanks"
+                formControlName="year"
+              >
+                <ion-select-option value="2022">2022</ion-select-option>
+                <ion-select-option value="2023">2023</ion-select-option>
+                <ion-select-option value="2024">2024</ion-select-option>
+              </ion-select>
+            </ion-col> </ion-row
+          ><br />
+          <ion-row>
+            <ion-col size="4">
+              <ion-label
+                >Enter Excelent Amount<span style="color: red"
+                  >*</span
+                ></ion-label
+              >
+              <ion-input
+                type="number"
+                placeholder="Enter Excelent Amount"
+                class="blanks"
+                formControlName="excellentAmount"
+              ></ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label
+                >Enter Very-Good Amount<span style="color: red"
+                  >*</span
+                ></ion-label
+              >
+              <ion-input
+                type="number"
+                placeholder="Enter Very-Good Amount"
+                class="blanks"
+                formControlName="veryGoodAmount"
+              ></ion-input>
+            </ion-col>
+            <ion-col size="4">
+              <ion-label
+                >Enter Good Amount<span style="color: red">*</span></ion-label
+              >
+              <ion-input
+                type="number"
+                placeholder="Enter Good Amount"
+                class="blanks"
+                formControlName="goodAmount"
+              ></ion-input>
+            </ion-col> </ion-row
+          ><br />
+          <ion-row>
+            <ion-col size="4">
+              <ion-label
+                >Enter Average Amount<span style="color: red"
+                  >*</span
+                ></ion-label
+              >
+              <ion-input
+                type="number"
+                placeholder="Enter Average Amount"
+                class="blanks"
+                formControlName="averageAmount"
+              ></ion-input>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid style="padding: 50px">
+    <ion-col size="12" style="height: 55px">
+      <ion-button
+        size="default"
+        fill="outline"
+        color="success"
+        style="height: 35px; float: right"
+        type="submit"
+        (click)="saveEmployeeAppraisalAmount()"
+      >
+        Save</ion-button
+      >
+    </ion-col>
+  </ion-grid>
+  <table style="width: 100%">
+    <tr>
+      <th>serialNumber</th>
+      <th>departmentName</th>
+      <th>ExcellentAmount</th>
+      <th>VgoodAmount</th>
+      <th>GoodAmount</th>
+      <th>AverageAmount</th>
+      <!-- <th>Action</th> -->
+    </tr>
+    <tr *ngFor="let user of amount; index as i">
+      <td>{{user.serialNumber}}</td>
+      <td>{{user.departmentName}}</td>
+      <td>{{user.ExcellentAmount}}</td>
+      <td>{{user.VgoodAmount}}</td>
+      <td>{{user.GoodAmount}}</td>
+      <td>{{user.AverageAmount}}</td>
+    </tr>
+  </table>
+</ion-content>
+<!-- <ion-footer class="ion-no-border" color="gray">
+  <ion-toolbar color="gray">
+    <ion-button
+      slot="end"
+      expand="block"
+      fill="solid"
+      color="success"
+      type="submit"
+      style="height: 35px; float: right"
+    >
+    Save</ion-button
+    ></ion-toolbar
+  >
+</ion-footer> -->

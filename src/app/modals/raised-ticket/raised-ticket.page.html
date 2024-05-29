@@ -1,0 +1,265 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Raise Ticket</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon name="arrow-down"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row *ngIf="ticketData.status == 'Draft' || !ticketData">
+    <ion-col size="12">
+      <form [formGroup]="ticketForm">
+        <ion-list
+          id="inbox-list"
+          lines="none"
+          style="background: transparent; padding: 10px 20px"
+        >
+          <ion-row style="padding-bottom: 10px">
+            <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+              <ion-item>
+                <ion-label
+                  position="stacked"
+                  style="color: #fff; font-weight: 300"
+                  >Category *</ion-label
+                >
+                <select formControlName="category">
+                  <option value="">Select</option>
+                  <option value="Management">Management</option>
+                  <option value="Attendence">Attendence</option>
+                  <option value="Leaves">Leaves</option>
+                  <option value="Payroll">Payroll</option>
+                  <option value="Holidays">Holidays</option>
+                  <option value="Infrastructure">Infrastructure</option>
+                  <option value="IT">IT</option>
+                  <option value="Training">Training</option>
+                  <option value="Others">Others</option>
+                </select>
+              </ion-item>
+            </ion-col>
+            <!-- <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+              <ion-item>
+                <ion-label position="stacked" style="color: #fff;font-weight: 300;">Sub-Category *</ion-label>
+                <select formControlName="sub_category">
+                  <option value="">Select</option>
+                </select>
+              </ion-item>
+            </ion-col> -->
+            <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+              <ion-item>
+                <ion-label
+                  position="stacked"
+                  style="color: #fff; font-weight: 300"
+                  >File Upload</ion-label
+                >
+                <ion-input
+                  type="file"
+                  formControlName="upload"
+                  accept=".pdf"
+                  (ionChange)="fileUpload($event)"
+                ></ion-input>
+                <small style="font-weight: 300; font-size: 12px"
+                  >Only upload PDF file</small
+                >
+              </ion-item>
+            </ion-col>
+            <ion-col sizeSm="12" sizeXs="12">
+              <ion-item>
+                <ion-label
+                  position="stacked"
+                  style="color: #fff; font-weight: 300"
+                  >Description *</ion-label
+                >
+                <!-- <ion-input type="text" formControlName="comments"></ion-input> -->
+                <textarea
+                  name="comments"
+                  id="comments"
+                  rows="3"
+                  formControlName="comments"
+                ></textarea>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-list>
+      </form>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="ticketData.status != 'Draft' && ticketData">
+    <ion-col size="12">
+      <ion-list
+        id="inbox-list"
+        lines="none"
+        style="background: transparent; padding: 10px 20px"
+      >
+        <ion-row style="padding-bottom: 10px">
+          <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="color: #fff; font-weight: 300"
+                >Category</ion-label
+              >
+              <select [(ngModel)]="ticketData.ticket_category" disabled>
+                <option value="">Select</option>
+                <option value="Management">Management</option>
+                <option value="Attendence">Attendence</option>
+                <option value="Leaves">Leaves</option>
+                <option value="Payroll">Payroll</option>
+                <option value="Holidays">Holidays</option>
+                <option value="Infrastructure">Infrastructure</option>
+                <option value="IT">IT</option>
+                <option value="Training">Training</option>
+                <option value="Others">Others</option>
+              </select>
+            </ion-item>
+          </ion-col>
+
+          <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="color: #fff; font-weight: 300"
+                >Assigned To</ion-label
+              >
+              <ion-input
+                type="text"
+                [(ngModel)]="ticketData.assignedEmails[0].officialEmail"
+                disabled
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="color: #fff; font-weight: 300"
+                >Description</ion-label
+              >
+              <textarea
+                type="text"
+                [(ngModel)]="ticketData.description"
+                rows="2"
+                disabled
+              ></textarea>
+            </ion-item>
+          </ion-col>
+
+          <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="color: #fff; font-weight: 300"
+                >Status</ion-label
+              >
+              <select name="status" id="Status" [(ngModel)]="ticketData.status">
+                <option value="">Select</option>
+                <option value="Completed">Completed</option>
+                <option value="In-Progress">In-Progress</option>
+                <option value="New">New</option>
+                <!-- <option value="Rejected">Rejected</option> -->
+              </select>
+            </ion-item>
+          </ion-col>
+          <!-- <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="color: #fff; font-weight: 300"
+                >Comments</ion-label
+              >
+              <textarea
+                type="text"
+                [(ngModel)]="ticketData.comments"
+                rows="2"
+                disabled
+              ></textarea>
+            </ion-item>
+          </ion-col> -->
+
+          <ion-col>
+            <ion-accordion-group>
+              <ion-accordion value="first">
+                <ion-item slot="header" color="light">
+                  <ion-label>View Comments</ion-label>
+                </ion-item>
+                <div
+                  class="ion-padding"
+                  slot="content"
+                  *ngFor="let message of commentArray"
+                >
+                  {{ message.empName }}: {{ message.comment }}
+                </div>
+              </ion-accordion>
+            </ion-accordion-group>
+          </ion-col>
+
+          <ion-col sizeMd="6" sizeSm="12" sizeXs="12">
+            <ion-item>
+              <ion-label
+                position="stacked"
+                style="color: #fff; font-weight: 300"
+                >Add Comments</ion-label
+              >
+              <textarea
+                type="text"
+                [(ngModel)]="ticketData.more_comment"
+                rows="2"
+              ></textarea>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-content>
+
+<ion-footer
+  style="display: flex; justify-content: flex-end"
+  *ngIf="ticketData.status == 'Draft' || !ticketData"
+>
+  <ion-button
+    size="default"
+    fill="outline"
+    color="primary"
+    type="submit"
+    style="height: 35px"
+    (click)="submit(0)"
+  >
+    Draft</ion-button
+  >
+  <ion-button
+    id="submitBtn"
+    size="default"
+    fill="outline"
+    color="success"
+    type="submit"
+    style="height: 35px"
+    (click)="submit(1)"
+    [disabled]="!ticketForm.valid"
+    
+  >
+    Submit</ion-button
+  >
+</ion-footer>
+
+<ion-footer
+  style="display: flex; justify-content: flex-end"
+  *ngIf="ticketData.status != 'Draft' && ticketData"
+>
+  <ion-button
+    size="default"
+    fill="outline"
+    color="success"
+    type="submit"
+    style="height: 35px"
+    (click)="addComment()"
+    [disabled]="enabled"
+  >
+    Update</ion-button
+  >
+</ion-footer>

@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Desktop View -->
+  <ion-grid class="ion-margin hidden-sm-down">
+    <ion-row style="
+    position: sticky;
+    top: 0px;
+    background: var(--ion-color-light);
+    border-radius: 10px;
+    z-index: 999999999;
+    margin: 0px;
+  ">
+      <ion-col>Boimetric Id</ion-col>
+      <ion-col>Date</ion-col>
+      <ion-col>Punch In</ion-col>
+      <ion-col>Last Punch Out</ion-col>
+      <ion-col>Total Hours</ion-col>
+    </ion-row>
+    <ion-row *ngIf="responseLength === 0">
+      <div id="container">
+        <h5>No Data Found!</h5>
+      </div>
+    </ion-row>
+    <ion-row *ngFor="let request of response; index as i" [ngClass]="(i % 2 === 0) ? 'odd' : 'even'">
+      <ion-col style="padding: 0px">
+        <ion-item lines="none">
+          <ion-label>
+            {{request.employeeId}}
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col style="padding: 0px">
+        <ion-item lines="none">
+          <ion-label>
+            {{request.date}}
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col style="padding: 0px">
+        <ion-item lines="none">
+          <ion-label>
+            {{request.punchIn | date:'hh:mm a'}}
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col style="padding: 0px">
+        <ion-item lines="none">
+          <ion-label>
+            {{request.punchOut | date:'hh:mm a'}}
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col style="padding: 0px">
+        <ion-item lines="none">
+          <ion-label>
+            {{request.totalWorkingHours}}
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

@@ -1,0 +1,31 @@
+.border{
+    border: 1px solid #000;
+    cursor: pointer;
+}
+ion-segment-button {
+ padding: 10px;
+
+  }
+.clientmodal{
+  --width: 90%;
+}
+
+.borderArea {
+    border: 0.5px solid var(--ion-color-dark) !important;
+    background: var(--ion-color-light) !important;
+    border-radius: 10px;
+    height: 40px;
+    color: var(--ion-color-dark) !important;
+    font-weight: 400;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    margin-top: 5px;
+    text-align: center;
+  }
+  .centered-form{
+    margin-bottom: 4%;
+  }
+
+
+  

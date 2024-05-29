@@ -1,0 +1,344 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button color="dark" defaultHref="/manager"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Manager Review</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="employeeForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label
+              position="stacked"
+              style="font-size: 10px; font-weight: 700; "
+            >
+              <h2 style="font-weight: bold;">Designation:</h2>
+              <br />
+              {{ designation }}
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Appraisal Id:</ion-label>
+            <ion-input formControlName="division" type="text"
+              >{{ appraisalId }}</ion-input
+            >
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Manager Name:</ion-label>
+            <ion-input formControlName="managerName" type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+   
+      </ion-row>
+      <ion-row>
+
+        <ion-col size="4">
+          <ion-item>
+            <ion-label
+              position="stacked"
+              style="font-size: 15px; font-weight: 700"
+            >
+              <h2 style="font-weight: bold;">Employee Name:</h2>
+              <br />
+              {{ name }}
+            </ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Department:</ion-label>
+            <ion-input formControlName="designation" type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+
+
+
+    </ion-grid>
+
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th colspan="3">FUNCTIONAL SKILLS</th>
+          <th colspan="3">INTERPERSONAL SKILLS</th>
+        </tr>
+        <tr>
+          <th>Criteria</th>
+          <th>Score</th>
+          <th>Sub-Total</th>
+          <th>Criteria</th>
+          <th>Score</th>
+          <th>Sub-Total</th>
+        </tr>
+      </thead>
+      <tr>
+        <td>Accuracy, neatness and timeliness of work</td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+        <td>Responds and contributes to team efforts</td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Adherence to duties and procedures in Job Description and Work
+          Instructions
+        </td>
+        <td>5</td>
+        <ion-input
+          type="text"
+          placeholder="Enter value"
+          (input)="updateTotalSum($event)"
+        ></ion-input>
+        <td>
+          Responds positively to suggestions and instructions and criticism
+        </td>
+        <td>5</td>
+        <ion-input
+          type="text"
+          placeholder="Enter value"
+          (input)="updateTotalSum($event)"
+        ></ion-input>
+      </tr>
+      <tr>
+        <td>Synchronization with organizations/functional goals</td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+        <td>Keeps supervisor informed of all details</td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Adapts well to changing circumstances</td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Seeks feedback to improve</td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Total</td>
+        <td>0</td>
+      </tr>
+
+      <tr>
+        <th>Work Habits</th>
+        <th></th>
+        <th></th>
+        <th>Job Knowledge</th>
+        <th></th>
+      </tr>
+      <tr>
+        <td>Punctuality to workplace</td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+        <td>
+          Skill and ability to perform job satisfactorily (Do you believe
+          primary skills are aligned to project ask)
+        </td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Does the employee stay busy, look for things to do, takes initiatives
+          at workplace
+        </td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+        <td>Shown interest in learning and improving</td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td>Submits reports on time and meets deadlines</td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+        <td>Problem solving ability</td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+      </tr>
+      <tr>
+        <td>Attendance</td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <th>LEADERSHIP SKILLS</th>
+        <th>Max. Marks</th>
+        <th></th>
+        <th></th>
+      </tr>
+
+      <tr>
+        <th>Criteria</th>
+        <th>Score</th>
+        <th>Sub-Total</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+
+      <tr>
+        <th>Leadership</th>
+        <th></th>
+        <th>25</th>
+      </tr>
+
+      <tr>
+        <td>
+          Aspirant to climb up the ladder, accepts challenges, new
+          responsibilities and roles. (out of 10)
+        </td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Innovative thinking - contribution to organizations and functions and
+          personal growth. (out of 10)
+        </td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+      </tr>
+
+      <tr>
+        <td>Work motivation. (out of 5)</td>
+        <td>5</td>
+        <td>
+          <ion-input
+            type="text"
+            placeholder="Enter value"
+            (input)="updateTotalSum($event)"
+          ></ion-input>
+        </td>
+
+        <td></td>
+      </tr>
+    </table>
+
+    <ion-row>
+      <ion-col size="12" class="ion-text-end">
+        <ion-button type="submit" (click)="onsubmitform()">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

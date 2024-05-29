@@ -1,0 +1,117 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Employees Salary List</ion-title>
+    <!-- <ion-buttons slot="end" class="hidden-sm-down">
+      <ion-button [routerLink]="['/employee-onboarding/null']" color="primary" style="font-weight: 300;width: 100px;">
+        <ion-icon name="person-add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+    
+  </ion-toolbar>
+  <ion-toolbar color="dark">
+    <ion-searchbar placeholder="Filter Requests"></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar color="dark">
+    <ion-row>
+      <ion-col size="2" style="border: 1px solid rgb(37 38 40);background-color: rgb(30 31 33);padding: 0px;">
+        </ion-col>
+      <ion-col size="3" style="border: 1px solid rgb(37 38 40);background-color: rgb(30 31 33);padding: 0px;">
+        <ion-item lines="none">
+          <ion-select [(ngModel)]="year" placeholder="Select Year" (ionChange)="fetchEmployee($event)" style="color: #ccc;font-weight: bold;">
+            <ion-select-option *ngFor="let year of allYears;" [value]="year">{{year}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="3" style="border: 1px solid rgb(37 38 40);background-color: rgb(30 31 33);padding: 0px;">
+        <ion-item lines="none">
+          <ion-select [(ngModel)]="month" placeholder="Select Month" (ionChange)="fetchEmployee($event)" style="color: #ccc;font-weight: bold;">
+            <ion-select-option *ngFor="let month of allMonths; let i = index;" [value]="i + 1">{{month}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+      <ion-col size="2" style="border: 1px solid rgb(37 38 40);background-color: rgb(30 31 33);padding: 0px;">
+        <ion-button
+        (click)="generateSalaries()"
+        
+        color="dark"
+        size="small"
+        expand="block"
+        style="font-size: 17px;"
+      >
+      Generate Salaries
+      </ion-button>
+      </ion-col>
+      <ion-col size="2" style="border: 1px solid rgb(37 38 40);background-color: rgb(30 31 33);padding: 0px;">
+        <ion-button
+        (click)="showModal()"
+       
+        color="dark"
+        size="small"
+        expand="block"
+        style="font-size: 17px;"
+      >
+      Download Excel
+      </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Desktop View -->
+  <ion-grid class="ion-margin hidden-sm-down">    
+    <ion-row style="position: sticky;top: 0px;z-index: 999999999;background-color: #000;color: #fff;margin: 0px;">
+      <ion-col size="1.5">Employee Name</ion-col>
+      <ion-col size="1">Emp. Id</ion-col>
+      <ion-col size="1">Payable Days</ion-col>
+      <ion-col size="1.5">Basic Sal.</ion-col>
+      <ion-col size="1.5">Tot. Sal.</ion-col>
+      <ion-col size="1">PF Ded.</ion-col>
+      <ion-col size="1">ESIC Ded.</ion-col>
+      <ion-col size="1">OT Hrs.</ion-col>
+      <ion-col size="1">OT Sal.</ion-col>
+      <ion-col size="1.5">Sal. After Ded.</ion-col>
+      <!-- <ion-col size="1"></ion-col> -->
+    </ion-row>
+    <ion-row *ngIf="allRequests.length == 0">
+      <div id="container">
+        <img width="200px" src="https://i.gifer.com/origin/f5/f5baef4b6b6677020ab8d091ef78a3bc_w200.webp" alt="">
+      </div>
+    </ion-row>
+    <ion-row *ngFor="let request of allRequests; index as i" [ngClass]="(i % 2 == 0) ? 'odd' : 'even'">
+      <ion-col size="1.5">{{request.firstName}} {{request.middleName}} {{request.lastName}}</ion-col>
+      <ion-col size="1">{{request.employeeID}}</ion-col>
+      <ion-col size="1">{{request.totalWorkingDays}} days</ion-col>
+      <ion-col size="1.5">{{request.basicSalary}}</ion-col>
+      <ion-col size="1.5">{{request.totalSalary}}</ion-col>
+      <ion-col size="1">{{request.pfDeduction}}</ion-col>
+      <ion-col size="1">{{request.esicDeduction}}</ion-col>
+      <ion-col size="1">{{request.overtimeHours}}</ion-col>
+      <ion-col size="1">{{request.overtimeSalary}}</ion-col>
+      <ion-col size="1.5">{{toFixed(request.overAllDeductedSalary + request.overtimeSalary)}}</ion-col>
+      <!-- <ion-col style="padding: 0px;text-align: center;" size="1">
+        <ion-button  (click)="updateEmployee(request)" style="text-align: center;" size="small" fill="clear"
+          color="primary">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+      </ion-col> -->
+    </ion-row>
+  </ion-grid>
+  <ion-infinite-scroll>
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+<!-- <ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="showModal()" fill="outline" color="dark" expand="block" style="font-weight: 300;width: 80px;">
+        Import
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer> -->
+

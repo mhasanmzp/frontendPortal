@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Feedback</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="modalCtrl.dismiss()">
+        <ion-icon name="arrow-down"></ion-icon>
+      </ion-button>
+      <!-- <ion-button>
+        <ion-icon name="settings-outline"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="position: sticky;top:0px;background: var(--ion-color-gray);z-index: 999999999;">
+    <div style="padding: 20px;font-size: 25px;">Don't hesitate to make a suggestion or report a bug!</div>
+    <div style="padding: 0 20px;">
+      <div style="padding-bottom: 10px;font-size: 15px;">
+        If you have changes to recommend, share what you'd change and why. you can also share related links.
+      </div>
+      <ion-textarea rows="3" style="border: 1px solid #323232;padding: 10px;" [(ngModel)]="message">
+
+      </ion-textarea>
+    </div>
+    <ion-row style="padding: 20px;">
+      <ion-col size="4" style="padding: 0px;">
+        <ion-button color="success" expand="block" (click)="submitFeedback()">
+          <span style="color: #fff">Submit Feedback</span>
+        </ion-button>
+      </ion-col>
+      <ion-col size="4" style="padding: 0px;">
+        <ion-button color="danger" fill="clear" expand="block" (click)="modalCtrl.dismiss()">
+          Cancel
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-row>
+    <ion-col size="12">
+      <ion-card *ngFor="let post of posts" style="padding-top: 10px;border: 0px solid rgb(97, 97, 97);">
+        <ion-item class="messageBox" lines="none" style="padding: 0px;">
+          <ion-avatar slot="start" style="height: 50px;width: 50px;padding: 0px;margin-left: -10px;margin-right: 12px;">
+            <img [src]="post.image">
+          </ion-avatar>
+          <ion-label>
+            <h2 style="color: #fff;font-weight:bold;text-transform: capitalize;">
+              {{post.name}}
+            </h2>
+            <p style="color: #585858;font-size: 12px;">
+            </p>
+          </ion-label>
+          <!-- <ion-icon slot="end" name="ellipsis-vertical-outline" style="font-size: 14px;"></ion-icon> -->
+        </ion-item>
+        <div
+          style="color: #ccc;margin: 10px 20px;padding-left: 53px;margin-top: -2px;overflow: auto;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;padding-bottom: 10px;">
+          {{post.feedback ? post.feedback : post.text}}
+        </div>
+        <div style="text-align:center;padding-left: 73px;margin-top: -2px;padding-right: 10px;">
+          <img style="max-height: 500px;border-radius: 10px;" *ngIf="post.imageUrl" [src]="post.imageUrl">
+        </div>
+        <!-- <ion-row style="border-top: 0.5px solid #394351;">
+        <ion-col size="12" style="padding: 0px;">
+          <ion-item lines="none">
+            <ion-chip slot="start">
+              <ion-label>24</ion-label>
+              <ion-icon name="heart-outline" color="dark"></ion-icon>
+            </ion-chip>
+            <ion-chip slot="start">
+              <ion-label>4</ion-label>
+              <ion-icon name="chatbox-outline" color="dark"></ion-icon>
+            </ion-chip>
+          </ion-item>
+        </ion-col>
+      </ion-row> -->
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>
