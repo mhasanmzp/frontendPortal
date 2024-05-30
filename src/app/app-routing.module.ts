@@ -290,6 +290,12 @@ const routes: Routes = [
     path: 'asset',
     loadChildren: () => import("./pages/fixed-asset/asset-routing.module").then(m => m.AssetPageRoutingModule)
   },
+  {
+    path: 'asset-management',
+    loadChildren: () => import('./pages/asset-management/asset-management.module').then( m => m.AssetManagementPageModule)
+  },
+  
+
 
 ];
 
