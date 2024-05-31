@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AssetManagementPageRoutingModule } from './asset-management-routing.module';
+import { GrnPageRoutingModule } from './grn-routing.module';
 
-import { AssetManagementPage } from './asset-management.page';
+import { GrnPage } from './grn.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AssetManagementPageRoutingModule
+    GrnPageRoutingModule
   ],
-  declarations: [AssetManagementPage]
+  declarations: [GrnPage]
 })
-export class AssetManagementPageModule {}
+export class GrnPageModule {}

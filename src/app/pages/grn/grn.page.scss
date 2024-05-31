@@ -1,0 +1,30 @@
+.small-input {
+  height: 36px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+ion-item {
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-top: 0;
+  --inner-padding-bottom: 0;
+  --inner-padding-start: 0;
+  --inner-padding-end: 0;
+}
+
+ion-input, ion-select, ion-datetime {
+  --padding-top: 4px;
+  --padding-bottom: 4px;
+  --padding-start: 8px;
+  --padding-end: 8px;
+  border-radius: 8px;
+  --border-radius: 8px;
+}
+
+.save-button {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 10;
+}

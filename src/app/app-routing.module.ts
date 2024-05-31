@@ -4,305 +4,310 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'login',
-    loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./auth/login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'register',
-    loadChildren: () => import('./auth/register/register.module').then( m => m.RegisterPageModule)
+    loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterPageModule)
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then( m => m.DashboardPageModule)
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardPageModule)
   },
   {
     path: 'employee-list',
-    loadChildren: () => import('./pages/employee-list/employee-list.module').then( m => m.EmployeeListPageModule)
+    loadChildren: () => import('./pages/employee-list/employee-list.module').then(m => m.EmployeeListPageModule)
   },
   {
     path: 'user-groups',
-    loadChildren: () => import('./pages/user-groups/user-groups.module').then( m => m.UserGroupsPageModule)
+    loadChildren: () => import('./pages/user-groups/user-groups.module').then(m => m.UserGroupsPageModule)
   },
   {
     path: 'teams',
-    loadChildren: () => import('./pages/teams/teams.module').then( m => m.TeamsPageModule)
+    loadChildren: () => import('./pages/teams/teams.module').then(m => m.TeamsPageModule)
   },
   {
     path: 'tasks',
-    loadChildren: () => import('./pages/tasks/tasks.module').then( m => m.TasksPageModule)
+    loadChildren: () => import('./pages/tasks/tasks.module').then(m => m.TasksPageModule)
   },
   {
     path: 'projects',
-    loadChildren: () => import('./pages/projects/projects.module').then( m => m.ProjectsPageModule)
+    loadChildren: () => import('./pages/projects/projects.module').then(m => m.ProjectsPageModule)
   },
   {
     path: 'dsr',
-    loadChildren: () => import('./pages/dsr/dsr.module').then( m => m.DsrPageModule)
+    loadChildren: () => import('./pages/dsr/dsr.module').then(m => m.DsrPageModule)
   },
   {
     path: 'project-details/:id',
-    loadChildren: () => import('./pages/project-details/project-details.module').then( m => m.ProjectDetailsPageModule)
+    loadChildren: () => import('./pages/project-details/project-details.module').then(m => m.ProjectDetailsPageModule)
   },
   {
     path: 'settings',
-    loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule)
+    loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsPageModule)
   },
   {
     path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfilePageModule)
   },
   {
     path: 'attendance',
-    loadChildren: () => import('./pages/attendance/attendance.module').then( m => m.AttendancePageModule)
+    loadChildren: () => import('./pages/attendance/attendance.module').then(m => m.AttendancePageModule)
   },
   {
     path: 'salary',
-    loadChildren: () => import('./pages/salary/salary.module').then( m => m.SalaryPageModule)
+    loadChildren: () => import('./pages/salary/salary.module').then(m => m.SalaryPageModule)
   },
   {
     path: 'employee-onboarding/:id',
-    loadChildren: () => import('./pages/employee-onboarding/employee-onboarding.module').then( m => m.EmployeeOnboardingPageModule)
+    loadChildren: () => import('./pages/employee-onboarding/employee-onboarding.module').then(m => m.EmployeeOnboardingPageModule)
   },
   {
     path: 'project-manage/:id',
-    loadChildren: () => import('./pages/project-manage/project-manage.module').then( m => m.ProjectManagePageModule)
+    loadChildren: () => import('./pages/project-manage/project-manage.module').then(m => m.ProjectManagePageModule)
   },
   {
     path: 'leaves',
-    loadChildren: () => import('./pages/leaves/leaves.module').then( m => m.LeavesPageModule)
+    loadChildren: () => import('./pages/leaves/leaves.module').then(m => m.LeavesPageModule)
   },
   {
     path: 'expenses',
-    loadChildren: () => import('./pages/expenses/expenses.module').then( m => m.ExpensesPageModule)
+    loadChildren: () => import('./pages/expenses/expenses.module').then(m => m.ExpensesPageModule)
   },
   {
     path: 'feedback',
-    loadChildren: () => import('./pages/feedback/feedback.module').then( m => m.FeedbackPageModule)
+    loadChildren: () => import('./pages/feedback/feedback.module').then(m => m.FeedbackPageModule)
   },
   {
     path: 'dsr-monthly-preview',
-    loadChildren: () => import('./pages/dsr-monthly-preview/dsr-monthly-preview.module').then( m => m.DsrMonthlyPreviewPageModule)
+    loadChildren: () => import('./pages/dsr-monthly-preview/dsr-monthly-preview.module').then(m => m.DsrMonthlyPreviewPageModule)
   },
   {
     path: 'view-all-dsr',
-    loadChildren: () => import('./pages/view-all-dsr/view-all-dsr.module').then( m => m.ViewAllDsrPageModule)
+    loadChildren: () => import('./pages/view-all-dsr/view-all-dsr.module').then(m => m.ViewAllDsrPageModule)
   },
   {
     path: 'employee-profile',
-    loadChildren: () => import('./pages/employee-profile/employee-profile.module').then( m => m.EmployeeProfilePageModule)
+    loadChildren: () => import('./pages/employee-profile/employee-profile.module').then(m => m.EmployeeProfilePageModule)
   },
   {
     path: 'project-task-details',
-    loadChildren: () => import('./modals/project-task-details/project-task-details.module').then( m => m.ProjectTaskDetailsPageModule)
+    loadChildren: () => import('./modals/project-task-details/project-task-details.module').then(m => m.ProjectTaskDetailsPageModule)
   },
   {
     path: 'project-epic-details',
-    loadChildren: () => import('./modals/project-epic-details/project-epic-details.module').then( m => m.ProjectEpicDetailsPageModule)
+    loadChildren: () => import('./modals/project-epic-details/project-epic-details.module').then(m => m.ProjectEpicDetailsPageModule)
   },
   {
     path: 'project-story-details',
-    loadChildren: () => import('./modals/project-story-details/project-story-details.module').then( m => m.ProjectStoryDetailsPageModule)
+    loadChildren: () => import('./modals/project-story-details/project-story-details.module').then(m => m.ProjectStoryDetailsPageModule)
   },
   {
     path: 'new-post',
-    loadChildren: () => import('./pages/new-post/new-post.module').then( m => m.NewPostPageModule)
+    loadChildren: () => import('./pages/new-post/new-post.module').then(m => m.NewPostPageModule)
   },
   {
     path: 'organization-structure',
-    loadChildren: () => import('./pages/organization-structure/organization-structure.module').then( m => m.OrganizationStructurePageModule)
+    loadChildren: () => import('./pages/organization-structure/organization-structure.module').then(m => m.OrganizationStructurePageModule)
   },
   {
     path: 'performance',
-    loadChildren: () => import('./pages/performance/performance.module').then( m => m.PerformancePageModule)
+    loadChildren: () => import('./pages/performance/performance.module').then(m => m.PerformancePageModule)
   },
   {
     path: 'view-all-kra',
-    loadChildren: () => import('./pages/view-all-kra/view-all-kra.module').then( m => m.ViewAllKraPageModule)
+    loadChildren: () => import('./pages/view-all-kra/view-all-kra.module').then(m => m.ViewAllKraPageModule)
   },
   {
     path: 'add-kra',
-    loadChildren: () => import('./pages/add-kra/add-kra.module').then( m => m.AddKraPageModule)
+    loadChildren: () => import('./pages/add-kra/add-kra.module').then(m => m.AddKraPageModule)
   },
   {
     path: 'edit-kra',
-    loadChildren: () => import('./pages/edit-kra/edit-kra.module').then( m => m.EditKraPageModule)
+    loadChildren: () => import('./pages/edit-kra/edit-kra.module').then(m => m.EditKraPageModule)
   },
   {
     path: 'add-note',
-    loadChildren: () => import('./modals/add-note/add-note.module').then( m => m.AddNotePageModule)
+    loadChildren: () => import('./modals/add-note/add-note.module').then(m => m.AddNotePageModule)
   },
   {
     path: 'forgot-password',
-    loadChildren: () => import('./auth/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+    loadChildren: () => import('./auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordPageModule)
   },
   {
     path: 'change-password',
-    loadChildren: () => import('./modals/change-password/change-password.module').then( m => m.ChangePasswordPageModule)
+    loadChildren: () => import('./modals/change-password/change-password.module').then(m => m.ChangePasswordPageModule)
   },
   {
     path: 'notifications',
-    loadChildren: () => import('./pages/notifications/notifications.module').then( m => m.NotificationsPageModule)
+    loadChildren: () => import('./pages/notifications/notifications.module').then(m => m.NotificationsPageModule)
   },
   {
     path: 'project-sprint-details',
-    loadChildren: () => import('./modals/project-sprint-details/project-sprint-details.module').then( m => m.ProjectSprintDetailsPageModule)
+    loadChildren: () => import('./modals/project-sprint-details/project-sprint-details.module').then(m => m.ProjectSprintDetailsPageModule)
   },
   {
     path: 'client-dashboard',
-    loadChildren: () => import('./pages/client-dashboard/client-dashboard.module').then( m => m.ClientDashboardPageModule)
+    loadChildren: () => import('./pages/client-dashboard/client-dashboard.module').then(m => m.ClientDashboardPageModule)
   },
 
   {
     path: 'client-project-details/:id',
-    loadChildren: () => import('./pages/client-project-details/client-project-details.module').then( m => m.ClientProjectDetailsPageModule)
+    loadChildren: () => import('./pages/client-project-details/client-project-details.module').then(m => m.ClientProjectDetailsPageModule)
   },
   {
     path: 'sales/customers',
-    loadChildren: () => import('./pages/sales/customers/customers.module').then( m => m.CustomersPageModule)
+    loadChildren: () => import('./pages/sales/customers/customers.module').then(m => m.CustomersPageModule)
   },
   {
     path: 'customers-details',
-    loadChildren: () => import('./pages/sales/customers-details/customers-details.module').then( m => m.CustomersDetailsPageModule)
+    loadChildren: () => import('./pages/sales/customers-details/customers-details.module').then(m => m.CustomersDetailsPageModule)
   },
   {
     path: 'view-all-leave',
-    loadChildren: () => import('./pages/view-all-leave/view-all-leave.module').then( m => m.ViewAllLeavePageModule)
+    loadChildren: () => import('./pages/view-all-leave/view-all-leave.module').then(m => m.ViewAllLeavePageModule)
   },
   {
     path: 'chatrooms',
-    loadChildren: () => import('./pages/chatrooms/chatrooms.module').then( m => m.ChatroomsPageModule)
+    loadChildren: () => import('./pages/chatrooms/chatrooms.module').then(m => m.ChatroomsPageModule)
   },
   {
     path: 'inventory',
-    loadChildren: () => import('./pages/inventory/inventory.module').then( m => m.InventoryPageModule)
+    loadChildren: () => import('./pages/inventory/inventory.module').then(m => m.InventoryPageModule)
   },
   {
     path: 'add-inventory',
-    loadChildren: () => import('./pages/inventory/add-inventory/add-inventory.module').then( m => m.AddInventoryPageModule)
+    loadChildren: () => import('./pages/inventory/add-inventory/add-inventory.module').then(m => m.AddInventoryPageModule)
   },
   {
     path: 'assign-inventory-item',
-    loadChildren: () => import('./modals/assign-inventory-item/assign-inventory-item.module').then( m => m.AssignInventoryItemPageModule)
+    loadChildren: () => import('./modals/assign-inventory-item/assign-inventory-item.module').then(m => m.AssignInventoryItemPageModule)
   },
   {
     path: 'ats',
-    loadChildren: () => import('./pages/ats/ats.module').then( m => m.AtsPageModule)
+    loadChildren: () => import('./pages/ats/ats.module').then(m => m.AtsPageModule)
   },
   {
     path: 'add-cv',
-    loadChildren: () => import('./pages/ats/add-cv/add-cv.module').then( m => m.AddCVPageModule)
+    loadChildren: () => import('./pages/ats/add-cv/add-cv.module').then(m => m.AddCVPageModule)
   },
   {
     path: 'user-attendance',
-    loadChildren: () => import('./pages/attendance/user-attendance/user-attendance.module').then( m => m.UserAttendancePageModule)
+    loadChildren: () => import('./pages/attendance/user-attendance/user-attendance.module').then(m => m.UserAttendancePageModule)
   },
   {
     path: 'project-chart-list',
-    loadChildren: () => import('./modals/project-chart-list/project-chart-list.module').then( m => m.ProjectChartListPageModule)
+    loadChildren: () => import('./modals/project-chart-list/project-chart-list.module').then(m => m.ProjectChartListPageModule)
   },
   {
     path: 'project-type-list',
-    loadChildren: () => import('./modals/project-type-list/project-type-list.module').then( m => m.ProjectTypeListPageModule)
+    loadChildren: () => import('./modals/project-type-list/project-type-list.module').then(m => m.ProjectTypeListPageModule)
   },
   {
     path: 'all-user-leave-admin',
-    loadChildren: () => import('./pages/all-user-leave-admin/all-user-leave-admin.module').then( m => m.AllUserLeaveAdminPageModule)
+    loadChildren: () => import('./pages/all-user-leave-admin/all-user-leave-admin.module').then(m => m.AllUserLeaveAdminPageModule)
   },
   {
     path: 'tickets',
-    loadChildren: () => import('./pages/tickets/tickets.module').then( m => m.TicketsPageModule)
+    loadChildren: () => import('./pages/tickets/tickets.module').then(m => m.TicketsPageModule)
   },
   {
     path: 'raised-ticket',
-    loadChildren: () => import('./modals/raised-ticket/raised-ticket.module').then( m => m.RaisedTicketPageModule)
+    loadChildren: () => import('./modals/raised-ticket/raised-ticket.module').then(m => m.RaisedTicketPageModule)
   },
   {
     path: 'view-log',
-    loadChildren: () => import('./pages/view-log/view-log.module').then( m => m.ViewLogPageModule)
+    loadChildren: () => import('./pages/view-log/view-log.module').then(m => m.ViewLogPageModule)
   },
   {
     path: 'conveyance',
-    loadChildren: () => import('./pages/conveyance/conveyance.module').then( m => m.ConveyancePageModule)
+    loadChildren: () => import('./pages/conveyance/conveyance.module').then(m => m.ConveyancePageModule)
   },
   {
     path: 'create-conveyance',
-    loadChildren: () => import('./modals/create-conveyance/create-conveyance.module').then( m => m.CreateConveyancePageModule)
+    loadChildren: () => import('./modals/create-conveyance/create-conveyance.module').then(m => m.CreateConveyancePageModule)
   },
   {
     path: 'pmo/monthlyconsting',
-    loadChildren: () => import('./pages/pmo/monthlyconsting/monthlyconsting.module').then( m => m.MonthlyconstingPageModule)
+    loadChildren: () => import('./pages/pmo/monthlyconsting/monthlyconsting.module').then(m => m.MonthlyconstingPageModule)
   },
   {
     path: 'pmo/capacity',
-    loadChildren: () => import('./pages/pmo/capacity/capacity.module').then( m => m.CapacityPageModule)
+    loadChildren: () => import('./pages/pmo/capacity/capacity.module').then(m => m.CapacityPageModule)
   },
   {
     path: 'leadgenerate',
-    loadChildren: () => import('./pages/leadgenerate/leadgenerate.module').then( m => m.LeadgeneratePageModule)
+    loadChildren: () => import('./pages/leadgenerate/leadgenerate.module').then(m => m.LeadgeneratePageModule)
   },
 
 
-{
+  {
     path: 'holidays',
-    loadChildren: () => import('./pages/holidays/holidays.module').then( m => m.HolidaysPageModule)
+    loadChildren: () => import('./pages/holidays/holidays.module').then(m => m.HolidaysPageModule)
   },
   {
     path: 'createform',
-    loadChildren: () => import('./pages/createform/createform.module').then( m => m.CreateformPageModule)
+    loadChildren: () => import('./pages/createform/createform.module').then(m => m.CreateformPageModule)
   },
   {
     path: 'employee-evaluation',
-    loadChildren: () => import('./pages/employee-evaluation/employee-evaluation.module').then( m => m.EmployeeEvaluationPageModule)
+    loadChildren: () => import('./pages/employee-evaluation/employee-evaluation.module').then(m => m.EmployeeEvaluationPageModule)
   },
   {
     path: 'manager',
-    loadChildren: () => import('./pages/manager/manager.module').then( m => m.ManagerPageModule)
+    loadChildren: () => import('./pages/manager/manager.module').then(m => m.ManagerPageModule)
   },
   {
     path: 'reviewform/:id',
-    loadChildren: () => import('./pages/reviewform/reviewform.module').then( m => m.ReviewformPageModule)
+    loadChildren: () => import('./pages/reviewform/reviewform.module').then(m => m.ReviewformPageModule)
   },
   {
-    path:  'manager-review/:id',
-    loadChildren: () => import('./pages/manager-review/manager-review.module').then( m => m.ManagerReviewPageModule)
+    path: 'manager-review/:id',
+    loadChildren: () => import('./pages/manager-review/manager-review.module').then(m => m.ManagerReviewPageModule)
   },
   {
     path: 'appraisal-hr-screen',
-    loadChildren: () => import('./pages/appraisal/appraisal-hr-screen/appraisal-hr-screen.module').then( m => m.AppraisalHrScreenPageModule)
+    loadChildren: () => import('./pages/appraisal/appraisal-hr-screen/appraisal-hr-screen.module').then(m => m.AppraisalHrScreenPageModule)
   },
   {
     path: 'workflow-setup',
-    loadChildren: () => import('./pages/appraisal/workflow-setup/workflow-setup.module').then( m => m.WorkflowSetupPageModule)
+    loadChildren: () => import('./pages/appraisal/workflow-setup/workflow-setup.module').then(m => m.WorkflowSetupPageModule)
   },
   {
     path: 'approval-screen',
-    loadChildren: () => import('./pages/appraisal/approval-screen/approval-screen.module').then( m => m.ApprovalScreenPageModule)
+    loadChildren: () => import('./pages/appraisal/approval-screen/approval-screen.module').then(m => m.ApprovalScreenPageModule)
   },
   {
     path: 'amount-setup',
-    loadChildren: () => import('./pages/appraisal/amount-setup/amount-setup.module').then( m => m.AmountSetupPageModule)
+    loadChildren: () => import('./pages/appraisal/amount-setup/amount-setup.module').then(m => m.AmountSetupPageModule)
   },
   {
     path: 'initiate-appraisal',
-    loadChildren: () => import('./pages/appraisal/initiate-appraisal/initiate-appraisal.module').then( m => m.InitiateAppraisalPageModule)
+    loadChildren: () => import('./pages/appraisal/initiate-appraisal/initiate-appraisal.module').then(m => m.InitiateAppraisalPageModule)
   },
-
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardPageModule)
+  },
   {
     path: 'asset',
     loadChildren: () => import("./pages/fixed-asset/asset-routing.module").then(m => m.AssetPageRoutingModule)
   },
   {
-    path: 'asset-management',
-    loadChildren: () => import('./pages/asset-management/asset-management.module').then( m => m.AssetManagementPageModule)
+    path: 'grn',
+    loadChildren: () => import('./pages/grn/grn.module').then(m => m.GrnPageModule)
   },
-  
+
+
+
 
 
 ];
 
-@NgModule({ 
+@NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

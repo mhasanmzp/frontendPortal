@@ -1,0 +1,154 @@
+<ion-header style="margin-bottom: 50px;">
+  <ion-toolbar>
+    <ion-title>Goods Received Note</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openAddMaterialModal()">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Add Asset
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <!-- Your GRN content goes here -->
+    <!-- Search bar -->
+    <ion-row>
+      <ion-col size="12">
+        <ion-searchbar [(ngModel)]="searchTerm" placeholder="Search by Model or Serial Number"></ion-searchbar>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="tg-hpky" style="width: 50px; margin-left: 40px;">S.No</ion-col>
+      <ion-col class="tg-hpky" style="width: 170px;">
+        Category&nbsp;&nbsp;&nbsp;
+        <ion-icon style="font-size: 14px;" name="filter-outline"></ion-icon>
+      </ion-col>
+      <ion-col class="tg-hpky" style="width: 300px;">Product Name</ion-col>
+      <ion-col class="tg-hpky" style="width: 120px;">
+        Received Quantity&nbsp;&nbsp;&nbsp;
+      </ion-col>
+      <ion-col class="tg-hpky" style="width: 170px;">
+        Quantity Rejected
+      </ion-col>
+      <ion-col class="tg-hpky" style="width: 170px;">
+       Stockable Quantity
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeAddMaterialModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Add Asset</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeAddMaterialModal()">
+              <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <form (ngSubmit)="saveMaterial()">
+          <ion-grid>
+            <!-- Row 1: OEM and Project Name -->
+            <ion-row>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked">OEM</ion-label>
+                  <ion-select interface="popover" placeholder="Select OEM" [(ngModel)]="material.oem" name="oem" required>
+                    <ion-select-option *ngFor="let oem of oems" [value]="oem.id">{{ oem.name }}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked">Project Name</ion-label>
+                  <ion-input [(ngModel)]="material.projectName" name="projectName" class="small-input" required></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!-- Row 2: Category and Model -->
+            <ion-row>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked">Category</ion-label>
+                  <ion-select interface="popover" placeholder="Select Category" [(ngModel)]="material.category" name="category" required>
+                    <ion-select-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked">Product Name</ion-label>
+                  <ion-input [(ngModel)]="material.model" name="productName" class="small-input" required></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!-- Row 3: Quantity and Unit -->
+            <ion-row>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked">Quantity</ion-label>
+                  <ion-input type="number" [(ngModel)]="material.quantity" name="quantity" class="small-input" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked">Unit</ion-label>
+                  <ion-select interface="popover" placeholder="Select Unit" [(ngModel)]="material.unit" name="unit" class="small-input" required>
+                    <ion-select-option value="KG">KG</ion-select-option>
+                    <ion-select-option value="Metre">Metre</ion-select-option>
+                    <ion-select-option value="Units">Units</ion-select-option>
+                    <ion-select-option value="Gram">Gram</ion-select-option>
+                    <ion-select-option value="Pieces">Pieces</ion-select-option>
+                  </ion-select>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!-- Row 4: Date and Warranty Period -->
+            <ion-row>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked">Date</ion-label>
+                  <ion-input type="date" [(ngModel)]="material.date" name="date" class="small-input" required></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-label position="stacked">Warranty Period (Months)</ion-label>
+                  <ion-input type="number" [(ngModel)]="material.warrantyPeriod" name="warrantyPeriod" class="small-input" required></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!-- Row 5: Serial Numbers -->
+            <ion-row *ngIf="material.quantity && material.unit">
+              <ion-col size="12">
+                <!-- Heading for serial numbers -->
+                <ion-item lines="none">
+                  <ion-label position="stacked">Serial Numbers</ion-label>
+                </ion-item>
+                <!-- Serial number input boxes -->
+                <ion-item *ngFor="let serial of getSerialNumbersArray(); let i = index">
+                  <ion-label position="stacked">S. No:</ion-label>
+                  <ion-input [(ngModel)]="material.serialNumbers[i]" name="serialNumber{{ i }}" class="small-input" required></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!-- Save Button -->
+            <ion-row>
+              <ion-col>
+                <ion-button expand="block" type="submit" class="save-button">Save</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+  
+  
+  
+</ion-content>
